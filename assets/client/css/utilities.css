@@ -1,0 +1,42 @@
+/*margin*/
+.m-b-0 {
+    margin-bottom: 0 !important;
+}
+
+.m-t-0 {
+    margin-top: 0 !important;
+}
+
+.m-l-0 {
+    margin-left: 0 !important;
+}
+
+.m-r-0 {
+    margin-right: 0 !important;
+}
+
+.m-t-5 {
+    margin-right: 5px !important;
+}
+
+.p-t-10 {
+    padding-top: 10px !important;
+}
+
+/*flex*/
+
+.flex {
+    display: flex;
+}
+.flex-sb {
+    justify-content: space-between;
+}
+.flex-l {
+    justify-content: flex-start;
+}
+.flex-w {
+    flex-wrap: wrap;
+}
+.flex > div {
+    width: 33.33333333%;
+}
