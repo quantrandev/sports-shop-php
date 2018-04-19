@@ -6,6 +6,7 @@ $categoryService = new CategoryService($conn);
 
 include '../template/head.php';
 include '../template/topheader.php';
+include '../../../viewModels/cartViewModel.php';
 include '../template/header.php';
 include '../template/navigation.php';
 ?>

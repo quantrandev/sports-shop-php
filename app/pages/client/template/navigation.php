@@ -25,11 +25,11 @@ $menus = $categoryService::menus($categoryService->all());
                                             <ul class="list-links">
                                                 <li>
                                                     <h3 class="list-links-title"><a
-                                                                href="/products?category=<?php echo $menu->id ?>"><?php echo $menu->name ?></a>
+                                                                href="/sports-shop-final/app/pages/client/product/list.php?category=<?php echo $menu->id ?>"><?php echo $menu->name ?></a>
                                                     </h3></li>
                                                 <?php foreach ($menu->children as $child): ?>
                                                     <li>
-                                                        <a href="/products?category=<?php echo $child->id ?>"><?php echo $child->name ?></a>
+                                                        <a href="/sports-shop-final/app/pages/client/product/list.php?category=<?php echo $child->id ?>"><?php echo $child->name ?></a>
                                                     </li>
                                                 <?php endforeach; ?>
                                             </ul>
@@ -51,7 +51,7 @@ $menus = $categoryService::menus($categoryService->all());
                                 </div>
                             </li>
                         <?php else: ?>
-                            <li><a href="/products?category=<?php echo $menu->id ?>"><?php echo $menu->name ?></a></li>
+                            <li><a href="/sports-shop-final/app/pages/client/product/list.php?category=<?php echo $menu->id ?>"><?php echo $menu->name ?></a></li>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </ul>
@@ -63,9 +63,7 @@ $menus = $categoryService::menus($categoryService->all());
                 <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                 <ul class="menu-list">
                     <li><a href="/sports-shop-final/app/pages/client">Trang chủ</a></li>
-                    <li><a href="#">Sản phẩm mới</a></li>
-                    <li><a href="#">Sản phẩm bán chạy</a></li>
-                    <li><a href="#">Giảm giá</a></li>
+                    <li><a href="/sports-shop-final/app/pages/client/product/list.php">Sản phẩm</a></li>
                     <li><a href="/sports-shop-final/app/pages/client/order/check.php">Kiểm tra đơn hàng</a></li>
                 </ul>
             </div>

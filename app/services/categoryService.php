@@ -23,7 +23,37 @@ class CategoryService
         $this->db = $db;
     }
 
+    public function get($id)
+    {
+        $stmt = $this->db
+            ->prepare("select * from categories where id = " . $id);
+        $stmt->execute();
+
+        $category = $stmt->fetch();
+        return $category;
+    }
+
+    public function update($id, $data)
+    {
+        $putData = $data["data"];
+        $sql = "update categories set name = '" . $putData["name"] . "', isActive = " . $putData["isActive"] . ",parentId = " . $putData["parentId"] . " where id = " . $id;
+        $result = $this->db->exec($sql);
+        return empty($result) ? false : true;
+    }
+
     public function all()
+    {
+        $stmt = $this->db->prepare("select * from categories where isActive = 1");
+        $stmt->execute();
+
+        $result = array();
+        while ($row = $stmt->fetch()) {
+            array_push($result, $row);
+        }
+        return $result;
+    }
+
+    public function allIncludedInactive()
     {
         $stmt = $this->db->prepare("select * from categories");
         $stmt->execute();
@@ -35,6 +65,7 @@ class CategoryService
         return $result;
     }
 
+    //helpers
     public static function menus($categories)
     {
         $menus = array();

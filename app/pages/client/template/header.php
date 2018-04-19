@@ -18,15 +18,20 @@ $cart = empty($_SESSION["cart"]) ? null : unserialize($_SESSION["cart"]);
 
             <!-- Search -->
             <div class="header-search">
-                <form>
-                    <input class="input search-input" type="text" placeholder="Nhập tên sản phẩm ...">
-                    <select class="input search-categories">
+                <form action="/sports-shop-final/app/pages/client/product/list.php">
+                    <input class="input search-input" type="text" name="name" placeholder="Nhập tên sản phẩm ..."
+                           value="<?php echo empty($_GET["name"]) ? '' : $_GET["name"] ?>">
+                    <select class="input search-categories" name="category">
                         <option value="0">Tất cả</option>
                         <?php foreach ($menus as $category): ?>
-                            <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
+                            <?php if (in_array($category->id, is_array($_GET["category"]) ? $_GET["category"] : array($_GET["category"]))): ?>
+                                <option value="<?php echo $category->id ?>" selected><?php echo $category->name ?></option>
+                            <?php else: ?>
+                                <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
+                    <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
                 </form>
             </div>
             <!-- /Search -->
@@ -44,7 +49,8 @@ $cart = empty($_SESSION["cart"]) ? null : unserialize($_SESSION["cart"]);
                         </div>
                         <strong class="text-uppercase">Giỏ hàng:</strong>
                         <br>
-                        <span class="final-total"><?php echo !empty($cart) ? number_format($cart->subtotal) : '0' ?> đ</span>
+                        <span class="final-total"><?php echo !empty($cart) ? number_format($cart->subtotal) : '0' ?>
+                            đ</span>
                     </a>
                 </li>
                 <!-- /Cart -->

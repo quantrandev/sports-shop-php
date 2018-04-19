@@ -1,0 +1,25 @@
+@font-face {
+    font-family: myFont;
+    src: url("../fonts/Roboto-Medium.ttf");
+}
+body {
+    font-family: myFont !important;
+}
+
+tr.detail-row > td {
+    padding: 10px 10px 10px 30px !important;
+}
+tr.detail-row > td > table {
+    margin: 0;
+}
+tr.sub-row {
+    display: none;
+}
+
+.popover {
+    min-width: 150px;
+}
+
+.m-t-15 {
+    margin-top: 15px;
+}

@@ -1,6 +1,8 @@
 <?php
 
 include '../services/connection.php';
+include '../viewModels/cartViewModel.php';
+include '../viewModels/orderInfoViewModel.php';
 include '../services/orderService.php';
 
 session_start();

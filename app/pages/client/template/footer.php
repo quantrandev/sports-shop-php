@@ -106,6 +106,7 @@
 <script src="/sports-shop-final/assets/client/js/nouislider.min.js"></script>
 <script src="/sports-shop-final/assets/client/js/jquery.zoom.min.js"></script>
 <script src="/sports-shop-final/assets/client/js/sweetalert.min.js"></script>
+<script src="/sports-shop-final/assets/client/js/jquery.magnific-popup.min.js"></script>
 <script src="/sports-shop-final/assets/client/js/main.js"></script>
 <script src="/sports-shop-final/assets/client/js/utilities.js"></script>
 <script src="/sports-shop-final/assets/client/js/custom.js"></script>

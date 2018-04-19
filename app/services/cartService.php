@@ -125,11 +125,15 @@ class CartService
 
         $cart->shippingMethod = $shippingMethod;
 
+        $subtotal = $cart->getSubtotal();
+        $totalQuantity = $cart->getQuantity();
+        $_SESSION["cart"] = serialize($cart);
+
         return array(
             "shippingMethod" => $shippingMethod,
-            "subtotal" => $cart->getSubtotal(),
-            "total" => $cart->getSubtotal() + $cart->shippingMethod["cost"],
-            "quantity" => $cart->getQuantity()
+            "subtotal" => $subtotal,
+            "total" => $subtotal + $cart->shippingMethod["cost"],
+            "quantity" => $totalQuantity
         );
     }
 }

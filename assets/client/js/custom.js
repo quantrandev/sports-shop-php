@@ -1,5 +1,6 @@
 $(function () {
-    $(document).on('change', '.products-filter', function () {
-        $(this).closest('form').submit();
+    $('.quick-view').magnificPopup({
+        type: 'image'
+        // other options
     });
 });

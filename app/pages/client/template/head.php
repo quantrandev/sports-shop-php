@@ -21,6 +21,7 @@
 
     <!-- nouislider -->
     <link type="text/css" rel="stylesheet" href="/sports-shop-final/assets/client/css/nouislider.min.css" />
+    <link type="text/css" rel="stylesheet" href="/sports-shop-final/assets/client/css/magnific-popup.css" />
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="/sports-shop-final/assets/client/css/font-awesome.min.css">
