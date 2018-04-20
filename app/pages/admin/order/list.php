@@ -137,8 +137,6 @@ if (isset($_GET["range"])) {
                             <th>Mã đơn hàng</th>
                             <th>Tên khách hàng</th>
                             <th>Địa chỉ khách hàng</th>
-                            <th>Số điện thoại</th>
-                            <th>Ngày đặt hàng</th>
                             <th>Tình trạng đơn hàng</th>
                             <th>Đã xem</th>
                             <th></th>
@@ -150,7 +148,7 @@ if (isset($_GET["range"])) {
                             <?php foreach ($orders as $order): ?>
                                 <tr data-order-id="<?php echo $order["code"]; ?>"
                                     data-seen="<?php echo $order["isSeen"] ?>"
-                                class="<?php echo $order["isSeen"] == 0?'info':'' ?>">
+                                    class="<?php echo $order["isSeen"] == 0 ? 'info' : '' ?>">
                                     <td class="center">
                                         <label class="pos-rel">
                                             <input type="checkbox" class="ace js-check-item"/>
@@ -160,8 +158,6 @@ if (isset($_GET["range"])) {
                                     <td><?php echo $order["code"] ?></td>
                                     <td><?php echo $order["customerName"] ?></td>
                                     <td><?php echo $order["customerAddress"] ?></td>
-                                    <td><?php echo $order["customerMobile"] ?></td>
-                                    <td><?php echo $order["createdDate"] ?></td>
                                     <td>
                                         <button class="btn btn-minier btn-primary js-update-shipping-status
 m-r-5"
@@ -196,25 +192,43 @@ m-r-5"
                                     </td>
                                     <td class="text-center">
                                         <div class="hidden-sm hidden-xs btn-group">
-                                            <button class="btn btn-xs btn-info js-edit-order"
+                                            <button class="btn btn-xs btn-info"
                                                     data-id="<?php echo $order->id ?>">
-                                                <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                Sửa
+                                                <i class="ace-icon fa fa-search bigger-120"></i>
+                                                Sản phẩm
                                             </button>
-
-                                            <button class="btn btn-xs btn-danger js-delete-order"
+                                            <button class="btn btn-xs btn-default togglable"
                                                     data-id="<?php echo $order->id ?>">
-                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                Xóa
+                                                <i class="ace-icon fa fa-angle-down bigger-120"></i>
+                                                Xem thêm
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
+                                <tr class="detail-row">
+                                    <td colspan="7">
+                                        <ul class="common-list">
+                                            <li>Số điện thoại: <?php echo $order["customerMobile"]; ?></li>
+                                            <li>Ngày đặt: <?php echo $order["createdDate"]; ?></li>
+                                            <li>Ghi chú: <?php echo $order["note"]; ?></li>
+                                            <li>
+                                                <div class="hidden-sm hidden-xs btn-group">
+                                                    <button class="btn btn-xs btn-info js-edit-order"
+                                                            data-id="<?php echo $order->id ?>">
+                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                        Sửa
+                                                    </button>
+                                                    <button class="btn btn-xs btn-danger js-delete-order"
+                                                            data-id="<?php echo $order->id ?>">
+                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                                        Xóa
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr>
-                                <td colspan="8" class="text-center">Không có đơn hàng</td>
-                            </tr>
                         <?php endif; ?>
                         </tbody>
                     </table>

@@ -3,7 +3,7 @@ var orderController = {
     init: function () {
         orderController.events();
         orderController.registerConfirmations();
-        orderController.registerDataTable();
+        // orderController.registerDataTable();
         orderController.shippingStatusModalDOM = $('#shipping-status-modal');
     },
     events: function () {
@@ -13,6 +13,23 @@ var orderController = {
         orderController.onSeenStatusChange();
     },
     registerDataTable: function () {
+        $('#orders-table').DataTable({
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+            "language" : {
+                "decimal":        "",
+                "emptyTable":     "Không có đơn hàng",
+                "info":           "Hiển thị _START_ đến _END_ trong _TOTAL_ đơn hàng",
+                "infoEmpty":      "",
+                "paginate": {
+                    "first":      "First",
+                    "last":       "Last",
+                    "next":       "Sau",
+                    "previous":   "Trước"
+                }
+            }
+        });
     },
     registerConfirmations: function () {
         $('.js-delete-order').confirmation({

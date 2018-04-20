@@ -34,6 +34,23 @@ tr.sub-row {
 .p-0 {
     padding: 0 !important;
 }
+
 .visible-hidden {
     visibility: hidden;
+}
+
+.dataTables_wrapper .row:first-child, .dataTables_wrapper .row:last-child {
+    background-color: transparent !important;
+}
+
+.dataTables_wrapper .row:last-child {
+    border: none !important;
+}
+
+.dataTable > thead > tr > th[class*=sorting_] {
+    color: #707070;
+}
+
+.common-list li {
+    padding: 7px 0;
 }
