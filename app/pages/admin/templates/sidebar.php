@@ -105,7 +105,7 @@
             </li>
 
             <li class="">
-                <a href="#">
+                <a href="/sports-shop-final/app/pages/admin/order/list.php">
                     <i class="menu-icon fa fa-pencil-square-o"></i>
                     <span class="menu-text"> Quản lý đơn hàng</span>
                 </a>

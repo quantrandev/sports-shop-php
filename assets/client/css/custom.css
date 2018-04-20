@@ -78,3 +78,8 @@ button {
 .shopping-cart-table td:not(:first-child) {
     min-width: 200px;
 }
+
+.header-logo {
+    position: relative;
+    top: 5px
+}

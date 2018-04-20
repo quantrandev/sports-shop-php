@@ -10,9 +10,7 @@ $cart = empty($_SESSION["cart"]) ? null : unserialize($_SESSION["cart"]);
         <div class="pull-left">
             <!-- Logo -->
             <div class="header-logo p-t-10">
-                <a class="logo" href="#">
-                    <h2>Elite Sport</h2>
-                </a>
+                <h2><a class="logo" href="#">Elite Sport</a></h2>
             </div>
             <!-- /Logo -->
 
@@ -25,7 +23,8 @@ $cart = empty($_SESSION["cart"]) ? null : unserialize($_SESSION["cart"]);
                         <option value="0">Tất cả</option>
                         <?php foreach ($menus as $category): ?>
                             <?php if (in_array($category->id, is_array($_GET["category"]) ? $_GET["category"] : array($_GET["category"]))): ?>
-                                <option value="<?php echo $category->id ?>" selected><?php echo $category->name ?></option>
+                                <option value="<?php echo $category->id ?>"
+                                        selected><?php echo $category->name ?></option>
                             <?php else: ?>
                                 <option value="<?php echo $category->id ?>"><?php echo $category->name ?></option>
                             <?php endif; ?>

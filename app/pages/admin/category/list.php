@@ -286,6 +286,9 @@ $categories = $categoryService::menus($categoryService->allIncludedInactive());
 include '../templates/footer.php';
 ?>
 
+<script src="/sports-shop-final/assets/admin/js/services/categoryService.js"></script>
+<script src="/sports-shop-final/assets/admin/js/controllers/categoryController.js"></script>
+
 <?php if (isset($_SESSION["flashMessage"])): ?>
     <script>
         utilities.notify("Thông báo", '<?php echo $_SESSION["flashMessage"];?>', "gritter-success");

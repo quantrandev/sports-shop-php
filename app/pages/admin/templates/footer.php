@@ -44,11 +44,13 @@
 <!--<script src="/assets/admin/js/jquery.flot.resize.min.js"></script>-->
 <script src="/sports-shop-final/assets/admin/js/jquery.gritter.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/bootstrap-confirmation.min.js"></script>
+<script src="/sports-shop-final/assets/admin/js/moment.min.js"></script>
+<script src="/sports-shop-final/assets/admin/js/daterangepicker.min.js"></script>
+<script src="/sports-shop-final/assets/admin/js/jquery.dataTables.min.js"></script>
 
 <!-- ace scripts -->
 <script src="/sports-shop-final/assets/admin/js/ace-elements.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/ace.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/custom.js"></script>
 <script src="/sports-shop-final/assets/admin/js/utilities.js"></script>
-<script src="/sports-shop-final/assets/admin/js/services/categoryService.js"></script>
-<script src="/sports-shop-final/assets/admin/js/controllers/categoryController.js"></script>
+

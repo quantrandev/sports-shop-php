@@ -33,6 +33,13 @@ class CategoryService
         return $category;
     }
 
+    public function add($data)
+    {
+        $postData = $data["data"];
+        $result = $this->db->exec("insert into categories (name, parentId, isActive) values (N'" . $postData["name"] . "'," . $postData["parentId"] . ", " . $postData["isActive"] . ")");
+        return empty($result) ? false : true;
+    }
+
     public function update($id, $data)
     {
         $putData = $data["data"];

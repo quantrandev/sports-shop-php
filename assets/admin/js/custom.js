@@ -52,4 +52,16 @@ $(function () {
         else
             $('.js-batch-delete').addClass('hide');
     });
+
+    $('#date-range-picker').daterangepicker({
+        'applyClass': 'btn-sm btn-success',
+        'cancelClass': 'btn-sm btn-default',
+        locale: {
+            applyLabel: 'Xem',
+            cancelLabel: 'Bỏ qua',
+        }
+    })
+        .prev().on(ace.click_event, function () {
+        $(this).next().focus();
+    });
 });

@@ -64,6 +64,19 @@ class OrderService
         ));
     }
 
+    public function all($dateRange)
+    {
+        $sql = "select * from orders where createdDate >= '" . $dateRange["from"] . "' and createdDate <= '" . $dateRange["to"] . "'";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        $result = array();
+        while ($row = $stmt->fetch()) {
+            array_push($result, $row);
+        }
+        return $result;
+    }
+
     public function last($createdDate)
     {
         $stmt = $this->db->prepare("select * from orders where createdDate = '" . $createdDate . "' order by code desc limit 1 offset 0");
@@ -147,6 +160,24 @@ class OrderService
         }
         $query = substr($query, 0, strlen($query) - 1);
         return $query;
+    }
+
+    public function update($id, $data)
+    {
+        $columns = $data["data"];
+
+        $sql = "update orders set ";
+
+        if (!empty($columns["shippingStatus"]))
+            $sql .= "shippingStatus = " . $columns["shippingStatus"] . ",";
+        if (!empty($columns["isSeen"])) {
+            $sql .= "isSeen = " . $columns["isSeen"] . ",";
+            $sql .= "seenAt = '" . getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"] . "',";
+        }
+
+        $sql = substr($sql, 0, strlen($sql) - 1) . " where code = '" . $id . "'";
+        $result = $this->db->exec($sql);
+        return empty($result) ? false : true;
     }
 
     //helpers

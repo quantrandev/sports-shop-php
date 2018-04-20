@@ -61,7 +61,7 @@ include 'template/navigation.php';
                                         <span class="sale">-<?php echo ceil(($product->oldPrice - $product->currentPrice) / $product->oldPrice * 100) ?>
                                             %</span>
                                     </div>
-                                    <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view
+                                    <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Phóng to
                                     </a>
                                     <img src="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" alt=""
                                          class="product-thumbnail-sm">
@@ -119,7 +119,7 @@ include 'template/navigation.php';
                                     %</span>
                             <?php endif; ?>
                         </div>
-                        <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view
+                        <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Phóng to
                         </a>
                         <img src="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" alt=""
                              class="product-thumbnail-sm">
@@ -161,7 +161,7 @@ include 'template/navigation.php';
                                                 %</span>
                                         <?php endif; ?>
                                     </div>
-                                    <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view
+                                    <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" class="main-btn quick-view"><i class="fa fa-search-plus"></i> Phóng to
                                     </a>
                                     <img src="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" alt=""
                                          class="product-thumbnail-sm">

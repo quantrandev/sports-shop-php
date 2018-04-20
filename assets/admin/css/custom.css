@@ -2,6 +2,7 @@
     font-family: myFont;
     src: url("../fonts/Roboto-Medium.ttf");
 }
+
 body {
     font-family: myFont !important;
 }
@@ -9,9 +10,11 @@ body {
 tr.detail-row > td {
     padding: 10px 10px 10px 30px !important;
 }
+
 tr.detail-row > td > table {
     margin: 0;
 }
+
 tr.sub-row {
     display: none;
 }
@@ -22,4 +25,15 @@ tr.sub-row {
 
 .m-t-15 {
     margin-top: 15px;
+}
+
+.m-r-5 {
+    margin-right: 5px;
+}
+
+.p-0 {
+    padding: 0 !important;
+}
+.visible-hidden {
+    visibility: hidden;
 }

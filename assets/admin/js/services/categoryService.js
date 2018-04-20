@@ -9,7 +9,7 @@ var categoryService = {
     },
     add: function (data, success, error) {
         $.ajax({
-            url: '/admin/categories/add',
+            url: '/sports-shop-final/app/controllers/categoryController.php',
             type: 'post',
             data: {data: data},
             success: success,

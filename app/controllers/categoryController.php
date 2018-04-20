@@ -19,15 +19,12 @@ switch ($requestMethod) {
         );
         break;
     case 'POST':
-        $function = $_POST["function"];
-        switch ($function) {
-            case 'add':
-                $responseData = $cartService->add($_POST);
-                break;
-            case 'setShippingMethod':
-                $responseData = $cartService->setShippingMethod($_POST);
-                break;
-        }
+        $error = !$categoryService->add($_POST);
+        if (!$error)
+            $_SESSION["flashMessage"] = "Đã thêm thành công";
+        $responseData = array(
+            "error" => $error
+        );
         break;
     case 'PUT':
         $id = $_GET["id"];
@@ -35,7 +32,7 @@ switch ($requestMethod) {
         parse_str(file_get_contents("php://input"), $data);
         $error = !$categoryService->update($id, $data);
 
-        if(!$error)
+        if (!$error)
             $_SESSION["flashMessage"] = "Đã cập nhật thành công";
 
         $responseData = array(

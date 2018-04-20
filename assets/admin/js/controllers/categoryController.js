@@ -53,6 +53,7 @@ var categoryController = {
             categoryController.toggleButtonStatus(button, 'loading', 'Lưu thay đổi');
 
             let dataFromEditForm = categoryController.getDataFromEditForm();
+            dataFromEditForm.data.parentId = isNaN(dataFromEditForm.data.parentId) ? 0 : dataFromEditForm.data.parentId;
             categoryService.edit(dataFromEditForm.id, dataFromEditForm.data, function (res) {
                 categoryController.editModalDOM.modal('hide');
 
@@ -70,6 +71,7 @@ var categoryController = {
         $(document).on('click', '.js-save-new-category', function () {
             let button = $(this);
             let data = categoryController.getDataFromAddForm();
+            data.parentId = isNaN(data.parentId) ? 0 : data.parentId;
             categoryController.toggleButtonStatus(button, 'loading', 'Thêm mới');
 
             categoryService.add(data, function (res) {
