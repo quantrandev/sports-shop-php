@@ -85,7 +85,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="/admin/products/add">
+                        <a href="/sports-shop-final/app/pages/admin/product/add.php">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Thêm sản phẩm
                         </a>
