@@ -59,3 +59,15 @@ tr.sub-row {
 .common-list li {
     padding: 7px 0;
 }
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.form-table {
+    width: 100%;
+}
+
+.form-table td {
+    padding: 7px 0;
+}

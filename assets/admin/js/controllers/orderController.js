@@ -1,18 +1,19 @@
 var orderController = {
     shippingStatusModalDOM: null,
-    editModalDOM: null,
+    customerInfoModal: null,
     init: function () {
-        orderController.events();
         orderController.registerConfirmations();
         // orderController.registerDataTable();
         orderController.shippingStatusModalDOM = $('#shipping-status-modal');
-        orderController.editModalDOM = $('#edit-modal');
+        orderController.customerInfoModal = $('#customer-info-modal');
+        orderController.events();
     },
     events: function () {
         orderController.onOpenShippingStatusModal();
         orderController.onSaveShippingStatusChange();
         orderController.onSeenStatusChange();
-        orderController.onOpenEditModal();
+        orderController.onOpenCustomerInfoModal();
+        orderController.onSaveCustomerInfo();
     },
     registerDataTable: function () {
         $('#orders-table').DataTable({
@@ -53,7 +54,6 @@ var orderController = {
     onOpenShippingStatusModal: function () {
         $(document).on('click', '.js-update-shipping-status', function () {
             var button = $(this);
-            orderController.shippingStatusModalDOM.find("#currentShippingStatus").text(button.next().text());
             orderController.shippingStatusModalDOM.find('#js-sl-shipping-status').val(button.attr('data-ship-id'));
             orderController.shippingStatusModalDOM.find('#orderId').val(button.attr('data-order-id'));
             orderController.shippingStatusModalDOM.modal();
@@ -62,8 +62,8 @@ var orderController = {
     onSaveShippingStatusChange: function () {
         $('#shipping-status-modal').on('click', '.js-save-changes', function () {
             var button = $(this);
-
             orderController.toggleButtonStatus(button, 'loading', 'Lưu thay đổi');
+
             var modalData = orderController.getShippingStatusModalData();
             orderService.changeShippingStatus(modalData.id, modalData.data, function (res) {
                 res = JSON.parse(res);
@@ -72,8 +72,8 @@ var orderController = {
                     utilities.notify("Thông báo", "Có lỗi xảy ra", 'gritter-error', false);
                 else {
                     var statusDOM = $('button.js-update-shipping-status[data-order-id=' + modalData.id + ']').next();
-                    statusDOM
-                        .text(modalData.name);
+                    statusDOM.prev().attr('data-ship-id', modalData.data.shippingStatus);
+                    statusDOM.text(modalData.name);
                     var statusClass = "";
                     switch (modalData.name) {
                         case 'Mới đặt hàng':
@@ -125,12 +125,71 @@ var orderController = {
             });
         });
     },
-    onOpenEditModal: function () {
+    onOpenCustomerInfoModal: function () {
         $(document).on('click', '.js-edit-order', function () {
-            orderController.editModalDOM.modal();
+            let button = $(this);
+            orderController.toggleButtonStatus(button, 'loading', 'Sửa');
+
+            //call service
+            orderService.getCustomerInfo(button.attr('data-id'), function (res) {
+                res = JSON.parse(res);
+                orderController.setDataForCustomerInfoModal(res);
+
+                orderController.customerInfoModal.modal();
+                orderController.toggleButtonStatus(button, 'edited', 'Sửa');
+            }, function (err) {
+            });
+
+            // orderController.customerInfoModal.modal();
+        });
+    },
+    onSaveCustomerInfo: function () {
+        orderController.customerInfoModal.on('click', '.js-save-changes', function () {
+            let button = $(this);
+            orderController.toggleButtonStatus(button, 'loading', 'Lưu thay đổi');
+
+            let dataFromCustomerInfoModal = orderController.getDataFromCustomerInfoModal();
+            //call service
+            orderService.changeCustomerInfo(dataFromCustomerInfoModal.code, dataFromCustomerInfoModal.data, function (res) {
+                res = JSON.parse(res);
+                //update DOM
+                if (!res.error) {
+                    let row = $('tr[data-order-id=' + dataFromCustomerInfoModal.code + ']');
+                    let detailRow = row.next();
+
+                    row.find('td.js-customer-name').text(dataFromCustomerInfoModal.data.customerName);
+                    row.find('td.js-customer-address').text(dataFromCustomerInfoModal.data.customerAddress);
+                    detailRow.find('span.js-customer-mobile').text(dataFromCustomerInfoModal.data.customerMobile);
+                    detailRow.find('span.js-note').text(dataFromCustomerInfoModal.data.note);
+
+                    //notify
+                    utilities.notify('Thông báo', 'Đã cập nhật thành công', 'gritter-success', false);
+                }
+                orderController.toggleButtonStatus(button, 'text-only', 'Lưu thay đổi');
+                orderController.customerInfoModal.modal('hide');
+            }, function (err) {
+            });
         });
     },
     //helpers
+    setDataForCustomerInfoModal: function (data) {
+        orderController.customerInfoModal.find('#code').val(data.code);
+        orderController.customerInfoModal.find('#customerName').val(data.customerName);
+        orderController.customerInfoModal.find('#customerAddress').val(data.customerAddress);
+        orderController.customerInfoModal.find('#customerMobile').val(data.customerMobile);
+        orderController.customerInfoModal.find('#note').val(data.note);
+    },
+    getDataFromCustomerInfoModal: function () {
+        return {
+            code: orderController.customerInfoModal.find('#code').val(),
+            data: {
+                customerName: orderController.customerInfoModal.find('#customerName').val(),
+                customerAddress: orderController.customerInfoModal.find('#customerAddress').val(),
+                customerMobile: orderController.customerInfoModal.find('#customerMobile').val(),
+                note: orderController.customerInfoModal.find('#note').val()
+            }
+        };
+    },
     getShippingStatusModalData: function () {
         var shippingStatusName = "";
         orderController
@@ -148,9 +207,10 @@ var orderController = {
         return {
             id: orderId,
             name: shippingStatusName,
-            data: {
-                shippingStatus: shippingStatusId
-            }
+            data:
+                {
+                    shippingStatus: shippingStatusId
+                }
         };
     },
     toggleButtonStatus: function (button, option, text) {

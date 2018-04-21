@@ -166,8 +166,8 @@ $orders = $orderService->all($_GET);
                                         </label>
                                     </td>
                                     <td><?php echo $order["code"] ?></td>
-                                    <td><?php echo $order["customerName"] ?></td>
-                                    <td><?php echo $order["customerAddress"] ?></td>
+                                    <td class="js-customer-name"><?php echo $order["customerName"] ?></td>
+                                    <td class="js-customer-address"><?php echo $order["customerAddress"] ?></td>
                                     <td>
                                         <button class="btn btn-minier btn-primary js-update-shipping-status
 m-r-5"
@@ -219,23 +219,24 @@ m-r-5"
                                     <td colspan="7">
                                         <ul class="common-list">
                                             <li>Số điện thoại: <span
-                                                        class="pull-right"><?php echo $order["customerMobile"]; ?></span>
+                                                        class="pull-right js-customer-mobile"><?php echo $order["customerMobile"]; ?></span>
                                             </li>
                                             <li>Ngày
                                                 đặt: <span
                                                         class="pull-right"><?php echo date_format(new DateTime($order["createdDate"]), 'd-m-Y'); ?></span>
                                             </li>
-                                            <li>Ghi chú: <span class="pull-right"><?php echo $order["note"]; ?></span>
+                                            <li>Ghi chú: <span
+                                                        class="pull-right js-note"><?php echo $order["note"]; ?></span>
                                             </li>
                                             <li>
                                                 <div class="hidden-sm hidden-xs btn-group">
                                                     <button class="btn btn-xs btn-info js-edit-order"
-                                                            data-id="<?php echo $order->id ?>">
+                                                            data-id="<?php echo $order["code"]; ?>">
                                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                         Sửa
                                                     </button>
                                                     <button class="btn btn-xs btn-danger js-delete-order"
-                                                            data-id="<?php echo $order->id ?>">
+                                                            data-id="<?php echo $order["code"]; ?>">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                         Xóa
                                                     </button>
@@ -273,10 +274,6 @@ m-r-5"
             </div>
             <div class="modal-body">
                 <input type="hidden" id="orderId">
-                <label for="">Trạng thái hiện tại</label>
-                <div class="form-group">
-                    <span class="text-primary" id="currentShippingStatus"></span>
-                </div>
                 <label for="">Thay đổi trạng thái</label>
                 <select id="js-sl-shipping-status" class="form-control">
                     <option value="<?php echo $constants["shippingStatus"]["placed"] ?>">Mới đặt hàng</option>
@@ -296,7 +293,7 @@ m-r-5"
 </div>
 
 <!--edit modal-->
-<div id="edit-modal" class="modal fade" role="dialog">
+<div id="customer-info-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -305,15 +302,30 @@ m-r-5"
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Chỉnh sửa thông tin</h4>
             </div>
-            <div class="modal-body">
-               <table class="form-table col-md-12">
-                   <tr>
-                       <td>Tên khách hàng</td>
-                       <td>
-                           <input type="text" class="form-control" name="customerName" id="txtCustomerName">
-                       </td>
-                   </tr>
-               </table>
+            <div class="modal-body overflow-auto">
+                <form action="" class="col-md-12">
+                    <input type="hidden" id="code">
+                    <table class="form-table">
+                        <tr>
+                            <td>Tên khách hàng</td>
+                            <td>
+                                <input type="text" class="form-control" id="customerName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ</td>
+                            <td><input type="text" class="form-control" id="customerAddress"></td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại</td>
+                            <td><input type="text" class="form-control" id="customerMobile"></td>
+                        </tr>
+                        <tr>
+                            <td>Ghi chú</td>
+                            <td><input type="text" class="form-control" id="note"></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi</button>

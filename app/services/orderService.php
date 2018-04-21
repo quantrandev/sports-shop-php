@@ -193,6 +193,14 @@ class OrderService
             $sql .= "isSeen = " . $columns["isSeen"] . ",";
             $sql .= "seenAt = '" . getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"] . "',";
         }
+        if (!empty($columns["customerName"]))
+            $sql .= "customerName = '" . $columns["customerName"] . "',";
+        if (!empty($columns["customerAddress"]))
+            $sql .= "customerAddress = '" . $columns["customerAddress"] . "',";
+        if (!empty($columns["customerMobile"]))
+            $sql .= "customerMobile = '" . $columns["customerMobile"] . "',";
+        if (!empty($columns["note"]))
+            $sql .= "note = '" . $columns["note"] . "',";
 
         $sql = substr($sql, 0, strlen($sql) - 1) . " where code = '" . $id . "'";
         $result = $this->db->exec($sql);
