@@ -64,9 +64,28 @@ class OrderService
         ));
     }
 
-    public function all($dateRange)
+    public function all($condition)
     {
-        $sql = "select * from orders where createdDate >= '" . $dateRange["from"] . "' and createdDate <= '" . $dateRange["to"] . "'";
+        $sql = "select * from orders";
+        $dateRangeQuery = $this->buildDateRangeQuery($condition);
+        $codeQuery = $this->buildCodeQuery($condition);
+        $shippingStatusQuery = $this->buildShippingStatusQuery($condition);
+        $customerNameQuery = $this->buildNameQuery($condition);
+
+        if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery)) {
+            $sql .= " where "
+                . (empty($customerNameQuery) ? 'true' : $customerNameQuery)
+                . " and "
+                . (empty($codeQuery) ? 'true' : $codeQuery)
+                . " and "
+                . (empty($shippingStatusQuery) ? 'true' : $shippingStatusQuery)
+                . " and "
+                . (empty($dateRangeQuery) ? 'true' : $dateRangeQuery);
+        } else
+            $sql .= " where createdDate = '" .
+                getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"]
+                . "'";
+
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
@@ -206,6 +225,66 @@ class OrderService
             . $newOrderNth;
 
         return $code;
+    }
+
+    //search query builders
+    public function buildDateRangeQuery($condition)
+    {
+        $rangeQueryString = isset($condition["range"]) ? $condition["range"] : null;
+        if (empty($rangeQueryString))
+            return '';
+
+        $range = explode("-", $rangeQueryString);
+
+        $from = getdate(strtotime($range[0]));
+        $to = getdate(strtotime($range[1]));
+
+        $dateRange = array(
+            "from" => $from["year"] . "-" . $from["mon"] . "-" . $from["mday"],
+            "to" => $to["year"] . "-" . $to["mon"] . "-" . $to["mday"]
+        );
+
+        $query = "createdDate >= '" . $dateRange["from"] . "' and createdDate <= '" . $dateRange["to"] . "'";
+        return $query;
+    }
+
+    public function buildNameQuery($condition)
+    {
+        $searchName = isset($condition["customerName"]) ? $condition["customerName"] : null;
+        if (empty($searchName))
+            return '';
+
+        //name
+        $nameQuery = "";
+        $nameParts = explode(" ", $searchName);
+        if (count($nameParts) != 0) {
+            foreach ($nameParts as $part) {
+                $nameQuery .= "customerName like N'%" . $part . "%' and ";
+            }
+            $nameQuery = substr($nameQuery, 0, strlen($nameQuery) - 4);
+        }
+
+        return $nameQuery;
+    }
+
+    public function buildShippingStatusQuery($condition)
+    {
+        $searchShippingStatus = isset($condition["shippingStatus"]) ? $condition["shippingStatus"] : null;
+        if (empty($searchShippingStatus))
+            return '';
+
+        $query = "shippingStatus = " . $searchShippingStatus;
+        return $query;
+    }
+
+    public function buildCodeQuery($condition)
+    {
+        $searchCode = isset($condition["code"]) ? $condition["code"] : null;
+        if (empty($searchCode))
+            return '';
+
+        $query = "code = '" . $searchCode . "'";
+        return $query;
     }
 }
 

@@ -54,14 +54,23 @@ $(function () {
     });
 
     $('#date-range-picker').daterangepicker({
+        'autoUpdateInput': false,
         'applyClass': 'btn-sm btn-success',
         'cancelClass': 'btn-sm btn-default',
         locale: {
-            applyLabel: 'Xem',
+            applyLabel: 'Áp dụng',
             cancelLabel: 'Bỏ qua',
         }
     })
         .prev().on(ace.click_event, function () {
         $(this).next().focus();
+    });
+
+    $('#date-range-picker').on('apply.daterangepicker', function(ev, picker) {
+        $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+    });
+
+    $('#date-range-picker').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
     });
 });

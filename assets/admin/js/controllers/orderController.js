@@ -1,32 +1,34 @@
 var orderController = {
     shippingStatusModalDOM: null,
+    editModalDOM: null,
     init: function () {
         orderController.events();
         orderController.registerConfirmations();
         // orderController.registerDataTable();
         orderController.shippingStatusModalDOM = $('#shipping-status-modal');
+        orderController.editModalDOM = $('#edit-modal');
     },
     events: function () {
-        orderController.onSearch();
         orderController.onOpenShippingStatusModal();
         orderController.onSaveShippingStatusChange();
         orderController.onSeenStatusChange();
+        orderController.onOpenEditModal();
     },
     registerDataTable: function () {
         $('#orders-table').DataTable({
             "lengthChange": false,
             "searching": false,
             "ordering": false,
-            "language" : {
-                "decimal":        "",
-                "emptyTable":     "Không có đơn hàng",
-                "info":           "Hiển thị _START_ đến _END_ trong _TOTAL_ đơn hàng",
-                "infoEmpty":      "",
+            "language": {
+                "decimal": "",
+                "emptyTable": "Không có đơn hàng",
+                "info": "Hiển thị _START_ đến _END_ trong _TOTAL_ đơn hàng",
+                "infoEmpty": "",
                 "paginate": {
-                    "first":      "First",
-                    "last":       "Last",
-                    "next":       "Sau",
-                    "previous":   "Trước"
+                    "first": "First",
+                    "last": "Last",
+                    "next": "Sau",
+                    "previous": "Trước"
                 }
             }
         });
@@ -47,11 +49,7 @@ var orderController = {
             onConfirm: orderController.batchDeleteCategory
         });
     },
-    onSearch: function () {
-        $(document).on('click', '.applyBtn', function () {
-            $('#frm-search').submit();
-        });
-    },
+    //events
     onOpenShippingStatusModal: function () {
         $(document).on('click', '.js-update-shipping-status', function () {
             var button = $(this);
@@ -127,6 +125,12 @@ var orderController = {
             });
         });
     },
+    onOpenEditModal: function () {
+        $(document).on('click', '.js-edit-order', function () {
+            orderController.editModalDOM.modal();
+        });
+    },
+    //helpers
     getShippingStatusModalData: function () {
         var shippingStatusName = "";
         orderController

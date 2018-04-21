@@ -7,25 +7,14 @@ include '../templates/sidebar.php';
 include '../../../services/connection.php';
 include '../../../services/orderService.php';
 include '../../../constants.php';
+$get_name = isset($_GET["customerName"]) ? $_GET["customerName"] : null;
+$get_code = isset($_GET["code"]) ? $_GET["code"] : null;
+$get_shipping_status = isset($_GET["shippingStatus"]) ? $_GET["shippingStatus"] : null;
+$get_date_range = isset($_GET["range"]) ? $_GET["range"] : null;
+
 $orderService = new OrderService($conn);
 
-if (isset($_GET["range"])) {
-    $data = $_GET["range"];
-    $range = explode("-", $data);
-
-    $from = getdate(strtotime($range[0]));
-    $to = getdate(strtotime($range[1]));
-
-    $dateRange = array(
-        "from" => $from["year"] . "-" . $from["mon"] . "-" . $from["mday"],
-        "to" => $to["year"] . "-" . $to["mon"] . "-" . $to["mday"]
-    );
-
-    $orders = $orderService->all($dateRange);
-} else
-    $orders = array();
-
-
+$orders = $orderService->all($_GET);
 ?>
 
 <div class="main-content">
@@ -68,7 +57,16 @@ if (isset($_GET["range"])) {
                         <div class="col-md-2">
                             <label for="">Mã đơn hàng</label>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Nhập mã đơn hàng ...">
+                                <input type="text" class="form-control" name="code" placeholder="Nhập mã đơn hàng ..."
+                                       value="<?php echo $get_code; ?>">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Tên khách hàng</label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="customerName"
+                                       placeholder="Nhập tên khách hàng ..."
+                                       value="<?php echo $get_name; ?>">
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -79,7 +77,8 @@ if (isset($_GET["range"])) {
                                         <i class="fa fa-calendar bigger-110"></i>
                                     </span>
                                     <input class="form-control" type="text" name="range"
-                                           id="date-range-picker"/>
+                                           id="date-range-picker"
+                                           value="<?php echo $get_date_range; ?>"/>
                                 </div>
                             </div>
                         </div>
@@ -87,17 +86,28 @@ if (isset($_GET["range"])) {
                             <label for="">Trạng thái</label>
                             <div class="form-group">
                                 <select name="shippingStatus" class="form-control">
-                                    <option value="<?php echo $constants["shippingStatus"]["placed"] ?>">Mới đặt hàng
+                                    <option value>Tất cả</option>
+                                    <option value="<?php echo $constants["shippingStatus"]["placed"] ?>"
+                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["placed"] ? 'selected' : ''; ?>>
+                                        Mới đặt hàng
                                     </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>">Đang đóng
+                                    <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>"
+                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["onProgress"] ? 'selected' : ''; ?>>
+                                        Đang đóng
                                         gói
                                     </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>">Đang vận
+                                    <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>"
+                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["shipped"] ? 'selected' : ''; ?>>
+                                        Đang vận
                                         chuyển
                                     </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["done"] ?>">Đã nhận hàng
+                                    <option value="<?php echo $constants["shippingStatus"]["done"] ?>"
+                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["done"] ? 'selected' : ''; ?>>
+                                        Đã nhận hàng
                                     </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["returned"] ?>">Đã trả hàng
+                                    <option value="<?php echo $constants["shippingStatus"]["returned"] ?>"
+                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["returned"] ? 'selected' : ''; ?>>
+                                        Đã trả hàng
                                     </option>
                                 </select>
                             </div>
@@ -111,7 +121,7 @@ if (isset($_GET["range"])) {
                                 </button>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-1">
                             <label for="" class="visible-hidden">dsadsa</label>
                             <div class="form-group">
                                 <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">
@@ -208,9 +218,15 @@ m-r-5"
                                 <tr class="detail-row">
                                     <td colspan="7">
                                         <ul class="common-list">
-                                            <li>Số điện thoại: <?php echo $order["customerMobile"]; ?></li>
-                                            <li>Ngày đặt: <?php echo $order["createdDate"]; ?></li>
-                                            <li>Ghi chú: <?php echo $order["note"]; ?></li>
+                                            <li>Số điện thoại: <span
+                                                        class="pull-right"><?php echo $order["customerMobile"]; ?></span>
+                                            </li>
+                                            <li>Ngày
+                                                đặt: <span
+                                                        class="pull-right"><?php echo date_format(new DateTime($order["createdDate"]), 'd-m-Y'); ?></span>
+                                            </li>
+                                            <li>Ghi chú: <span class="pull-right"><?php echo $order["note"]; ?></span>
+                                            </li>
                                             <li>
                                                 <div class="hidden-sm hidden-xs btn-group">
                                                     <button class="btn btn-xs btn-info js-edit-order"
@@ -229,6 +245,12 @@ m-r-5"
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    Không có đơn hàng
+                                </td>
+                            </tr>
                         <?php endif; ?>
                         </tbody>
                     </table>
@@ -239,6 +261,7 @@ m-r-5"
     </div>
 </div>
 
+<!--shipping status update modal-->
 <div id="shipping-status-modal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-sm">
 
@@ -271,6 +294,36 @@ m-r-5"
 
     </div>
 </div>
+
+<!--edit modal-->
+<div id="edit-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chỉnh sửa thông tin</h4>
+            </div>
+            <div class="modal-body">
+               <table class="form-table col-md-12">
+                   <tr>
+                       <td>Tên khách hàng</td>
+                       <td>
+                           <input type="text" class="form-control" name="customerName" id="txtCustomerName">
+                       </td>
+                   </tr>
+               </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 <?php
 include '../templates/footer.php';

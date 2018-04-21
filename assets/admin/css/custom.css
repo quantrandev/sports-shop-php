@@ -51,6 +51,11 @@ tr.sub-row {
     color: #707070;
 }
 
+.common-list {
+    min-width: 200px;
+    max-width: 250px;
+}
+
 .common-list li {
     padding: 7px 0;
 }
