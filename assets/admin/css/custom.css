@@ -71,3 +71,31 @@ tr.sub-row {
 .form-table td {
     padding: 7px 0;
 }
+#products-modal table td {
+    vertical-align: middle;
+}
+
+#products-modal table td:first-child {
+    width: 80px;
+}
+
+#products-modal table td:first-child > img {
+    max-width: 100%;
+}
+
+/*width*/
+.w-60 {
+    width: 60px;
+}
+
+.w-100 {
+    width: 100px;
+}
+
+.w-80 {
+    width: 80px;
+}
+
+.w-200 {
+    width: 200px;
+}

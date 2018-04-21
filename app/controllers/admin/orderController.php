@@ -3,6 +3,9 @@
 include '../../services/connection.php';
 include '../../viewModels/cartViewModel.php';
 include '../../viewModels/orderInfoViewModel.php';
+include '../../services/productService.php';
+include '../../services/shippingService.php';
+include '../../services/imageService.php';
 include '../../services/orderService.php';
 
 session_start();
@@ -23,6 +26,16 @@ switch ($requestMethod) {
                     "customerAddress" => $order["customerAddress"],
                     "customerMobile" => $order["customerMobile"],
                     "note" => $order["note"]
+                );
+                break;
+            case 'getProducts':
+                $ordersViewModel = $orderService->getWithProduct($id);
+                $responseData = array(
+                    "code" => $ordersViewModel->code,
+                    "items" => $ordersViewModel->items,
+                    "shippingMethod" => $ordersViewModel->shippingMethod,
+                    "subtotal" => $ordersViewModel->getSubtotal(),
+                    "total" => $ordersViewModel->getSubtotal() + $ordersViewModel->shippingMethod["cost"]
                 );
                 break;
         }
@@ -53,6 +66,9 @@ switch ($requestMethod) {
                 $responseData = array(
                     "error" => $error
                 );
+                break;
+            case 'changeOrderItems':
+                $responseData = $orderService->updateOrderItems($id, $data);
                 break;
         }
         break;

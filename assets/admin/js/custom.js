@@ -66,11 +66,16 @@ $(function () {
         $(this).next().focus();
     });
 
-    $('#date-range-picker').on('apply.daterangepicker', function(ev, picker) {
+    $('#date-range-picker').on('apply.daterangepicker', function (ev, picker) {
         $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
     });
 
-    $('#date-range-picker').on('cancel.daterangepicker', function(ev, picker) {
+    $('#date-range-picker').on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
+    });
+
+    $('#orders-table').on('click', 'tr', function () {
+        $(this).closest('table').find('tr').removeClass('active');
+        $(this).addClass('active');
     });
 });

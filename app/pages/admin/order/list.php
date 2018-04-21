@@ -202,13 +202,12 @@ m-r-5"
                                     </td>
                                     <td class="text-center">
                                         <div class="hidden-sm hidden-xs btn-group">
-                                            <button class="btn btn-xs btn-info"
-                                                    data-id="<?php echo $order->id ?>">
+                                            <button class="btn btn-xs btn-info js-view-product"
+                                                    data-id="<?php echo $order["code"] ?>">
                                                 <i class="ace-icon fa fa-search bigger-120"></i>
                                                 Sản phẩm
                                             </button>
-                                            <button class="btn btn-xs btn-default togglable"
-                                                    data-id="<?php echo $order->id ?>">
+                                            <button class="btn btn-xs btn-default togglable">
                                                 <i class="ace-icon fa fa-angle-down bigger-120"></i>
                                                 Xem thêm
                                             </button>
@@ -336,6 +335,40 @@ m-r-5"
     </div>
 </div>
 
+<!--products modal-->
+<div id="products-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Danh sách sản phẩm</h4>
+            </div>
+            <div class="modal-body overflow-auto">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Sản phẩm</th>
+                        <th>Đơn giá</th>
+                        <th>Số lượng</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <?php
 include '../templates/footer.php';

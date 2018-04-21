@@ -1,11 +1,14 @@
 var orderController = {
     shippingStatusModalDOM: null,
     customerInfoModal: null,
+    productsModal: null,
+    products: null,
     init: function () {
         orderController.registerConfirmations();
         // orderController.registerDataTable();
         orderController.shippingStatusModalDOM = $('#shipping-status-modal');
         orderController.customerInfoModal = $('#customer-info-modal');
+        orderController.productsModal = $('#products-modal');
         orderController.events();
     },
     events: function () {
@@ -14,6 +17,11 @@ var orderController = {
         orderController.onSeenStatusChange();
         orderController.onOpenCustomerInfoModal();
         orderController.onSaveCustomerInfo();
+        orderController.onOpenProductsModal();
+        //products events
+        orderController.onQuantityChange();
+        orderController.onDeleteOrderItem();
+        orderController.onSaveOrderItems();
     },
     registerDataTable: function () {
         $('#orders-table').DataTable({
@@ -171,6 +179,61 @@ var orderController = {
             });
         });
     },
+    onOpenProductsModal: function () {
+        $(document).on('click', '.js-view-product', function () {
+            let button = $(this);
+            orderController.toggleButtonStatus(button, 'loading', 'Sản phẩm');
+
+            orderService.getProducts(button.attr('data-id'), function (res) {
+                res = JSON.parse(res);
+
+                orderController.products = res.items;
+                orderController.setDataForProductModal(res);
+                orderController.productsModal.modal();
+                orderController.toggleButtonStatus(button, 'search', 'Sản phẩm');
+            }, function (err) {
+            });
+        });
+    },
+    //products events
+    onQuantityChange: function () {
+        $('#products-modal').on('change', '.js-qty', function () {
+            let id = $(this).closest('tr').attr('data-id');
+            let newQuantity = $(this).val();
+            orderController.updateQuantity(id, newQuantity);
+        });
+    },
+    onDeleteOrderItem: function () {
+        $('#products-modal').on('click', '.js-delete-order-item', function () {
+            let table = $(this).closest('tbody');
+            let id = $(this).closest('tr').attr('data-id');
+            //remove DOM
+            let deletedRow = $(this).closest('tr');
+            orderController.animate(deletedRow, 'zoomOut');
+            setTimeout(() => {
+                deletedRow.remove();
+                //check if no items left
+
+                if (table.find('tr').length === 0)
+                    table.append('<tr><td colspan="5" class="text-center">Không có sản phẩm trong đơn hàng này</td></tr>');
+            }, 450);
+
+            //actually delete order item
+            orderController.deleteOrderItem(id);
+        });
+    },
+    onSaveOrderItems: function () {
+        orderController.productsModal.on('click', '.js-save-changes', function () {
+            let button = $(this);
+            let orderCode = button.attr('data-order-id');
+            orderController.toggleButtonStatus(button, 'loading', 'Lưu thay đổi');
+
+            orderService.changeOrderItems(orderCode, orderController.products, function (res) {
+                console.log(res);
+            }, function (err) {
+            });
+        });
+    },
     //helpers
     setDataForCustomerInfoModal: function (data) {
         orderController.customerInfoModal.find('#code').val(data.code);
@@ -213,6 +276,34 @@ var orderController = {
                 }
         };
     },
+    setDataForProductModal: function (data) {
+        //set orderCode for save changes button
+        orderController.productsModal.find('.js-save-changes').attr('data-order-id', data.code);
+
+        let table = orderController.productsModal.find('table').find('tbody');
+        //clear table
+        table.html("");
+
+        if (data.items.length == 0) {
+            table.append('<tr><td colspan="5" class="text-center">Không có sản phẩm trong đơn hàng này</td></tr>');
+            return;
+        }
+
+        for (let i = 0; i < data.items.length; i++) {
+            let row = `
+                <tr data-id=\"` + data.items[i].id + `\">
+                    <td><img src=\"/sports-shop-final/assets` + data.items[i].image + `\" /></td>
+                    <td>` + data.items[i].name + `</td>
+                    <td>` + utilities.formatThousand(data.items[i].price) + ` đ</td>
+                    <td class=\"w-100\">
+                        <input type=\"number\" class=\"form-control js-qty\" min=\"1\" value=\"` + data.items[i].quantity + `\"/>
+                    </td>
+                    <td class=\"text-center\"><button class=\"btn btn-minier btn-danger js-delete-order-item\"><i class=\"fa fa-trash\"></i></button></td>
+                </tr>
+            `;
+            table.append(row);
+        }
+    },
     toggleButtonStatus: function (button, option, text) {
         switch (option) {
             case 'loading':
@@ -223,6 +314,9 @@ var orderController = {
                 break;
             case 'edited':
                 button.html("<i class=\"ace-icon bigger-120 fa fa-pencil\"></i> " + text);
+                break;
+            case 'search':
+                button.html("<i class=\"ace-icon bigger-120 fa fa-search\"></i> " + text);
                 break;
             case 'error':
                 button.html("<i class=\"ace-icon bigger-120 fa fa-close\"></i> " + text);
@@ -243,6 +337,18 @@ var orderController = {
         el.addClass(animationName);
         el.hide();
         el.show();
+    },
+    //products modal helpers
+    updateQuantity: function (productId, newQuantity) {
+        orderController.products.filter(value => {
+            return value.id == productId;
+        })[0].quantity = newQuantity;
+    },
+    deleteOrderItem: function (id) {
+        for (let i = 0; i < orderController.products.length; i++) {
+            if (orderController.products[i].id == id)
+                orderController.products[i].deleted = true;
+        }
     }
 };
 

@@ -207,6 +207,18 @@ class OrderService
         return empty($result) ? false : true;
     }
 
+    public function updateOrderItems($id, $data)
+    {
+        $items = $data["data"];
+
+        $deletedItems = array_map(function ($value) {
+            return $value["id"];
+        }, array_filter($items, function ($value) {
+            return isset($value["deleted"]) && $value["deleted"] == "true";
+        }));
+
+    }
+
     //helpers
     public function generateCode($lastOrderInDay)
     {
