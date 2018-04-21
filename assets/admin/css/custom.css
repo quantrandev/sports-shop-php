@@ -35,6 +35,10 @@ tr.sub-row {
     padding: 0 !important;
 }
 
+.m-0 {
+    margin: 0 !important;
+}
+
 .visible-hidden {
     visibility: hidden;
 }
@@ -71,8 +75,13 @@ tr.sub-row {
 .form-table td {
     padding: 7px 0;
 }
-#products-modal table td {
+
+#products-modal table td, #orders-table td {
     vertical-align: middle;
+}
+
+#orders-table td.seenStatus {
+    width: 110px;
 }
 
 #products-modal table td:first-child {

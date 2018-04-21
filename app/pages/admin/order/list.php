@@ -345,8 +345,8 @@ m-r-5"
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Danh sách sản phẩm</h4>
             </div>
-            <div class="modal-body overflow-auto">
-                <table class="table table-hover table-bordered">
+            <div class="modal-body overflow-auto p-0">
+                <table class="table table-hover table-bordered m-0">
                     <thead>
                     <tr>
                         <th></th>

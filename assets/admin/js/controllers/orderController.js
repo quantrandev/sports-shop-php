@@ -229,7 +229,15 @@ var orderController = {
             orderController.toggleButtonStatus(button, 'loading', 'Lưu thay đổi');
 
             orderService.changeOrderItems(orderCode, orderController.products, function (res) {
-                console.log(res);
+                res = JSON.parse(res);
+
+                if (!res.error) {
+                    orderController.toggleButtonStatus(button, 'text-only', 'Lưu thay đổi');
+                    orderController.productsModal.modal('hide');
+                    utilities.notify('Thông báo', 'Đã cập nhật thành công', 'gritter-success', false);
+                }
+                else
+                    utilities.notify('Thông báo', 'Có lỗi xảy ra, vui lòng thử lại', 'gritter-error', false);
             }, function (err) {
             });
         });
@@ -340,9 +348,12 @@ var orderController = {
     },
     //products modal helpers
     updateQuantity: function (productId, newQuantity) {
-        orderController.products.filter(value => {
+        let updatedItem = orderController.products.filter(value => {
             return value.id == productId;
-        })[0].quantity = newQuantity;
+        })[0];
+
+        updatedItem.quantity = newQuantity;
+        updatedItem.updated = true;
     },
     deleteOrderItem: function (id) {
         for (let i = 0; i < orderController.products.length; i++) {

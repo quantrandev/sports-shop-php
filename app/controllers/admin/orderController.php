@@ -68,7 +68,10 @@ switch ($requestMethod) {
                 );
                 break;
             case 'changeOrderItems':
-                $responseData = $orderService->updateOrderItems($id, $data);
+                $error = $orderService->updateOrderItems($id, $data);
+                $responseData = array(
+                    "error" => $error
+                );
                 break;
         }
         break;

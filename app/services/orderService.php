@@ -209,6 +209,7 @@ class OrderService
 
     public function updateOrderItems($id, $data)
     {
+        $error = false;
         $items = $data["data"];
 
         $deletedItems = array_map(function ($value) {
@@ -217,6 +218,29 @@ class OrderService
             return isset($value["deleted"]) && $value["deleted"] == "true";
         }));
 
+        $updatedItems = array_filter($items, function ($value) {
+            return isset($value["updated"]) && $value["updated"] == "true";
+        });
+
+        if (!empty($deletedItems)) {
+            $sql = "delete from order_details where orderId = '" . $id . "' and productId in (";
+            foreach ($deletedItems as $item) {
+                $sql .= $item . ",";
+            }
+            $sql = substr($sql, 0, strlen($sql) - 1) . ")";
+            $result = $this->db->exec($sql);
+            $error = empty($result) ? true : $error;
+        }
+
+        if (!empty($updatedItems)) {
+            foreach ($updatedItems as $item) {
+                $sql = "update order_details set quantity = " . $item["quantity"] . " where orderId = '" . $id . "' and productId = " . $item["id"];
+                $result = $this->db->exec($sql);
+                $error = empty($result) ? true : $error;
+            }
+        }
+
+        return $error;
     }
 
     //helpers
