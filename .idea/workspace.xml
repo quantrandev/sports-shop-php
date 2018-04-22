@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f1307e9-5304-46c5-a50c-09a7a58d90f8" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/controllers/uploadController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/admin/js/dropzone-init.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/pages/admin/product/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/admin/product/add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/productService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/productService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/custom.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +18,8 @@
       <file leaf-file-name="add.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/pages/admin/product/add.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+            <state relative-caret-position="319">
+              <caret line="164" column="5" selection-start-line="164" selection-start-column="5" selection-end-line="164" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -30,9 +27,10 @@
       <file leaf-file-name="productService.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/services/productService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="145" column="20" selection-start-line="145" selection-start-column="20" selection-end-line="145" selection-end-column="20" />
+            <state relative-caret-position="209">
+              <caret line="170" column="25" selection-start-line="170" selection-start-column="25" selection-end-line="170" selection-end-column="25" />
               <folding>
+                <element signature="n#ProductViewModel#0;n#!!top" />
                 <element signature="n#get#0;n#ProductService#0;n#!!top" />
                 <element signature="n#sales#0;n#ProductService#0;n#!!top" />
                 <element signature="n#newComings#0;n#ProductService#0;n#!!top" />
@@ -40,6 +38,7 @@
                 <element signature="n#buildNameQuery#0;n#ProductService#0;n#!!top" />
                 <element signature="n#buildCategoryQuery#0;n#ProductService#0;n#!!top" />
                 <element signature="n#buildPriceQuery#0;n#ProductService#0;n#!!top" />
+                <element signature="n#buildQuery#0;n#ProductService#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -187,12 +186,6 @@
               <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="images" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -242,12 +235,12 @@
       <workItem from="1524277565770" duration="6052000" />
       <workItem from="1524297046081" duration="13952000" />
       <workItem from="1524314962622" duration="10136000" />
-      <workItem from="1524398034038" duration="7849000" />
+      <workItem from="1524398034038" duration="11400000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125057000" />
+    <option name="totallyTimeSpent" value="128608000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -520,27 +513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/orderService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="242" column="22" selection-start-line="242" selection-start-column="22" selection-end-line="242" selection-end-column="22" />
-          <folding>
-            <element signature="n#add#0;n#OrderService#0;n#!!top" />
-            <element signature="n#last#0;n#OrderService#0;n#!!top" />
-            <element signature="n#get#0;n#OrderService#0;n#!!top" />
-            <element signature="n#getWithProduct#0;n#OrderService#0;n#!!top" />
-            <element signature="n#buildQuery#0;n#OrderService#0;n#!!top" />
-            <element signature="n#insert#0;n#OrderService#0;n#!!top" />
-            <element signature="n#attach#0;n#OrderService#0;n#!!top" />
-            <element signature="n#generateCode#0;n#OrderService#0;n#!!top" />
-            <element signature="n#buildDateRangeQuery#0;n#OrderService#0;n#!!top" />
-            <element signature="n#buildNameQuery#0;n#OrderService#0;n#!!top" />
-            <element signature="n#buildShippingStatusQuery#0;n#OrderService#0;n#!!top" />
-            <element signature="n#buildCodeQuery#0;n#OrderService#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/admin/css/custom.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
@@ -628,13 +600,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/uploadController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/assets/admin/js/dropzone-init.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
@@ -642,11 +607,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/uploadController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/orderService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+          <folding>
+            <element signature="n#add#0;n#OrderService#0;n#!!top" />
+            <element signature="n#all#0;n#OrderService#0;n#!!top" />
+            <element signature="n#last#0;n#OrderService#0;n#!!top" />
+            <element signature="n#get#0;n#OrderService#0;n#!!top" />
+            <element signature="n#getWithProduct#0;n#OrderService#0;n#!!top" />
+            <element signature="n#buildQuery#0;n#OrderService#0;n#!!top" />
+            <element signature="n#insert#0;n#OrderService#0;n#!!top" />
+            <element signature="n#attach#0;n#OrderService#0;n#!!top" />
+            <element signature="n#update#0;n#OrderService#0;n#!!top" />
+            <element signature="n#updateOrderItems#0;n#OrderService#0;n#!!top" />
+            <element signature="n#generateCode#0;n#OrderService#0;n#!!top" />
+            <element signature="n#buildDateRangeQuery#0;n#OrderService#0;n#!!top" />
+            <element signature="n#buildNameQuery#0;n#OrderService#0;n#!!top" />
+            <element signature="n#buildShippingStatusQuery#0;n#OrderService#0;n#!!top" />
+            <element signature="n#buildCodeQuery#0;n#OrderService#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/services/productService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="145" column="20" selection-start-line="145" selection-start-column="20" selection-end-line="145" selection-end-column="20" />
+        <state relative-caret-position="209">
+          <caret line="170" column="25" selection-start-line="170" selection-start-column="25" selection-end-line="170" selection-end-column="25" />
           <folding>
+            <element signature="n#ProductViewModel#0;n#!!top" />
             <element signature="n#get#0;n#ProductService#0;n#!!top" />
             <element signature="n#sales#0;n#ProductService#0;n#!!top" />
             <element signature="n#newComings#0;n#ProductService#0;n#!!top" />
@@ -654,14 +651,15 @@
             <element signature="n#buildNameQuery#0;n#ProductService#0;n#!!top" />
             <element signature="n#buildCategoryQuery#0;n#ProductService#0;n#!!top" />
             <element signature="n#buildPriceQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildQuery#0;n#ProductService#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pages/admin/product/add.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+        <state relative-caret-position="319">
+          <caret line="164" column="5" selection-start-line="164" selection-start-column="5" selection-end-line="164" selection-end-column="5" />
         </state>
       </provider>
     </entry>

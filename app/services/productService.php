@@ -143,7 +143,42 @@ class ProductService
 
     public function add($data)
     {
-        return $data;
+        $name = $data["name"];
+        $quantity = $data["quantity"];
+        if (empty($name) || empty($quantity) || empty($data["oldPrice"]))
+            return false;
+        $oldPrice = empty($data["currentPrice"]) ? 0 : $data["oldPrice"];
+        $currentPrice = empty($data["currentPrice"]) ? $data["oldPrice"] : $data["currentPrice"];
+        $categoryId = $data["categoryId"];
+        $description = $data["description"];
+
+        $query = $this->buildQuery(array(
+            "name" => "N'" . $name . "'",
+            "oldPrice" => $oldPrice,
+            "quantity" => $quantity,
+            "currentPrice" => $currentPrice,
+            "categoryId" => $categoryId,
+            "description" => "'" . $description . "'"
+        ));
+
+        $result = $this->db->exec($query);
+        $last_id = $this->db->lastInsertId();
+
+        $error = empty($result) ? true : false;
+        //process images
+        $images = $data["images"];
+        if (empty($images))
+            return $error;
+
+        $images = explode(",", $images);
+        $queries = $this->buildImagesQuery($last_id, $images);
+
+        foreach ($queries as $query) {
+            $result = $this->db->exec($query);
+            $error = empty($result) ? true : $error;
+        }
+
+        return $error;
     }
 
     //helpers
@@ -219,15 +254,44 @@ class ProductService
 
         $priceQuery = "";
         if (empty($condition["price-from"])) {
-            $priceQuery .= "currentPrice < " . $condition["price-to"];
+            $priceQuery .= "currentPrice <= " . $condition["price-to"];
             return $priceQuery;
         }
         if (empty($condition["price-to"])) {
-            $priceQuery .= "currentPrice > " . $condition["price-from"];
+            $priceQuery .= "currentPrice >= " . $condition["price-from"];
             return $priceQuery;
         }
 
-        $priceQuery .= "currentPrice < " . $condition["price-to"] . " and currentPrice > " . $condition["price-from"];
+        $priceQuery .= "currentPrice <= " . $condition["price-to"] . " and currentPrice >= " . $condition["price-from"];
         return $priceQuery;
+    }
+
+    //insert helpers
+    public function buildQuery($columns)
+    {
+        $query = "insert into products";
+        $insertedColumns = "(";
+        $insertedData = "(";
+        foreach ($columns as $key => $value) {
+            $insertedColumns .= $key . ",";
+            $insertedData .= $value . ",";
+        }
+        $insertedColumns = substr($insertedColumns, 0, strlen($insertedColumns) - 1) . ")";
+        $insertedData = substr($insertedData, 0, strlen($insertedData) - 1) . ")";
+
+        $query .= " " . $insertedColumns . " values " . $insertedData;
+
+        return $query;
+    }
+
+    public function buildImagesQuery($productId, $images)
+    {
+        $queries = array();
+        foreach ($images as $image) {
+            $query = "insert into images (source, productId) values ('/images/products/new/" . $image . "', " . $productId . ")";
+            array_push($queries, $query);
+        }
+
+        return $queries;
     }
 }

@@ -18,8 +18,10 @@ foreach ($menus as $category) {
 }
 
 $productService = new ProductService($conn);
-$result = $productService->add($_POST);
-echo var_export($result);
+if (isset($_POST["btnSubmit"])) {
+    $result = $productService->add($_POST);
+    echo var_dump($result);
+}
 ?>
 
 <div class="main-content">
@@ -63,15 +65,15 @@ echo var_export($result);
                         <div class="form-horizontal">
                             <input type="hidden" id="images" name="images">
                             <div class="form-group">
-                                <label for="" class="col-md-2 control-label">Tên sản phẩm</label>
+                                <label for="" class="col-md-2 control-label">Tên sản phẩm *</label>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" name="name" autofocus>
+                                    <input type="text" class="form-control" name="name" autofocus required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="" class="col-md-2 control-label">Giá gốc</label>
+                                <label for="" class="col-md-2 control-label">Giá gốc *</label>
                                 <div class="col-md-6">
-                                    <input type="number" class="form-control" name="oldPrice">
+                                    <input type="number" class="form-control" name="oldPrice" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -81,9 +83,9 @@ echo var_export($result);
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="" class="col-md-2 control-label">Số lượng</label>
+                                <label for="" class="col-md-2 control-label">Số lượng *</label>
                                 <div class="col-md-6">
-                                    <input type="number" class="form-control" name="quantity">
+                                    <input type="number" class="form-control" name="quantity" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -113,7 +115,7 @@ echo var_export($result);
                             <div class="form-group">
                                 <label for="" class="col-md-2 control-label"></label>
                                 <div class="col-md-10">
-                                    <button class="btn btn-success" type="submit">Lưu sản phẩm</button>
+                                    <button class="btn btn-success" type="submit" name="btnSubmit">Lưu sản phẩm</button>
                                 </div>
                             </div>
                         </div>
@@ -158,6 +160,11 @@ include '../templates/footer.php';
     CKFinder.setupCKEditor(editor);
 </script>
 <script src="/sports-shop-final/assets/admin/js/dropzone-init.js"></script>
+
+<?php
+if (!$result)
+    echo "<script>utilities.notify('Thông báo', 'Đã thêm thành công sản phẩm " . $_POST["name"] . "','gritter-success', false);</script>";
+?>
 
 <?php if (isset($_SESSION["flashMessage"])): ?>
     <script>
