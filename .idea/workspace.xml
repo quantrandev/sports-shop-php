@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f1307e9-5304-46c5-a50c-09a7a58d90f8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/pages/admin/product/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/admin/product/add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/productService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/productService.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,8 +16,8 @@
       <file leaf-file-name="add.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/pages/admin/product/add.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="164" column="5" selection-start-line="164" selection-start-column="5" selection-end-line="164" selection-end-column="5" />
+            <state relative-caret-position="208">
+              <caret line="136" column="47" selection-start-line="136" selection-start-column="47" selection-end-line="136" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -235,12 +233,12 @@
       <workItem from="1524277565770" duration="6052000" />
       <workItem from="1524297046081" duration="13952000" />
       <workItem from="1524314962622" duration="10136000" />
-      <workItem from="1524398034038" duration="11400000" />
+      <workItem from="1524398034038" duration="12756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128608000" />
+    <option name="totallyTimeSpent" value="129964000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -252,7 +250,7 @@
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.3306189" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32899022" />
@@ -658,8 +656,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pages/admin/product/add.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="164" column="5" selection-start-line="164" selection-start-column="5" selection-end-line="164" selection-end-column="5" />
+        <state relative-caret-position="208">
+          <caret line="136" column="47" selection-start-line="136" selection-start-column="47" selection-end-line="136" selection-end-column="47" />
         </state>
       </provider>
     </entry>

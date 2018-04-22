@@ -20,7 +20,9 @@ foreach ($menus as $category) {
 $productService = new ProductService($conn);
 if (isset($_POST["btnSubmit"])) {
     $result = $productService->add($_POST);
-    echo var_dump($result);
+    if (!$result) {
+        $_SESSION["flashMessage"] = "Đã thêm thành công sản phẩm " . $_POST["name"];
+    }
 }
 ?>
 
@@ -101,7 +103,7 @@ if (isset($_POST["btnSubmit"])) {
                             <div class="form-group">
                                 <label for="" class="col-md-2 control-label">Hình ảnh</label>
                                 <div class="col-md-10">
-                                    <button class="btn btn-default" type="button" data-toggle="modal"
+                                    <button class="btn btn-primary" type="button" data-toggle="modal"
                                             data-target="#images-upload-modal">Thêm ảnh
                                     </button>
                                 </div>
@@ -132,7 +134,7 @@ if (isset($_POST["btnSubmit"])) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Thêm hình ảnh</h4>
+                <h4 class="modal-title">Tải lên hình ảnh</h4>
             </div>
             <div class="modal-body overflow-auto p-0">
                 <form action="/sports-shop-final/app/controllers/uploadController.php?type=product" method="post"
@@ -143,7 +145,7 @@ if (isset($_POST["btnSubmit"])) {
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Hoàn tất
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
                 </button>
             </div>
         </div>
@@ -160,11 +162,6 @@ include '../templates/footer.php';
     CKFinder.setupCKEditor(editor);
 </script>
 <script src="/sports-shop-final/assets/admin/js/dropzone-init.js"></script>
-
-<?php
-if (!$result)
-    echo "<script>utilities.notify('Thông báo', 'Đã thêm thành công sản phẩm " . $_POST["name"] . "','gritter-success', false);</script>";
-?>
 
 <?php if (isset($_SESSION["flashMessage"])): ?>
     <script>
