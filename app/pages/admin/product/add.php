@@ -17,6 +17,9 @@ foreach ($menus as $category) {
         $childCategories = array_merge($childCategories, $category->children);
 }
 
+$productService = new ProductService($conn);
+$result = $productService->add($_POST);
+echo var_export($result);
 ?>
 
 <div class="main-content">
@@ -55,102 +58,94 @@ foreach ($menus as $category) {
             <!--page content-->
             <div class="row">
                 <div class="col-md-9">
-                    <form action="" class="form-horizontal">
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Tên sản phẩm</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Giá gốc</label>
-                            <div class="col-md-6">
-                                <input type="number" class="form-control" name="oldPrice">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Giá khuyến mãi</label>
-                            <div class="col-md-6">
-                                <input type="number" class="form-control" name="currentPrice">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Số lượng</label>
-                            <div class="col-md-6">
-                                <input type="number" class="form-control" name="quantity">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Thuộc danh mục</label>
-                            <div class="col-md-6">
-                                <select name="categoryId" class="form-control">
-                                    <?php foreach ($childCategories as $category): ?>
-                                        <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Hình ảnh</label>
-                            <div class="col-md-10">
-                                <div id="dropzone" class="dropzone">
-                                    <div class="fallback">
-                                        <input name="images" type="file" multiple/>
-                                    </div>
-                                </div>
-                                <div id="preview-template" class="hide">
-                                    <div class="dz-preview dz-file-preview">
-                                        <div class="dz-image">
-                                            <img data-dz-thumbnail="" />
-                                        </div>
-
-                                        <div class="dz-details">
-                                            <div class="dz-size">
-                                                <span data-dz-size=""></span>
-                                            </div>
-
-                                            <div class="dz-filename">
-                                                <span data-dz-name=""></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="dz-progress">
-                                            <span class="dz-upload" data-dz-uploadprogress=""></span>
-                                        </div>
-
-                                        <div class="dz-error-message">
-                                            <span data-dz-errormessage=""></span>
-                                        </div>
-
-                                        <div class="dz-success-mark">
-											<span class="fa-stack fa-lg bigger-150">
-												<i class="fa fa-circle fa-stack-2x white"></i>
-
-												<i class="fa fa-check fa-stack-1x fa-inverse green"></i>
-											</span>
-                                        </div>
-
-                                        <div class="dz-error-mark">
-											<span class="fa-stack fa-lg bigger-150">
-												<i class="fa fa-circle fa-stack-2x white"></i>
-
-												<i class="fa fa-remove fa-stack-1x fa-inverse red"></i>
-											</span>
-                                        </div>
-                                    </div>
+                    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" enctype="multipart/form-data"
+                          method="post">
+                        <div class="form-horizontal">
+                            <input type="hidden" id="images" name="images">
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label">Tên sản phẩm</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="name" autofocus>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Mô tả</label>
-                            <div class="col-md-10"><textarea name="description" id="txtDescription"
-                                                             class="form-control"></textarea>
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label">Giá gốc</label>
+                                <div class="col-md-6">
+                                    <input type="number" class="form-control" name="oldPrice">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label">Giá khuyến mãi</label>
+                                <div class="col-md-6">
+                                    <input type="number" class="form-control" name="currentPrice">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label">Số lượng</label>
+                                <div class="col-md-6">
+                                    <input type="number" class="form-control" name="quantity">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label">Thuộc danh mục</label>
+                                <div class="col-md-6">
+                                    <select name="categoryId" class="form-control">
+                                        <?php foreach ($childCategories as $category): ?>
+                                            <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label">Hình ảnh</label>
+                                <div class="col-md-10">
+                                    <button class="btn btn-default" type="button" data-toggle="modal"
+                                            data-target="#images-upload-modal">Thêm ảnh
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label">Mô tả</label>
+                                <div class="col-md-10"><textarea name="description" id="txtDescription"
+                                                                 class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="col-md-2 control-label"></label>
+                                <div class="col-md-10">
+                                    <button class="btn btn-success" type="submit">Lưu sản phẩm</button>
+                                </div>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div><!-- /.page-content -->
+    </div>
+</div>
+<div id="images-upload-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm hình ảnh</h4>
+            </div>
+            <div class="modal-body overflow-auto p-0">
+                <form action="/sports-shop-final/app/controllers/uploadController.php?type=product" method="post"
+                      id="my-dropzone" class="dropzone well m-0">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Hoàn tất
+                </button>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -161,78 +156,8 @@ include '../templates/footer.php';
 <script>
     let editor = CKEDITOR.replace('txtDescription');
     CKFinder.setupCKEditor(editor);
-
-
-    var myDropzone = new Dropzone('#dropzone', {
-        previewTemplate: $('#preview-template').html(),
-        url: "/file/post",
-        thumbnailHeight: 120,
-        thumbnailWidth: 120,
-        maxFilesize: 10,
-
-        //addRemoveLinks : true,
-        //dictRemoveFile: 'Remove',
-
-        dictDefaultMessage:
-            '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
-            <span class="smaller-80 grey">(or click)</span> <br /> \
-            <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
-        ,
-
-        thumbnail: function (file, dataUrl) {
-            if (file.previewElement) {
-                $(file.previewElement).removeClass("dz-file-preview");
-                var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function () {
-                    var thumbnailElement = this;
-                    thumbnailElement.alt = file.name;
-                    thumbnailElement.src = dataUrl;
-                });
-                setTimeout(function () {
-                    $(file.previewElement).addClass("dz-image-preview");
-                }, 1);
-            }
-        }
-
-    });
-
-
-    //simulating upload progress
-    var minSteps = 6,
-        maxSteps = 60,
-        timeBetweenSteps = 100,
-        bytesPerStep = 100000;
-
-    myDropzone.uploadFiles = function (files) {
-        var self = this;
-
-        for (var i = 0; i < files.length; i++) {
-            var file = files[i];
-            totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
-
-            for (var step = 0; step < totalSteps; step++) {
-                var duration = timeBetweenSteps * (step + 1);
-                setTimeout(function (file, totalSteps, step) {
-                    return function () {
-                        file.upload = {
-                            progress: 100 * (step + 1) / totalSteps,
-                            total: file.size,
-                            bytesSent: (step + 1) * file.size / totalSteps
-                        };
-
-                        self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
-                        if (file.upload.progress == 100) {
-                            file.status = Dropzone.SUCCESS;
-                            self.emit("success", file, 'success', null);
-                            self.emit("complete", file);
-                            self.processQueue();
-                        }
-                    };
-                }(file, totalSteps, step), duration);
-            }
-        }
-    }
-
 </script>
+<script src="/sports-shop-final/assets/admin/js/dropzone-init.js"></script>
 
 <?php if (isset($_SESSION["flashMessage"])): ?>
     <script>

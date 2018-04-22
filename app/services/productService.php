@@ -141,6 +141,11 @@ class ProductService
         );
     }
 
+    public function add($data)
+    {
+        return $data;
+    }
+
     //helpers
     public function buildNameQuery($condition)
     {
@@ -183,7 +188,7 @@ class ProductService
                     break;
                 }
             }
-            if(!$isParent)
+            if (!$isParent)
                 array_push($categoriesToQuery, $condition["category"]);
         } else {
             foreach ($categories as $parent) {

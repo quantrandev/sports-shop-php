@@ -78,4 +78,5 @@ $(function () {
         $(this).closest('table').find('tr').removeClass('active');
         $(this).addClass('active');
     });
+
 });
