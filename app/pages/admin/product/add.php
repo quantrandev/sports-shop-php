@@ -11,12 +11,6 @@ include '../../../constants.php';
 $categoryService = new CategoryService($conn);
 $menus = $categoryService::menus($categoryService->allIncludedInactive());
 
-$childCategories = array();
-foreach ($menus as $category) {
-    if (count($category->children) > 0)
-        $childCategories = array_merge($childCategories, $category->children);
-}
-
 $productService = new ProductService($conn);
 if (isset($_POST["btnSubmit"])) {
     $result = $productService->add($_POST);
@@ -94,8 +88,15 @@ if (isset($_POST["btnSubmit"])) {
                                 <label for="" class="col-md-2 control-label">Thuộc danh mục</label>
                                 <div class="col-md-6">
                                     <select name="categoryId" class="form-control">
-                                        <?php foreach ($childCategories as $category): ?>
-                                            <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
+                                        <?php foreach ($menus as $category): ?>
+                                            <optgroup label="<?php echo $category->name ?>"></optgroup>
+                                            <?php if (count($category->children) > 0): ?>
+                                                <?php foreach ($category->children as $child): ?>
+                                                    <option value="<?php echo $child->id ?>"><?php echo $child->name; ?></option>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>

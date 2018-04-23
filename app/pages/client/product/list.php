@@ -194,7 +194,8 @@ include '../template/navigation.php';
                                                         %</span>
                                                 <?php endif; ?>
                                             </div>
-                                            <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>" class="main-btn quick-view"><i class="fa fa-search-plus"></i>
+                                            <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>"
+                                               class="main-btn quick-view"><i class="fa fa-search-plus"></i>
                                                 Phóng to
                                             </a>
                                             <img src="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>"

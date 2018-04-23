@@ -46,6 +46,7 @@
 <script src="/sports-shop-final/assets/admin/js/bootstrap-confirmation.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/moment.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/daterangepicker.min.js"></script>
+<script src="/sports-shop-final/assets/admin/js/bootstrap-multiselect.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/jquery.dataTables.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/dataTables.buttons.min.js"></script>

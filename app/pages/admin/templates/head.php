@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/ace-rtl.min.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/jquery.gritter.min.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/daterangepicker.min.css"/>
+    <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/bootstrap-multiselect.min.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/dropzone.min.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/animate.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/custom.css"/>

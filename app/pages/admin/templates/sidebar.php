@@ -94,7 +94,7 @@
                     </li>
 
                     <li class="">
-                        <a href="/admin/products">
+                        <a href="/sports-shop-final/app/pages/admin/product/list.php">
                             <i class="menu-icon fa fa-caret-right"></i>
                             Danh sách sản phẩm
                         </a>

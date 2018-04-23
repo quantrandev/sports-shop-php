@@ -152,7 +152,7 @@ class ProductService
         $categoryId = $data["categoryId"];
         $description = $data["description"];
 
-        $query = $this->buildQuery(array(
+        $query = $this->buildInsertQuery(array(
             "name" => "N'" . $name . "'",
             "oldPrice" => $oldPrice,
             "quantity" => $quantity,
@@ -208,33 +208,23 @@ class ProductService
         $categoriesToQuery = array();
         $categoryService = new CategoryService($this->db);
         $categories = $categoryService::menus($categoryService->all());
-        if (!is_array($condition["category"])) {
-            $isParent = false;
-            foreach ($categories as $category) {
-                if ($category->id == $condition["category"]) {
-                    if (count($category->children) == 0)
-                        array_push($categoriesToQuery, $category->id);
-                    else
-                        $categoriesToQuery = array_merge($categoriesToQuery,
-                            array_map(function ($value) {
-                                return $value->id;
-                            }, $category->children));
-                    $isParent = true;
-                    break;
+
+        $categoriesFromClient = is_array($condition["category"]) ? $condition["category"] : array($condition["category"]);
+        //process categoriesToQuery
+        foreach ($categories as $category) {
+            if (in_array($category->id, $categoriesFromClient)) {
+                if (count($category->children) > 0) {
+                    $categoriesToQuery = array_merge($categoriesToQuery, array_map(function ($value) {
+                        return $value->id;
+                    }, $category->children));
+                } else {
+                    array_push($categoriesToQuery, $category->id);
                 }
-            }
-            if (!$isParent)
-                array_push($categoriesToQuery, $condition["category"]);
-        } else {
-            foreach ($categories as $parent) {
-                if (in_array($parent->id, $condition["category"])) {
-                    if (count($parent->children) == 0)
-                        array_push($categoriesToQuery, $parent->id);
-                    else
-                        $categoriesToQuery = array_merge($categoriesToQuery,
-                            array_map(function ($value) {
-                                return $value->id;
-                            }, $parent->children));
+            } else {
+                foreach ($category->children as $child) {
+                    if (in_array($child->id, $categoriesFromClient)) {
+                        array_push($categoriesToQuery, $child->id);
+                    }
                 }
             }
         }
@@ -267,7 +257,7 @@ class ProductService
     }
 
     //insert helpers
-    public function buildQuery($columns)
+    public function buildInsertQuery($columns)
     {
         $query = "insert into products";
         $insertedColumns = "(";

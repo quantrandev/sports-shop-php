@@ -108,3 +108,46 @@ tr.sub-row {
 .w-200 {
     width: 200px;
 }
+
+.images-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.images-container .image-wrapper {
+    position: relative;
+    width: 150px;
+    margin: 15px 5px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.images-container .image-wrapper .fa-trash {
+    display: none;
+    color: #e6e6e6;
+    font-size: 35px;
+    cursor: pointer;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    animation-name: slideInDown;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+
+.images-container .image-wrapper .fa-trash:hover {
+    color: #d9d9d9;
+}
+
+.images-container .image-wrapper:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+}
+
+.images-container .image-wrapper:hover .fa-trash {
+    display: inline-block;
+}
+
+.images-container .image-wrapper img {
+    max-width: 100%;
+}
+
