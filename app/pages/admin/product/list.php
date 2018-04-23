@@ -117,7 +117,7 @@ $products = $results["products"];
                         </thead>
                         <tbody>
                         <?php foreach ($products as $product): ?>
-                            <tr>
+                            <tr data-product-id="<?php echo $product->id; ?>">
                                 <td class="text-center">
                                     <label class="pos-rel">
                                         <input type="checkbox" class="ace js-check-item"/>
@@ -174,54 +174,21 @@ $products = $results["products"];
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Hình ảnh</h4>
             </div>
-            <div class="modal-body overflow-auto p-0">
+            <div class="modal-body">
                 <div class="images-container">
-                    <div class="images-track">
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                        <div class="image-wrapper">
-                            <img src="/sports-shop-final/assets/images/products/new/chicago_city_skyscrapers-wallpaper-1366x768.jpg"
-                                 alt="">
-                            <i class="fa fa-trash"></i>
-                        </div>
-                    </div>
+                    <div class="images-track"></div>
+                </div>
+                <div class="text-center m-t-15 m-b-15">
+                    <button class="btn btn-primary btn-xs js-toggle-upload">
+                        <i class="fa fa-upload m-r-5"></i>
+                        Thêm ảnh
+                    </button>
                 </div>
                 <div class="upload-area hide">
                     <form action="/sports-shop-final/app/controllers/uploadController.php?type=product" method="post"
                           id="my-dropzone" class="dropzone well m-0">
+                        <input type="hidden" id="productId">
+                        <input type="hidden" id="images">
                         <div class="fallback">
                             <input name="file" type="file" multiple/>
                         </div>
@@ -229,8 +196,9 @@ $products = $results["products"];
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
-                </button>
+                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                    </button>
             </div>
         </div>
 

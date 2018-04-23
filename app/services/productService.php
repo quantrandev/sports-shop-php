@@ -52,6 +52,13 @@ class ProductService
         return $product;
     }
 
+    public function getImages($id)
+    {
+        $image = new ImageService($this->db);
+        $result = $image->getMany($id);
+        return $result;
+    }
+
     public function sales($offset, $take)
     {
         $stmt = $this->db

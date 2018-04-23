@@ -101,5 +101,4 @@ $(function () {
             liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
         }
     });
-
 });

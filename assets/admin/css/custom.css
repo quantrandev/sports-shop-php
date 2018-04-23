@@ -27,8 +27,16 @@ tr.sub-row {
     margin-top: 15px;
 }
 
+.m-b-15 {
+    margin-bottom: 15px;
+}
+
 .m-r-5 {
     margin-right: 5px;
+}
+
+.m-l-5 {
+    margin-left: 5px;
 }
 
 .p-0 {
@@ -109,45 +117,73 @@ tr.sub-row {
     width: 200px;
 }
 
+#images-modal .modal-body {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 .images-container {
-    max-width: 100%;
     overflow-x: auto;
+    user-select: none;
 }
 
-.images-container .image-wrapper {
+.image-wrapper {
     position: relative;
-    width: 150px;
-    margin: 15px 5px;
-    padding: 10px;
+    margin: 10px 5px;
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
     display: inline-block;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    user-select: none;
 }
 
-.images-container .image-wrapper .fa-trash {
-    display: none;
-    color: #e6e6e6;
-    font-size: 35px;
-    cursor: pointer;
+.image-wrapper img {
+    max-width: 100%;
+}
+
+.image-wrapper .btn-delete {
     position: absolute;
-    top: 30%;
-    left: 40%;
-    animation-name: slideInDown;
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
+    animation-name: fadeIn;
+    animation-duration: 0.3s;
+    user-select: none;
 }
 
-.images-container .image-wrapper .fa-trash:hover {
+.image-wrapper .btn-delete .fa-close {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    color: #f2f2f2;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.image-wrapper:hover {
+    /*background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));*/
+}
+
+.image-wrapper:hover .btn-delete {
+    display: block;
+}
+
+.image-wrapper:hover .btn-delete .fa-close:hover {
     color: #d9d9d9;
 }
 
-.images-container .image-wrapper:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+.owl-nav {
+    text-align: center;
 }
-
-.images-container .image-wrapper:hover .fa-trash {
-    display: inline-block;
-}
-
-.images-container .image-wrapper img {
-    max-width: 100%;
-}
-

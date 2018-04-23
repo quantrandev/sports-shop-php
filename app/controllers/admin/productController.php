@@ -13,7 +13,9 @@ switch ($requestMethod) {
         $id = $_GET["id"];
         $function = $_GET["function"];
         switch ($function) {
-
+            case 'getImages':
+                $responseData = $productService->getImages($id);
+                break;
         }
         break;
     case 'POST':
