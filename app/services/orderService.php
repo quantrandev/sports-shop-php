@@ -64,16 +64,16 @@ class OrderService
         ));
     }
 
-    public function all($condition)
+    public function all($page, $pageSize, $condition)
     {
-        $sql = "select * from orders";
         $dateRangeQuery = $this->buildDateRangeQuery($condition);
         $codeQuery = $this->buildCodeQuery($condition);
         $shippingStatusQuery = $this->buildShippingStatusQuery($condition);
         $customerNameQuery = $this->buildNameQuery($condition);
 
+        $condition = "";
         if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery)) {
-            $sql .= " where "
+            $condition .= " where "
                 . (empty($customerNameQuery) ? 'true' : $customerNameQuery)
                 . " and "
                 . (empty($codeQuery) ? 'true' : $codeQuery)
@@ -82,9 +82,13 @@ class OrderService
                 . " and "
                 . (empty($dateRangeQuery) ? 'true' : $dateRangeQuery);
         } else
-            $sql .= " where createdDate = '" .
+            $condition .= " where createdDate = '" .
                 getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"]
                 . "'";
+
+        $sql = "select * from orders"
+            . $condition
+            . " limit " . $pageSize . " offset " . (($page - 1) * $pageSize);
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
@@ -93,7 +97,18 @@ class OrderService
         while ($row = $stmt->fetch()) {
             array_push($result, $row);
         }
-        return $result;
+
+        //get count
+        $query = "select count(*) as count from orders" . $condition;
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $countResult = $stmt->fetch();
+
+        return array(
+            "orders" => $result,
+            "count" => $countResult["count"]
+        );
+
     }
 
     public function last($createdDate)
@@ -121,7 +136,7 @@ class OrderService
 
         $order = $this->get($code);
 
-        $productsQuery = "select order_details.productId, order_details.quantity from order_details where orderId = '" . $code . "'";
+        $productsQuery = "select order_details . productId, order_details . quantity from order_details where orderId = '" . $code . "'";
         $stmt = $this->db->prepare($productsQuery);
         $stmt->execute();
 
@@ -155,8 +170,8 @@ class OrderService
         $insertedColumns = "(";
         $insertedData = "(";
         foreach ($columns as $key => $value) {
-            $insertedColumns .= $key . ",";
-            $insertedData .= $value . ",";
+            $insertedColumns .= $key . ", ";
+            $insertedData .= $value . ", ";
         }
         $insertedColumns = substr($insertedColumns, 0, strlen($insertedColumns) - 1) . ")";
         $insertedData = substr($insertedData, 0, strlen($insertedData) - 1) . ")";
@@ -223,9 +238,9 @@ class OrderService
         });
 
         if (!empty($deletedItems)) {
-            $sql = "delete from order_details where orderId = '" . $id . "' and productId in (";
+            $sql = "delete from order_details where orderId = '" . $id . "' and productId in(";
             foreach ($deletedItems as $item) {
-                $sql .= $item . ",";
+                $sql .= $item . ", ";
             }
             $sql = substr($sql, 0, strlen($sql) - 1) . ")";
             $result = $this->db->exec($sql);

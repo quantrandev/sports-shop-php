@@ -1,13 +1,18 @@
 <?php
 session_start();
-include '../templates/head.php';
-include '../templates/navigation.php';
-include '../templates/sidebar.php';
 
 include '../../../services/connection.php';
 include '../../../services/categoryService.php';
 $categoryService = new CategoryService($conn);
 $categories = $categoryService::menus($categoryService->allIncludedInactive());
+
+include '../../../services/userService.php';
+include '../../../constants.php';
+$userService = new UserService($conn);
+
+include '../templates/head.php';
+include '../templates/navigation.php';
+include '../templates/sidebar.php';
 
 ?>
 

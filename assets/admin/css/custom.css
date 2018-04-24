@@ -3,7 +3,7 @@
     src: url("../fonts/Roboto-Medium.ttf");
 }
 
-body {
+body, h1, h2, h3, h4, h5, h6 {
     font-family: myFont !important;
 }
 
@@ -130,8 +130,8 @@ tr.sub-row {
 .image-wrapper {
     position: relative;
     margin: 10px 5px;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     display: inline-block;
     -webkit-border-radius: 20px;
@@ -166,7 +166,7 @@ tr.sub-row {
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     color: #f2f2f2;
-    font-size: 50px;
+    font-size: 80px;
     cursor: pointer;
 }
 
@@ -184,4 +184,14 @@ tr.sub-row {
 
 .owl-nav {
     text-align: center;
+}
+
+.pages {
+    margin-bottom: 0;
+    margin-top: 15px;
+}
+
+.pages li {
+    display: inline-block;
+    margin: 0 3px;
 }

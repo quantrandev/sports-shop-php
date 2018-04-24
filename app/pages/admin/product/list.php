@@ -1,22 +1,34 @@
 <?php
 session_start();
-include '../templates/head.php';
-include '../templates/navigation.php';
-include '../templates/sidebar.php';
 
 include '../../../services/connection.php';
 include '../../../services/productService.php';
 include '../../../services/categoryService.php';
 include '../../../services/imageService.php';
 include '../../../constants.php';
-
+$searchCategories = empty($_GET["category"]) ? array() : $_GET["category"];
 $categoryService = new CategoryService($conn);
 $menus = $categoryService::menus($categoryService->allIncludedInactive());
 
 $productService = new ProductService($conn);
-$results = $productService->search(1, 10, $_GET);
+$result = $productService->search(empty($_GET["page"]) ? 1 : $_GET["page"], 10, $_GET);
 
-$products = $results["products"];
+$products = $result["products"];
+$count = $result["count"];
+
+$page = empty($_GET["page"]) ? 1 : $_GET["page"];
+$queryStringArr = array();
+parse_str($_SERVER["QUERY_STRING"], $queryStringArr);
+unset($queryStringArr["page"]);
+$queryString = http_build_query($queryStringArr);
+
+include '../../../services/userService.php';
+$userService = new UserService($conn);
+
+include '../templates/head.php';
+include '../templates/navigation.php';
+include '../templates/sidebar.php';
+
 ?>
 
 <div class="main-content">
@@ -30,15 +42,6 @@ $products = $results["products"];
                 <li class="active">Quản lý sản phẩm</li>
             </ul><!-- /.breadcrumb -->
 
-            <div class="nav-search" id="nav-search">
-                <form class="form-search">
-								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input"
-                                           id="nav-search-input" autocomplete="off"/>
-									<i class="ace-icon fa fa-search nav-search-icon"></i>
-								</span>
-                </form>
-            </div><!-- /.nav-search -->
         </div>
 
         <div class="page-content">
@@ -54,10 +57,10 @@ $products = $results["products"];
 
             <!--page content-->
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-6 p-0">
                     <div class="clear-fix">
                         <form action="" class="col-md-12 p-0" id="frm-search">
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <label for="">Danh mục</label>
                                 <div>
                                     <select name="category[]" class="form-control multiselect-category" multiple>
@@ -65,14 +68,29 @@ $products = $results["products"];
                                             <optgroup label="<?php echo $category->name ?>"></optgroup>
                                             <?php if (count($category->children) > 0): ?>
                                                 <?php foreach ($category->children as $child): ?>
-                                                    <option value="<?php echo $child->id ?>"><?php echo $child->name; ?></option>
+                                                    <?php if (in_array($child->id, $searchCategories)): ?>
+                                                        <option value="<?php echo $child->id ?>"
+                                                                selected><?php echo $child->name; ?></option>
+                                                    <?php else: ?>
+                                                        <option value="<?php echo $child->id ?>"><?php echo $child->name; ?></option>
+                                                    <?php endif; ?>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
-                                                <option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+                                                <?php if (in_array($category->id, $searchCategories)): ?>
+                                                    <option value="<?php echo $category->id ?>"
+                                                            selected><?php echo $category->name; ?></option>
+                                                <?php else: ?>
+                                                    <option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+                                                <?php endif; ?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="">Tên sản phẩm</label>
+                                <input type="text" class="form-control" name="name"
+                                       value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ''; ?>">
                             </div>
                             <div class="col-md-2">
                                 <label for="" class="visible-hidden">dsadsa</label>
@@ -86,13 +104,74 @@ $products = $results["products"];
                         </form>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-1">
                     <label for="" class="visible-hidden">dsadsa</label>
                     <div class="form-group">
                         <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">
                             <i class="fa fa-trash"></i>
                             Xóa
                         </button>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="pull-right">
+                        <label for="" class="visible-hidden">dsa</label>
+                        <ul class="pages">
+                            <li><span class="text-uppercase">Page:</span></li>
+                            <li class="<?php if ($page == 1) echo 'hide'; ?>">
+                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page - 1); ?>">
+                                    <i class="fa fa-caret-left"></i>
+                                </a>
+                            </li>
+                            <?php if (ceil($count / 12) < 20): ?>
+                                <?php for ($i = 1; $i <= ceil($count / 12); $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            <?php else: ?>
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                                <li class="active">...</li>
+                                <?php for ($i = 6; $i <= ceil($count / 12) - 5; $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                        <li class="active">...</li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                                <?php for ($i = ceil($count / 12) - 4; $i <= ceil($count / 12); $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            <?php endif; ?>
+                            <li class="<?php if ($page == ceil($count / 12)) echo 'hide'; ?>">
+                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page + 1); ?>">
+                                    <i class="fa fa-caret-right"></i>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -126,7 +205,7 @@ $products = $results["products"];
                                 </td>
                                 <td class="p-name"><?php echo $product->name; ?></td>
                                 <td class="p-old-price"><?php echo empty($product->oldPrice) ? number_format($product->currentPrice) . " đ" : number_format($product->oldPrice) . " đ"; ?></td>
-                                <td class="p-current-price"><?php echo empty($product->oldPrice) ? '<span>Không có</span>' : number_format($product->currentPrice) . " đ" ?></td>
+                                <td class="p-current-price"><?php echo empty($product->oldPrice) ? '<span class="text-danger">Không có</span>' : number_format($product->currentPrice) . " đ" ?></td>
                                 <td class="text-center">
                                     <div class="hidden-sm hidden-xs btn-group">
                                         <button class="btn btn-xs btn-primary js-view-images">
@@ -151,7 +230,7 @@ $products = $results["products"];
                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                             Sửa
                                         </button>
-                                        <button class="btn btn-xs btn-danger">
+                                        <button class="btn btn-xs btn-danger js-delete-product">
                                             <i class="ace-icon fa fa-trash bigger-120"></i>
                                             Xóa
                                         </button>
@@ -161,6 +240,66 @@ $products = $results["products"];
                         <?php endforeach; ?>
                         </tbody>
                     </table>
+                </div>
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <ul class="pages">
+                            <li><span class="text-uppercase">Page:</span></li>
+                            <li class="<?php if ($page == 1) echo 'hide'; ?>">
+                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page - 1); ?>">
+                                    <i class="fa fa-caret-left"></i>
+                                </a>
+                            </li>
+                            <?php if (ceil($count / 12) < 20): ?>
+                                <?php for ($i = 1; $i <= ceil($count / 12); $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            <?php else: ?>
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                                <li class="active">...</li>
+                                <?php for ($i = 6; $i <= ceil($count / 12) - 5; $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                        <li class="active">...</li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                                <?php for ($i = ceil($count / 12) - 4; $i <= ceil($count / 12); $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            <?php endif; ?>
+                            <li class="<?php if ($page == ceil($count / 12)) echo 'hide'; ?>">
+                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page + 1); ?>">
+                                    <i class="fa fa-caret-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div><!-- /.page-content -->
@@ -259,21 +398,22 @@ $products = $results["products"];
                 <form action="" class="form-horizontal">
                     <input type="hidden" id="productId">
                     <div class="form-group">
-                        <label for="" class="col-md-2 control-label">Tên sản phẩm</label>
+                        <label for="" class="col-md-2 control-label">Tên sản phẩm *</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="productName">
+                            <input type="text" class="form-control" id="productName" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="" class="col-md-2 control-label">Giá gốc</label>
+                        <label for="" class="col-md-2 control-label">Giá gốc *</label>
                         <div class="col-md-10">
-                            <input type="number" class="form-control" id="productOldPrice">
+                            <input type="number" class="form-control" id="productOldPrice" min="500" step="500"
+                                   required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="" class="col-md-2 control-label">Giá khuyến mãi</label>
                         <div class="col-md-10">
-                            <input type="number" class="form-control" id="productCurrentPrice">
+                            <input type="number" class="form-control" id="productCurrentPrice" min="500" step="500">
                         </div>
                     </div>
                     <div class="form-group">

@@ -8,6 +8,7 @@ var productController = {
         productController.categoryModal = $('#category-modal');
         productController.productModal = $('#product-modal');
         productController.deletedImages = [];
+        productController.registerConfirmations();
         productController.events();
     },
     events: function () {
@@ -20,6 +21,22 @@ var productController = {
         productController.onSaveCategoryChange();
         productController.onEditProduct();
         productController.onSaveProductChange();
+    },
+    registerConfirmations: function () {
+        $('.js-delete-product').confirmation({
+            rootSelector: '.js-delete-product',
+            title: 'Xóa sản phẩm này',
+            singleton: true,
+            popout: true,
+            onConfirm: productController.deleteCategory
+        });
+        $('.js-batch-delete').confirmation({
+            rootSelector: '.js-batch-delete',
+            title: 'Xóa những sản phẩm đã chọn',
+            singleton: true,
+            popout: true,
+            onConfirm: productController.batchDeleteCategory
+        });
     },
     onViewImages: function () {
         $(document).on('click', '.js-view-images', function () {
@@ -154,7 +171,10 @@ var productController = {
 
                 if (!res.error) {
                     let updatedRow = $('#products-table').find('tr[data-product-id=' + editData.id + ']');
-
+                    updatedRow.find('td.p-name').text(editData.data.name);
+                    updatedRow.find('td.p-old-price').text(editData.data.oldPrice === 0 ? editData.data.currentPrice : editData.data.oldPrice);
+                    updatedRow.find('td.p-current-price').text(editData.data.oldPrice === 0 ? '<span class="text-danger">Không có</span>' : editData.data.currentPrice);
+                    productController.productModal.modal('hide');
                     utilities.notify('Thông báo', 'Đã cập nhật thành công', 'gritter-success', false);
                 }
                 else
@@ -184,7 +204,7 @@ var productController = {
         let imagesTrack = productController.imagesModalDOM.find('.images-track');
         let totalWidth = 0;
         productController.imagesModalDOM.find('.image-wrapper').each(function (index, value) {
-            totalWidth += 220;
+            totalWidth += 170;
         });
 
         imagesTrack.width(totalWidth);

@@ -1,8 +1,5 @@
 <?php
 session_start();
-include '../templates/head.php';
-include '../templates/navigation.php';
-include '../templates/sidebar.php';
 
 include '../../../services/connection.php';
 include '../../../services/orderService.php';
@@ -14,7 +11,25 @@ $get_date_range = isset($_GET["range"]) ? $_GET["range"] : null;
 
 $orderService = new OrderService($conn);
 
-$orders = $orderService->all($_GET);
+$result = $orderService->all(empty($_GET["page"]) ? 1 : $_GET["page"], 10, $_GET);
+
+$orders = $result["orders"];
+$count = $result["count"];
+
+$page = empty($_GET["page"]) ? 1 : $_GET["page"];
+$queryStringArr = array();
+parse_str($_SERVER["QUERY_STRING"], $queryStringArr);
+unset($queryStringArr["page"]);
+$queryString = http_build_query($queryStringArr);
+
+include '../../../services/userService.php';
+include '../../../constants.php';
+$userService = new UserService($conn);
+
+include '../templates/head.php';
+include '../templates/navigation.php';
+include '../templates/sidebar.php';
+
 ?>
 
 <div class="main-content">
@@ -52,88 +67,163 @@ $orders = $orderService->all($_GET);
 
             <!--page content-->
             <div class="row">
-                <div class="clear-fix">
-                    <form action="" class="col-md-12 p-0" id="frm-search">
-                        <div class="col-md-2">
-                            <label for="">Mã đơn hàng</label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="code" placeholder="Nhập mã đơn hàng ..."
-                                       value="<?php echo $get_code; ?>">
+                <div class="col-md-12 p-0 m-b-15">
+                    <div class="col-md-12 p-0">
+                        <form action="" class="col-md-12 p-0" id="frm-search">
+                            <div class="col-md-2">
+                                <label for="">Mã đơn hàng</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="code"
+                                           placeholder="Nhập mã đơn hàng ..."
+                                           value="<?php echo $get_code; ?>">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="">Tên khách hàng</label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="customerName"
-                                       placeholder="Nhập tên khách hàng ..."
-                                       value="<?php echo $get_name; ?>">
+                            <div class="col-md-2">
+                                <label for="">Tên khách hàng</label>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="customerName"
+                                           placeholder="Nhập tên khách hàng ..."
+                                           value="<?php echo $get_name; ?>">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="">Thời gian</label>
-                                <div class="input-group">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="">Thời gian</label>
+                                    <div class="input-group">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar bigger-110"></i>
                                     </span>
-                                    <input class="form-control" type="text" name="range"
-                                           id="date-range-picker"
-                                           value="<?php echo $get_date_range; ?>"/>
+                                        <input class="form-control" type="text" name="range"
+                                               id="date-range-picker"
+                                               value="<?php echo $get_date_range; ?>"/>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-md-2">
+                                <label for="">Trạng thái</label>
+                                <div class="form-group">
+                                    <select name="shippingStatus" class="form-control">
+                                        <option value>Tất cả</option>
+                                        <option value="<?php echo $constants["shippingStatus"]["placed"] ?>"
+                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["placed"] ? 'selected' : ''; ?>>
+                                            Mới đặt hàng
+                                        </option>
+                                        <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>"
+                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["onProgress"] ? 'selected' : ''; ?>>
+                                            Đang đóng
+                                            gói
+                                        </option>
+                                        <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>"
+                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["shipped"] ? 'selected' : ''; ?>>
+                                            Đang vận
+                                            chuyển
+                                        </option>
+                                        <option value="<?php echo $constants["shippingStatus"]["done"] ?>"
+                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["done"] ? 'selected' : ''; ?>>
+                                            Đã nhận hàng
+                                        </option>
+                                        <option value="<?php echo $constants["shippingStatus"]["returned"] ?>"
+                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["returned"] ? 'selected' : ''; ?>>
+                                            Đã trả hàng
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="" class="visible-hidden">dsadsa</label>
+                                <div class="form-group">
+                                    <button class="btn btn-sm btn-primary">
+                                        <i class="fa fa-search"></i>
+                                        Tìm kiếm
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <label for="" class="visible-hidden">dsadsa</label>
+                                <div class="form-group">
+                                    <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">
+                                        <i class="fa fa-trash"></i>
+                                        Xóa
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-12 p-0">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary btn-sm">
+                                <i class="fa fa-print m-r-5"></i>
+                                In
+                            </button>
+                            <button class="btn btn-success btn-sm">
+                                <i class="fa fa-file-excel-o m-r-5"></i>
+                                Excel
+                            </button>
                         </div>
-                        <div class="col-md-2">
-                            <label for="">Trạng thái</label>
-                            <div class="form-group">
-                                <select name="shippingStatus" class="form-control">
-                                    <option value>Tất cả</option>
-                                    <option value="<?php echo $constants["shippingStatus"]["placed"] ?>"
-                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["placed"] ? 'selected' : ''; ?>>
-                                        Mới đặt hàng
-                                    </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>"
-                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["onProgress"] ? 'selected' : ''; ?>>
-                                        Đang đóng
-                                        gói
-                                    </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>"
-                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["shipped"] ? 'selected' : ''; ?>>
-                                        Đang vận
-                                        chuyển
-                                    </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["done"] ?>"
-                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["done"] ? 'selected' : ''; ?>>
-                                        Đã nhận hàng
-                                    </option>
-                                    <option value="<?php echo $constants["shippingStatus"]["returned"] ?>"
-                                        <?php echo $get_shipping_status == $constants["shippingStatus"]["returned"] ? 'selected' : ''; ?>>
-                                        Đã trả hàng
-                                    </option>
-                                </select>
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <ul class="pages">
+                                    <li><span class="text-uppercase">Page:</span></li>
+                                    <li class="<?php if ($page == 1) echo 'hide'; ?>">
+                                        <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page - 1); ?>">
+                                            <i class="fa fa-caret-left"></i>
+                                        </a>
+                                    </li>
+                                    <?php if (ceil($count / 12) < 20): ?>
+                                        <?php for ($i = 1; $i <= ceil($count / 12); $i++): ?>
+                                            <?php if ($page == $i): ?>
+                                                <li class="active"><?php echo $i; ?></li>
+                                            <?php else: ?>
+                                                <li>
+                                                    <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                        <?php echo $i; ?>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    <?php else: ?>
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <?php if ($page == $i): ?>
+                                                <li class="active"><?php echo $i; ?></li>
+                                            <?php else: ?>
+                                                <li>
+                                                    <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                        <?php echo $i; ?>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                        <li class="active">...</li>
+                                        <?php for ($i = 6; $i <= ceil($count / 12) - 5; $i++): ?>
+                                            <?php if ($page == $i): ?>
+                                                <li class="active"><?php echo $i; ?></li>
+                                                <li class="active">...</li>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                        <?php for ($i = ceil($count / 12) - 4; $i <= ceil($count / 12); $i++): ?>
+                                            <?php if ($page == $i): ?>
+                                                <li class="active"><?php echo $i; ?></li>
+                                            <?php else: ?>
+                                                <li>
+                                                    <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                        <?php echo $i; ?>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                        <?php endfor; ?>
+                                    <?php endif; ?>
+                                    <li class="<?php if ($page == ceil($count / 12)) echo 'hide'; ?>">
+                                        <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page + 1); ?>">
+                                            <i class="fa fa-caret-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <label for="" class="visible-hidden">dsadsa</label>
-                            <div class="form-group">
-                                <button class="btn btn-sm btn-primary">
-                                    <i class="fa fa-search"></i>
-                                    Tìm kiếm
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-md-1">
-                            <label for="" class="visible-hidden">dsadsa</label>
-                            <div class="form-group">
-                                <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">
-                                    <i class="fa fa-trash"></i>
-                                    Xóa
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="col-md-12">
-                    <table id="orders-table" class="table table-bordered table-hover">
+                    <table id="orders-table" class="table table-bordered table-hover m-0">
                         <thead>
                         <tr>
                             <th class="center">
@@ -254,6 +344,66 @@ m-r-5"
                         <?php endif; ?>
                         </tbody>
                     </table>
+                </div>
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <ul class="pages">
+                            <li><span class="text-uppercase">Page:</span></li>
+                            <li class="<?php if ($page == 1) echo 'hide'; ?>">
+                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page - 1); ?>">
+                                    <i class="fa fa-caret-left"></i>
+                                </a>
+                            </li>
+                            <?php if (ceil($count / 12) < 20): ?>
+                                <?php for ($i = 1; $i <= ceil($count / 12); $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            <?php else: ?>
+                                <?php for ($i = 1; $i <= 5; $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                                <li class="active">...</li>
+                                <?php for ($i = 6; $i <= ceil($count / 12) - 5; $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                        <li class="active">...</li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                                <?php for ($i = ceil($count / 12) - 4; $i <= ceil($count / 12); $i++): ?>
+                                    <?php if ($page == $i): ?>
+                                        <li class="active"><?php echo $i; ?></li>
+                                    <?php else: ?>
+                                        <li>
+                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                <?php echo $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            <?php endif; ?>
+                            <li class="<?php if ($page == ceil($count / 12)) echo 'hide'; ?>">
+                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page + 1); ?>">
+                                    <i class="fa fa-caret-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 

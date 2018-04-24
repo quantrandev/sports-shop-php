@@ -1,8 +1,5 @@
 <?php
 session_start();
-include '../templates/head.php';
-include '../templates/navigation.php';
-include '../templates/sidebar.php';
 
 include '../../../services/connection.php';
 include '../../../services/productService.php';
@@ -18,6 +15,15 @@ if (isset($_POST["btnSubmit"])) {
         $_SESSION["flashMessage"] = "Đã thêm thành công sản phẩm " . $_POST["name"];
     }
 }
+
+include '../../../services/userService.php';
+$userService = new UserService($conn);
+
+
+include '../templates/head.php';
+include '../templates/navigation.php';
+include '../templates/sidebar.php';
+
 ?>
 
 <div class="main-content">
