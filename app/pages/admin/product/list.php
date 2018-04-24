@@ -110,8 +110,8 @@ $products = $results["products"];
                             <th>Tên sản phẩm</th>
                             <th>Giá gốc</th>
                             <th>Giá khuyến mãi</th>
-                            <th>Mô tả</th>
                             <th>Ảnh</th>
+                            <th>Danh mục</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -124,17 +124,9 @@ $products = $results["products"];
                                         <span class="lbl"></span>
                                     </label>
                                 </td>
-                                <td><?php echo $product->name; ?></td>
-                                <td><?php echo empty($product->oldPrice) ? number_format($product->currentPrice) . " đ" : number_format($product->oldPrice) . " đ"; ?></td>
-                                <td><?php echo empty($product->oldPrice) ? '<span>Không có</span>' : number_format($product->currentPrice) . " đ" ?></td>
-                                <td class="text-center">
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-primary">
-                                            <i class="fa fa-pencil m-r-5"></i>
-                                            Mô tả
-                                        </button>
-                                    </div>
-                                </td>
+                                <td class="p-name"><?php echo $product->name; ?></td>
+                                <td class="p-old-price"><?php echo empty($product->oldPrice) ? number_format($product->currentPrice) . " đ" : number_format($product->oldPrice) . " đ"; ?></td>
+                                <td class="p-current-price"><?php echo empty($product->oldPrice) ? '<span>Không có</span>' : number_format($product->currentPrice) . " đ" ?></td>
                                 <td class="text-center">
                                     <div class="hidden-sm hidden-xs btn-group">
                                         <button class="btn btn-xs btn-primary js-view-images">
@@ -145,7 +137,16 @@ $products = $results["products"];
                                 </td>
                                 <td class="text-center">
                                     <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-info"
+                                        <button class="btn btn-xs btn-primary js-edit-category"
+                                                data-category-id="<?php echo $product->categoryId; ?>">
+                                            <i class="fa fa-bars m-r-5"></i>
+                                            Danh mục
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="hidden-sm hidden-xs btn-group">
+                                        <button class="btn btn-xs btn-info js-edit"
                                                 data-id="<?php echo $product->id; ?>">
                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                             Sửa
@@ -205,13 +206,100 @@ $products = $results["products"];
     </div>
 </div>
 
+<div id="category-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thay đổi danh mục</h4>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <input type="hidden" id="productId">
+                    <input type="hidden" id="currentCategory">
+                    <div class="form-group">
+                        <label for="">Danh mục mới</label>
+                        <select id="js-sl-category" class="form-control">
+                            <?php foreach ($menus as $category): ?>
+                                <optgroup label="<?php echo $category->name ?>"></optgroup>
+                                <?php if (count($category->children) > 0): ?>
+                                    <?php foreach ($category->children as $child): ?>
+                                        <option value="<?php echo $child->id ?>"><?php echo $child->name; ?></option>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                    </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="product-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thông tin sản phẩm</h4>
+            </div>
+            <div class="modal-body">
+                <form action="" class="form-horizontal">
+                    <input type="hidden" id="productId">
+                    <div class="form-group">
+                        <label for="" class="col-md-2 control-label">Tên sản phẩm</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="productName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-2 control-label">Giá gốc</label>
+                        <div class="col-md-10">
+                            <input type="number" class="form-control" id="productOldPrice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-2 control-label">Giá khuyến mãi</label>
+                        <div class="col-md-10">
+                            <input type="number" class="form-control" id="productCurrentPrice">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-2 control-label">Mô tả</label>
+                        <div class="col-md-10">
+                            <textarea id="productDescription"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                    </button>
+            </div>
+        </div>
+
+    </div>
+</div>
 <?php
 include '../templates/footer.php';
 ?>
 
 <script>
-    // let editor = CKEDITOR.replace('txtDescription');
-    // CKFinder.setupCKEditor(editor);
+    let editor = CKEDITOR.replace('productDescription');
+    CKFinder.setupCKEditor(editor);
 </script>
 <script src="/sports-shop-final/assets/admin/js/dropzone-init.js"></script>
 <script src="/sports-shop-final/assets/admin/js/services/productService.js"></script>

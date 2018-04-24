@@ -188,6 +188,58 @@ class ProductService
         return $error;
     }
 
+    public function updateImages($id, $data)
+    {
+        $addedImages = $data["addedImages"];
+        $deletedImages = empty($data["deletedImages"]) ? array() : $data["deletedImages"];
+
+        $error = false;
+        if (!empty($addedImages)) {
+            $query = "insert into images (source, productId) values ";
+            $images = explode(",", $addedImages);
+            foreach ($images as $image) {
+                $query .= "('/images/products/new/" . $image . "', " . $id . "),";
+            }
+            $query = substr($query, 0, strlen($query) - 1);
+            $result = $this->db->exec($query);
+            $error = empty($result) ? true : $error;
+        }
+
+        if (!empty($deletedImages)) {
+            $query = "delete from images where id in (";
+            foreach ($deletedImages as $image) {
+                $query .= $image . ",";
+            }
+            $query = substr($query, 0, strlen($query) - 1) . ")";
+            $result = $this->db->exec($query);
+            $error = empty($result) ? true : $error;
+        }
+
+        return $error;
+    }
+
+    public function update($id, $data)
+    {
+        $columns = $data["data"];
+
+        $sql = "update products set ";
+
+        if (!empty($columns["categoryId"]))
+            $sql .= "categoryId = " . $columns["categoryId"] . ",";
+        if (!empty($columns["name"]))
+            $sql .= "name = N'" . $columns["name"] . "',";
+        if (!empty($columns["oldPrice"]))
+            $sql .= "oldPrice = " . $columns["oldPrice"] . ",";
+        if (!empty($columns["currentPrice"]))
+            $sql .= "currentPrice = " . $columns["currentPrice"] . ",";
+        if (!empty($columns["description"]))
+            $sql .= "description = '" . $columns["description"] . "',";
+
+        $sql = substr($sql, 0, strlen($sql) - 1) . " where id = '" . $id . "'";
+        $result = $this->db->exec($sql);
+        return empty($result) ? false : true;
+    }
+
     //helpers
     public function buildNameQuery($condition)
     {

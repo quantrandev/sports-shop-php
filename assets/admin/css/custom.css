@@ -138,10 +138,8 @@ tr.sub-row {
     -moz-border-radius: 20px;
     border-radius: 20px;
     user-select: none;
-}
-
-.image-wrapper img {
-    max-width: 100%;
+    background-position: center;
+    background-size: cover;
 }
 
 .image-wrapper .btn-delete {
