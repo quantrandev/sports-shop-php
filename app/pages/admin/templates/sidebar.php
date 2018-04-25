@@ -50,7 +50,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
             }, $userRoles))): ?>
                 <li class="">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-desktop"></i>
+                        <i class="menu-icon fa fa-bars"></i>
                         <span class="menu-text">
 								Quản lý danh mục
 							</span>
@@ -62,6 +62,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
 
                     <ul class="submenu">
                         <li class="">
+
                             <a href="/sports-shop-final/app/pages/admin/category/add.php">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Thêm danh mục
@@ -86,7 +87,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
             }, $userRoles))): ?>
                 <li class="">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-list"></i>
+                        <i class="menu-icon fa fa-soccer-ball-o"></i>
                         <span class="menu-text"> Quản lý sản phẩm </span>
 
                         <b class="arrow fa fa-angle-down"></b>
@@ -120,7 +121,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
             }, $userRoles))): ?>
                 <li class="">
                     <a href="/sports-shop-final/app/pages/admin/order/list.php">
-                        <i class="menu-icon fa fa-pencil-square-o"></i>
+                        <i class="menu-icon fa fa-file"></i>
                         <span class="menu-text"> Quản lý đơn hàng</span>
                     </a>
                 </li>
@@ -130,7 +131,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
             }, $userRoles))): ?>
                 <li class="">
                     <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-list"></i>
+                        <i class="menu-icon fa fa-user-circle-o"></i>
                         <span class="menu-text"> Quản lý người dùng </span>
 
                         <b class="arrow fa fa-angle-down"></b>
@@ -140,7 +141,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
 
                     <ul class="submenu">
                         <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/product/add.php">
+                            <a href="/sports-shop-final/app/pages/admin/user/add.php">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Thêm người dùng
                             </a>
@@ -149,7 +150,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
                         </li>
 
                         <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/product/list.php">
+                            <a href="/sports-shop-final/app/pages/admin/user/list.php">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Danh sách người dùng
                             </a>
@@ -158,7 +159,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
                         </li>
 
                         <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/product/list.php">
+                            <a href="/sports-shop-final/app/pages/admin/role/list.php">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Quản lý quyền
                             </a>
