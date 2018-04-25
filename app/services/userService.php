@@ -71,10 +71,12 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
 
     public function isAuthorize($role)
     {
-        $userName = $_SESSION["user"];
+        $userName = unserialize($_SESSION["user"])["userName"];
         $currentUserRoles = $this->getRoles($userName);
 
-        if (in_array($role, $currentUserRoles))
+        if (in_array($role, array_map(function ($value) {
+            return $value["name"];
+        }, $currentUserRoles)))
             return true;
 
         return false;
@@ -124,6 +126,37 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
         return $result;
     }
 
+    public function update($userName, $data)
+    {
+        $sql = "update users set ";
+
+        if (!empty($data["firstName"]))
+            $sql .= "firstName = N'" . $data["firstName"] . "',";
+        if (!empty($data["lastName"]))
+            $sql .= "lastName = N'" . $data["lastName"] . "',";
+        if (!empty($data["password"]))
+            $sql .= "password = '" . $data["password"] . "',";
+
+        $sql = substr($sql, 0, strlen($sql) - 1) . " where userName = '" . $userName . "'";
+        $result = $this->db->exec($sql);
+        return true;
+    }
+
+    public function updateRoles($userName, $roles)
+    {
+        $error = false;
+        $deleteQuery = "delete from user_roles where userId = '" . $userName . "'";
+        $result = $this->db->exec($deleteQuery);
+        if (empty($result))
+            $error = true;
+
+        $result = $this->attachRoles($userName, $roles);
+        if (!$result)
+            $error = true;
+
+        return !$error;
+    }
+
     public function attachRoles($userName, $roles)
     {
         if (empty($roles))
@@ -169,6 +202,22 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
             array_push($users, $user);
         }
         return $users;
+    }
+
+    public function getUser($userName)
+    {
+        $query = "select * from users where userName = '" . $userName . "'";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+
+        $data = $stmt->fetch();
+        $user = new UserViewModel();
+        $user->userName = $data["userName"];
+        $user->firstName = $data["firstName"];
+        $user->lastName = $data["lastName"];
+        $user->roles = $this->getRoles($data["userName"]);
+
+        return $user;
     }
 
     //helpers

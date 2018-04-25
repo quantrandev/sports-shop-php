@@ -7,6 +7,10 @@ body, h1, h2, h3, h4, h5, h6 {
     font-family: myFont !important;
 }
 
+.label {
+    display: inline !important;
+}
+
 tr.detail-row > td {
     padding: 10px 10px 10px 30px !important;
 }

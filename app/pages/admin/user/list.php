@@ -8,10 +8,36 @@ include '../../../services/roleService.php';
 include '../../../services/userService.php';
 include '../../../constants.php';
 $userService = new UserService($conn);
+
+if (!$userService->isAuthenticate())
+    header("Location: ../../authentication/login.php");
+if (!$userService->isAuthorize('Quản lý người dùng'))
+    header("Location: ../../authentication/login.php");
+
 $allRoles = $userService->getAllRoles();
 
 $rolesFromClient = isset($_GET["role"]) ? $_GET["role"] : array();
 $users = $userService->getUsers($rolesFromClient);
+
+if ($_SERVER["REQUEST_METHOD"] == 'POST') {
+    $userName = $_POST["userName"];
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $roles = $_POST["role"];
+
+    $updateInfoResult = $userService->update($userName, array(
+        "firstName" => $firstName,
+        "lastName" => $lastName
+    ));
+    $error = $updateInfoResult ? false : true;
+    $updateRolesResult = $userService->updateRoles($userName, $roles);
+    $error = $updateInfoResult ? $error : true;
+
+    if ($error)
+        $_SESSION["errorMessage"] = "Có lỗi xảy ra, vui lòng thử lại";
+    else
+        $_SESSION["flashMessage"] = "Cập nhật thành công";
+}
 
 include '../templates/head.php';
 include '../templates/navigation.php';
@@ -52,6 +78,7 @@ include '../templates/sidebar.php';
                             <th>Tên</th>
                             <th>Họ</th>
                             <th>Quyền</th>
+                            <th>Mật khẩu</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -66,13 +93,23 @@ include '../templates/sidebar.php';
                                         <span class="label label-info m-r-5"><?php echo $role["name"]; ?></span>
                                     <?php endforeach; ?>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-info">
+                                        <a href="/sports-shop-final/app/pages/admin/user/changePassword.php?id=<?php echo $user->userName; ?>"
+                                           class="btn btn-xs btn-info">
+                                            <i class="ace-icon fa fa-key bigger-120"></i>
+                                            Mật khẩu
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div class="hidden-sm hidden-xs btn-group">
+                                        <a href="/sports-shop-final/app/pages/admin/user/edit.php?id=<?php echo $user->userName; ?>"
+                                           class="btn btn-xs btn-info">
                                             <i class="ace-icon fa fa-pencil bigger-120"></i>
                                             Sửa
-                                        </button>
-                                        <button class="btn btn-xs btn-danger">
+                                        </a>
+                                        <button class="btn btn-xs btn-danger js-delete-user">
                                             <i class="ace-icon fa fa-trash bigger-120"></i>
                                             Xóa
                                         </button>
@@ -89,10 +126,22 @@ include '../templates/sidebar.php';
     </div>
 </div>
 
-
 <?php
 include '../templates/footer.php';
 ?>
+<script>
+    $('.js-delete-user').confirmation({
+        rootSelector: '.js-delete-product',
+        title: 'Xóa người dùng này',
+        singleton: true,
+        popout: true,
+        onConfirm: deleteUser
+    });
+
+    function deleteUser(e) {
+        console.log(arguments);
+    }
+</script>
 
 <?php if (isset($_SESSION["flashMessage"])): ?>
     <script>

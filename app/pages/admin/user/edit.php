@@ -2,62 +2,42 @@
 session_start();
 
 include '../../../services/connection.php';
-include '../../../services/orderService.php';
 include '../../../constants.php';
 
 include '../../../services/userService.php';
+include '../../../viewModels/userViewModel.php';
 include '../../../constants.php';
 $userService = new UserService($conn);
+$allRoles = $userService->getAllRoles();
 
 if (!$userService->isAuthenticate())
     header("Location: ../../authentication/login.php");
 if (!$userService->isAuthorize('Quản lý người dùng'))
     header("Location: ../../authentication/login.php");
 
-$allRoles = $userService->getAllRoles();
+$editedUser = $userService->getUser($_GET["id"]);
 
-$confirmPasswordFailErrorMessage = "";
-$duplicateUserNameErrorMessage = "";
-$emptyErrorMessage = "";
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     $invalid = false;
 
     $userName = $_POST["userName"];
-    $password = $_POST["password"];
-    $confirmPassword = $_POST["confirmPassword"];
     $roles = empty($_POST["role"]) ? array() : $_POST["role"];
     $firstName = empty($_POST["firstName"]) ? '' : $_POST["firstName"];
     $lastName = empty($_POST["lastName"]) ? '' : $_POST["lastName"];
 
-    if (empty($userName) || empty($password) || empty($confirmPassword)) {
-        $emptyErrorMessage = "Vui lòng nhập đầy đủ thông tin";
-        $invalid = true;
-    }
+    $error = !$userService->update($userName, array(
+        "firstName" => $firstName,
+        "lastName" => $lastName
+    ));
 
-    if ($password != $confirmPassword) {
-        $confirmPasswordFailErrorMessage = "Mật khẩu nhập lại không khớp";
-        $invalid = true;
-    }
-    if ($userService->isDuplicateUserName($userName)) {
-        $duplicateUserNameErrorMessage = "Tên tài khoản đã tồn tại";
-        $invalid = true;
-    }
+    $updateRolesResult = $userService->updateRoles($userName, $roles);
+    $error = $updateRolesResult ? $error : true;
 
-    if (!$invalid) {
-        $error = !$userService->add(array(
-            "userName" => $userName,
-            "password" => $password,
-            "firstName" => $firstName,
-            "lastName" => $lastName
-        ));
-
-        $attachRolesResult = $userService->attachRoles($userName, $roles);
-        $error = $attachRolesResult ? $error : true;
-
-        if ($error)
-            $_SESSION["errorMessage"] = "Có lỗi xảy ra, vui lòng thử lại";
-        else
-            $_SESSION["flashMessage"] = "Thêm thành công người dùng mới";
+    if ($error)
+        $_SESSION["errorMessage"] = "Có lỗi xảy ra, vui lòng thử lại";
+    else{
+        $_SESSION["flashMessage"] = "Cập nhật thành công";
+        $editedUser = $userService->getUser($_GET["id"]);
     }
 }
 
@@ -85,15 +65,16 @@ include '../templates/sidebar.php';
                     Quản lý người dùng
                     <small>
                         <i class="ace-icon fa fa-angle-double-right"></i>
-                        Thêm người dùng
+                        Chỉnh sửa thông tin
                     </small>
                 </h1>
             </div><!-- /.page-header -->
 
             <!--page content-->
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <form action="" class="form-horizontal" method="post">
+                        <input type="hidden" name="userName" value="<?php echo $editedUser->userName; ?>">
                         <?php if (!empty($emptyErrorMessage)): ?>
                             <div class="form-group">
                                 <label for="" class="col-md-2 control-label"></label>
@@ -102,57 +83,41 @@ include '../templates/sidebar.php';
                                 </div>
                             </div>
                         <?php endif; ?>
-
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Tên đăng nhập *</label>
+                            <label for="" class="col-md-2 control-label">Tên</label>
                             <div class="col-md-4">
-                                <input type="text" class="form-control" name="userName" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="text-danger control-label"><?php echo $duplicateUserNameErrorMessage; ?></label>
+                                <input type="text" class="form-control" name="firstName"
+                                       value="<?php echo $editedUser->firstName; ?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Mật khẩu *</label>
+                            <label for="" class="col-md-2 control-label">Họ</label>
                             <div class="col-md-4">
-                                <input type="password" class="form-control" name="password" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Xác nhận mật khẩu *</label>
-                            <div class="col-md-4">
-                                <input type="password" class="form-control" name="confirmPassword" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="text-danger control-label"><?php echo $confirmPasswordFailErrorMessage; ?></label>
+                                <input type="text" class="form-control" name="lastName"
+                                       value="<?php echo $editedUser->lastName; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-md-2 control-label">Phân quyền</label>
                             <div class="col-md-4">
                                 <select name="role[]" class="multiselect-roles" multiple>
-                                    <?php foreach ($allRoles as $roles): ?>
-                                        <option value="<?php echo $roles["id"] ?>"><?php echo $roles["name"] ?></option>
+                                    <?php foreach ($allRoles as $role): ?>
+                                        <?php if (in_array($role["id"], array_map(function ($value) {
+                                            return $value["id"];
+                                        }, $editedUser->roles))): ?>
+                                            <option value="<?php echo $role["id"] ?>"
+                                                    selected><?php echo $role["name"] ?></option>
+                                        <?php else: ?>
+                                            <option value="<?php echo $role["id"] ?>"><?php echo $role["name"] ?></option>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Tên</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" name="firstName">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="" class="col-md-2 control-label">Họ</label>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" name="lastName">
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <label for="" class="col-md-2 control-label"></label>
                             <div class="col-md-4">
-                                <button class="btn btn-success" type="submit">Thêm người dùng</button>
+                                <button class="btn btn-success" type="submit">Cập nhật</button>
                             </div>
                         </div>
                     </form>

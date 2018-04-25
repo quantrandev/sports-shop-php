@@ -2,6 +2,15 @@
 session_start();
 
 include '../../../services/connection.php';
+
+include '../../../services/userService.php';
+include '../../../constants.php';
+$userService = new UserService($conn);
+if (!$userService->isAuthenticate())
+    header("Location: ../../authentication/login.php");
+if (!$userService->isAuthorize('Quản lý đơn hàng'))
+    header("Location: ../../authentication/login.php");
+
 include '../../../services/orderService.php';
 include '../../../constants.php';
 $get_name = isset($_GET["customerName"]) ? $_GET["customerName"] : null;
@@ -21,10 +30,6 @@ $queryStringArr = array();
 parse_str($_SERVER["QUERY_STRING"], $queryStringArr);
 unset($queryStringArr["page"]);
 $queryString = http_build_query($queryStringArr);
-
-include '../../../services/userService.php';
-include '../../../constants.php';
-$userService = new UserService($conn);
 
 include '../templates/head.php';
 include '../templates/navigation.php';

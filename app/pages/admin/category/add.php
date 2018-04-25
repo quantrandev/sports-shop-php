@@ -9,6 +9,11 @@ $categories = $categoryService::menus($categoryService->allIncludedInactive());
 include '../../../services/userService.php';
 include '../../../constants.php';
 $userService = new UserService($conn);
+if (!$userService->isAuthenticate())
+    header("Location: ../../authentication/login.php");
+
+if (!$userService->isAuthorize('Quản lý danh mục'))
+    header("Location: ../../authentication/login.php");
 
 include '../templates/head.php';
 include '../templates/navigation.php';

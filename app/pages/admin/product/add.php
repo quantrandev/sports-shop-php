@@ -19,6 +19,10 @@ if (isset($_POST["btnSubmit"])) {
 include '../../../services/userService.php';
 $userService = new UserService($conn);
 
+if (!$userService->isAuthenticate())
+    header("Location: ../../authentication/login.php");
+if (!$userService->isAuthorize('Quản lý sản phẩm'))
+    header("Location: ../../authentication/login.php");
 
 include '../templates/head.php';
 include '../templates/navigation.php';
