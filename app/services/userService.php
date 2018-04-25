@@ -137,24 +137,18 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
         if (!empty($data["password"]))
             $sql .= "password = '" . $data["password"] . "',";
 
-        $sql = substr($sql, 0, strlen($sql) - 1) . " where userName = '" . $userName . "'";
+        $sql = substr(trim($sql), 0, strlen($sql) - 1) . " where userName = '" . $userName . "'";
         $result = $this->db->exec($sql);
         return true;
     }
 
     public function updateRoles($userName, $roles)
     {
-        $error = false;
         $deleteQuery = "delete from user_roles where userId = '" . $userName . "'";
-        $result = $this->db->exec($deleteQuery);
-        if (empty($result))
-            $error = true;
+        $this->db->exec($deleteQuery);
+        $this->attachRoles($userName, $roles);
 
-        $result = $this->attachRoles($userName, $roles);
-        if (!$result)
-            $error = true;
-
-        return !$error;
+        return true;
     }
 
     public function attachRoles($userName, $roles)
@@ -166,7 +160,7 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
         foreach ($roles as $role) {
             $query .= "('" . $userName . "', " . $role . "),";
         }
-        $query = substr($query, 0, strlen($query) - 1);
+        $query = substr(trim($query), 0, strlen($query) - 1);
 
         $result = $this->db->exec($query);
 
@@ -184,7 +178,7 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
             foreach ($roles as $role) {
                 $query .= $roles . ",";
             }
-            $query = substr($query, 0, strlen($query) - 1) . ")";
+            $query = substr(trim($query), 0, strlen($query) - 1) . ")";
         }
 
         $stmt = $this->db->prepare($query);
@@ -230,8 +224,8 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
             $insertedColumns .= $key . ",";
             $insertedData .= $value . ",";
         }
-        $insertedColumns = substr($insertedColumns, 0, strlen($insertedColumns) - 1) . ")";
-        $insertedData = substr($insertedData, 0, strlen($insertedData) - 1) . ")";
+        $insertedColumns = substr(trim($insertedColumns), 0, strlen($insertedColumns) - 1) . ")";
+        $insertedData = substr(trim($insertedData), 0, strlen($insertedData) - 1) . ")";
 
         $query .= " " . $insertedColumns . " values " . $insertedData;
 

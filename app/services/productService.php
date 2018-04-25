@@ -200,7 +200,7 @@ class ProductService
             foreach ($images as $image) {
                 $query .= "('/images/products/new/" . $image . "', " . $id . "),";
             }
-            $query = substr($query, 0, strlen($query) - 1);
+            $query = substr(trim($query), 0, strlen($query) - 1);
             $result = $this->db->exec($query);
             $error = empty($result) ? true : $error;
         }
@@ -210,7 +210,7 @@ class ProductService
             foreach ($deletedImages as $image) {
                 $query .= $image . ",";
             }
-            $query = substr($query, 0, strlen($query) - 1) . ")";
+            $query = substr(trim($query), 0, strlen($query) - 1) . ")";
             $result = $this->db->exec($query);
             $error = empty($result) ? true : $error;
         }
@@ -235,7 +235,7 @@ class ProductService
         if (!empty($columns["description"]))
             $sql .= "description = '" . $columns["description"] . "',";
 
-        $sql = substr($sql, 0, strlen($sql) - 1) . " where id = '" . $id . "'";
+        $sql = substr(trim($sql), 0, strlen($sql) - 1) . " where id = '" . $id . "'";
         $result = $this->db->exec($sql);
         return empty($result) ? false : true;
     }
@@ -292,7 +292,7 @@ class ProductService
         foreach ($categoriesToQuery as $category) {
             $categoryQuery .= $category . ",";
         }
-        $categoryQuery = substr($categoryQuery, 0, strlen($categoryQuery) - 1) . ")";
+        $categoryQuery = substr(trim($categoryQuery), 0, strlen($categoryQuery) - 1) . ")";
         return $categoryQuery;
     }
 
@@ -325,8 +325,8 @@ class ProductService
             $insertedColumns .= $key . ",";
             $insertedData .= $value . ",";
         }
-        $insertedColumns = substr($insertedColumns, 0, strlen($insertedColumns) - 1) . ")";
-        $insertedData = substr($insertedData, 0, strlen($insertedData) - 1) . ")";
+        $insertedColumns = substr(trim($insertedColumns), 0, strlen($insertedColumns) - 1) . ")";
+        $insertedData = substr(trim($insertedData), 0, strlen($insertedData) - 1) . ")";
 
         $query .= " " . $insertedColumns . " values " . $insertedData;
 

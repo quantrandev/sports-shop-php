@@ -79,6 +79,7 @@ var productController = {
         productController.imagesModalDOM.on('hide.bs.modal', function () {
             for (let i = 0; i < files.length; i++) {
                 myDropzone.removeFile(files[i]);
+                productController.clearImages();
             }
         });
     },

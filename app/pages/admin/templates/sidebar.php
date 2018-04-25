@@ -37,7 +37,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
 
         <ul class="nav nav-list">
             <li class="active">
-                <a href="/admin">
+                <a href="/sports-shop-final/app/pages/admin/">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> Trang quản trị </span>
                 </a>
@@ -160,7 +160,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
                     </ul>
                 </li>
             <?php endif; ?>
-            <?php if (in_array('Quản lý đơn hàng', array_map(function ($value) {
+            <?php if (in_array('Quản lý quyền', array_map(function ($value) {
                 return $value["name"];
             }, $userRoles))): ?>
                 <li class="">

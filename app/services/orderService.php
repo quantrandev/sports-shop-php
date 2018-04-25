@@ -41,6 +41,7 @@ class OrderService
             "shippingMethod" => $cart->shippingMethod["id"],
             "payType" => $cart->payment["id"]
         ));
+
         $this->insert($query);
 
         //insert pivot table
@@ -170,11 +171,11 @@ class OrderService
         $insertedColumns = "(";
         $insertedData = "(";
         foreach ($columns as $key => $value) {
-            $insertedColumns .= $key . ", ";
-            $insertedData .= $value . ", ";
+            $insertedColumns .= $key . ",";
+            $insertedData .= $value . ",";
         }
-        $insertedColumns = substr($insertedColumns, 0, strlen($insertedColumns) - 1) . ")";
-        $insertedData = substr($insertedData, 0, strlen($insertedData) - 1) . ")";
+        $insertedColumns = substr(trim($insertedColumns), 0, strlen($insertedColumns) - 1) . ")";
+        $insertedData = substr(trim($insertedData), 0, strlen($insertedData) - 1) . ")";
 
         $query .= " " . $insertedColumns . " values " . $insertedData;
 
@@ -192,7 +193,7 @@ class OrderService
         foreach ($pivotData as $key => $value) {
             $query .= "('" . $order . "'," . $key . "," . $value . "),";
         }
-        $query = substr($query, 0, strlen($query) - 1);
+        $query = substr(trim($query), 0, strlen($query) - 1);
         return $query;
     }
 
@@ -217,7 +218,7 @@ class OrderService
         if (!empty($columns["note"]))
             $sql .= "note = '" . $columns["note"] . "',";
 
-        $sql = substr($sql, 0, strlen($sql) - 1) . " where code = '" . $id . "'";
+        $sql = substr(trim($sql), 0, strlen($sql) - 1) . " where code = '" . $id . "'";
         $result = $this->db->exec($sql);
         return empty($result) ? false : true;
     }
@@ -240,9 +241,9 @@ class OrderService
         if (!empty($deletedItems)) {
             $sql = "delete from order_details where orderId = '" . $id . "' and productId in(";
             foreach ($deletedItems as $item) {
-                $sql .= $item . ", ";
+                $sql .= $item . ",";
             }
-            $sql = substr($sql, 0, strlen($sql) - 1) . ")";
+            $sql = substr(trim($sql), 0, strlen($sql) - 1) . ")";
             $result = $this->db->exec($sql);
             $error = empty($result) ? true : $error;
         }
