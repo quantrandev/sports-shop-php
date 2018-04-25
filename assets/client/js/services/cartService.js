@@ -33,5 +33,23 @@ var cartService = {
             success: success,
             error: error
         });
+    },
+    like: function (productId, success, error) {
+        $.ajax({
+            url: '/sports-shop-final/app/controllers/cartController.php',
+            type: 'post',
+            data: {productId: productId, function: 'like'},
+            success: success,
+            error: error
+        });
+    },
+    view: function (productId, success, error) {
+        $.ajax({
+            url: '/sports-shop-final/app/controllers/cartController.php',
+            type: 'post',
+            data: {productId: productId, function: 'view'},
+            success: success,
+            error: error
+        });
     }
 }

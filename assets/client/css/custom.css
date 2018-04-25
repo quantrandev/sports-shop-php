@@ -2,6 +2,7 @@
     font-family: myBoldFont;
     src: url("../fonts/Roboto-Medium.ttf");
 }
+
 @font-face {
     font-family: myLightFont;
     src: url("../fonts/Roboto-Thin.ttf");
@@ -70,6 +71,7 @@ button {
 .shopping-cart-table td:first-child {
     min-width: 100px;
 }
+
 .shopping-cart-table td.details {
     min-width: 400px;
     padding-right: 20px;
@@ -82,4 +84,29 @@ button {
 .header-logo {
     position: relative;
     top: 5px
+}
+
+.js-likes.active {
+    color: #F8694A !important;
+}
+
+.m-r-5 {
+    margin-right: 5px;
+}
+
+.views-count {
+    color: #F8694A !important;
+}
+
+.likes-count {
+    color: dodgerblue !important;
+}
+
+.product-feature {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+    z-index: 1;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
 }

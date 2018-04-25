@@ -6,6 +6,7 @@ include '../services/cartService.php';
 session_start();
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 $cartService = new CartService($conn);
+$productService = new ProductService($conn);
 
 switch ($requestMethod) {
     case 'POST':
@@ -16,6 +17,12 @@ switch ($requestMethod) {
                 break;
             case 'setShippingMethod':
                 $responseData = $cartService->setShippingMethod($_POST);
+                break;
+            case 'like':
+                $responseData = $cartService->like($_POST["productId"]);
+                break;
+            case 'view':
+                $responseData = $cartService->view($_POST["productId"]);
                 break;
         }
         break;

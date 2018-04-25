@@ -136,6 +136,38 @@ class CartService
             "quantity" => $totalQuantity
         );
     }
+
+    public function like($productId)
+    {
+        $selectQuery = "select * from products where id = " . $productId;
+        $stmt = $this->db->prepare($selectQuery);
+        $stmt->execute();
+
+        $product = $stmt->fetch();
+
+        $newLikesCount = intval($product["likes"]) + 1;
+
+        $updateQuery = "update products set likes = " . $newLikesCount . " where id = " . $productId;
+        $this->db->exec($updateQuery);
+
+        return $newLikesCount;
+    }
+
+    public function view($productId)
+    {
+        $selectQuery = "select * from products where id = " . $productId;
+        $stmt = $this->db->prepare($selectQuery);
+        $stmt->execute();
+
+        $product = $stmt->fetch();
+
+        $newViewsCount = intval($product["views"]) + 1;
+
+        $updateQuery = "update products set views = " . $newViewsCount . " where id = " . $productId;
+        $this->db->exec($updateQuery);
+
+        return $newViewsCount;
+    }
 }
 
 ?>

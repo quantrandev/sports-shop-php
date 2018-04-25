@@ -14,6 +14,7 @@ var cartController = {
         cartController.onUpdateCart();
         cartController.onQuantityChange();
         cartController.onDeleteCartItem();
+        cartController.onLikes();
     },
     onAdd: function () {
         $(document).on('click', '.js-add-cart', function () {
@@ -105,6 +106,29 @@ var cartController = {
             });
         });
     },
+    onLikes: function () {
+        $(document).on('click', '.js-likes', function () {
+            let button = $(this);
+            let productId = button.attr('data-product-id');
+            cartController.animate(button.find('.fa'), 'zoomIn');
+            if (!button.hasClass('active'))
+                button.addClass('active');
+
+            cartService.like(productId, function (res) {
+                let likesCountDOM = button.closest('.product-single').find('.product-feature').find('.js-likes-count');
+                cartController.animate(likesCountDOM.prev(), 'tada');
+                likesCountDOM.text(res);
+            }, function (error) {
+            });
+
+            cartService.view(productId, function (res) {
+                let viewsCountDOM = button.closest('.product-single').find('.product-feature').find('.js-views-count');
+                cartController.animate(viewsCountDOM.prev(), 'tada');
+                viewsCountDOM.text(res);
+            }, function (error) {
+            });
+        });
+    },
     toggleButtonStatus: function (button, option, text) {
         switch (option) {
             case 'loading':
@@ -160,6 +184,9 @@ var cartController = {
         $('.billing-details').closest('div').remove();
     },
     animate: function (el, animationName) {
+        el.removeClass(animationName);
+        el.hide();
+        el.show();
         el.addClass("animated");
         el.addClass(animationName);
         el.hide();

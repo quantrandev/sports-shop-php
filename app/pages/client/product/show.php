@@ -63,6 +63,16 @@ include '../template/navigation.php';
                                     %
                                 </span>
                             <?php endif; ?>
+                            <div style="display: inline-block; margin-left: 10px;">
+                                <span class="m-r-5">
+                                    <i class="fa fa-thumbs-up likes-count"></i>
+                                    <span class="js-likes-count"><?php echo $product->likes; ?></span>
+                                </span>
+                                <span class="m-r-5">
+                                    <i class="fa fa-eye views-count"></i>
+                                    <span class="js-views-count"><?php echo $product->views; ?></span>
+                                </span>
+                            </div>
                         </div>
                         <h2 class="product-name"><?php echo $product->name ?></h2>
                         <h3 class="product-price">
@@ -120,3 +130,12 @@ include '../template/navigation.php';
 
 
 <?php include '../template/footer.php' ?>
+
+<script>
+    let productId = "<?php echo $_GET["id"];?>";
+    cartService.view(productId, function (res) {
+        let viewsCountDOM = $('.js-views-count');
+        viewsCountDOM.text(res);
+    }, function (error) {
+    });
+</script>

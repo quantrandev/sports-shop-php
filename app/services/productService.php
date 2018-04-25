@@ -11,6 +11,8 @@ class ProductViewModel
     public $quantity;
     public $createdDate;
     public $categoryId;
+    public $likes;
+    public $views;
 
     public function __construct($args)
     {
@@ -22,6 +24,8 @@ class ProductViewModel
         $this->quantity = $args["quantity"];
         $this->createdDate = $args["createdDate"];
         $this->categoryId = $args["categoryId"];
+        $this->likes = $args["likes"];
+        $this->views = $args["views"];
     }
 
     public function setImages($image)

@@ -194,6 +194,16 @@ include '../template/navigation.php';
                                                         %</span>
                                                 <?php endif; ?>
                                             </div>
+                                            <div class="product-feature" style="display: inline-block">
+                                                <span class="m-r-5">
+                                                    <i class="fa fa-thumbs-up likes-count"></i>
+                                                    <span class="js-likes-count"><?php echo $product->likes; ?></span>
+                                                </span>
+                                                <span class="m-r-5">
+                                                    <i class="fa fa-eye views-count"></i>
+                                                    <span class="js-views-count"><?php echo $product->views; ?></span>
+                                                </span>
+                                            </div>
                                             <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>"
                                                class="main-btn quick-view"><i class="fa fa-search-plus"></i>
                                                 Phóng to
@@ -211,10 +221,14 @@ include '../template/navigation.php';
                                                     </del>
                                                 <?php endif; ?>
                                             </h3>
-                                            <h2 class="product-name"><a
+                                            <h2 class="product-name" data-product-id="<?php echo $product->id; ?>"><a
                                                         href="/sports-shop-final/app/pages/client/product/show.php?id=<?php echo $product->id; ?>"><?php echo $product->name; ?></a>
                                             </h2>
                                             <div class="product-btns text-center">
+                                                <button class="main-btn icon-btn js-likes"
+                                                        data-product-id="<?php echo $product->id; ?>"><i
+                                                            class="fa fa-heart"></i>
+                                                </button>
                                                 <button class="primary-btn js-add-cart"
                                                         data-id="<?php echo $product->id; ?>"
                                                         data-name="<?php echo $product->name; ?>">
