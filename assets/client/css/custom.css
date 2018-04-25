@@ -10,6 +10,7 @@
 
 body {
     font-family: myBoldFont !important;
+    font-size: 13px !important;
 }
 
 button {
@@ -86,20 +87,33 @@ button {
     top: 5px
 }
 
-.js-likes.active {
-    color: #F8694A !important;
-}
-
 .m-r-5 {
     margin-right: 5px;
 }
 
 .views-count {
     color: #F8694A !important;
+    user-select: none;
+    font-size: 16px;
 }
 
 .likes-count {
     color: dodgerblue !important;
+    cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+}
+
+.likes-count:hover {
+    transform: scale(1.3);
+}
+
+.likes-count:active {
+    color: deepskyblue;
+}
+
+.js-likes-count {
+    display: inline-block;
 }
 
 .product-feature {
@@ -109,4 +123,5 @@ button {
     padding: 5px;
     z-index: 1;
     background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+    user-select: none;
 }

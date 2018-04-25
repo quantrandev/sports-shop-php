@@ -110,21 +110,15 @@ var cartController = {
         $(document).on('click', '.js-likes', function () {
             let button = $(this);
             let productId = button.attr('data-product-id');
-            cartController.animate(button.find('.fa'), 'zoomIn');
-            if (!button.hasClass('active'))
-                button.addClass('active');
 
             cartService.like(productId, function (res) {
-                let likesCountDOM = button.closest('.product-single').find('.product-feature').find('.js-likes-count');
-                cartController.animate(likesCountDOM.prev(), 'tada');
+                let likesCountDOM = button.closest('span').find('.js-likes-count');
                 likesCountDOM.text(res);
+                cartController.animate(likesCountDOM, 'bounceIn');
             }, function (error) {
             });
 
             cartService.view(productId, function (res) {
-                let viewsCountDOM = button.closest('.product-single').find('.product-feature').find('.js-views-count');
-                cartController.animate(viewsCountDOM.prev(), 'tada');
-                viewsCountDOM.text(res);
             }, function (error) {
             });
         });

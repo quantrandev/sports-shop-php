@@ -65,7 +65,8 @@ include '../template/navigation.php';
                             <?php endif; ?>
                             <div style="display: inline-block; margin-left: 10px;">
                                 <span class="m-r-5">
-                                    <i class="fa fa-thumbs-up likes-count"></i>
+                                    <i class="fa fa-thumbs-up likes-count js-likes"
+                                       data-product-id="<?php echo $product->id; ?>"></i>
                                     <span class="js-likes-count"><?php echo $product->likes; ?></span>
                                 </span>
                                 <span class="m-r-5">

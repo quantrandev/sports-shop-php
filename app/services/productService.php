@@ -67,7 +67,7 @@ class ProductService
     {
         $stmt = $this->db
             ->prepare("select * from products "
-                . " where oldPrice != 0 limit "
+                . " where oldPrice != 0 order by views desc limit "
                 . $take
                 . " offset "
                 . $offset);
@@ -88,7 +88,48 @@ class ProductService
     {
         $stmt = $this->db
             ->prepare("select * from products "
-                . "order by createdDate desc "
+                . "order by id desc "
+                . "limit "
+                . $take
+                . " offset "
+                . $offset);
+        $stmt->execute();
+
+        $result = array();
+        while ($row = $stmt->fetch()) {
+            $product = new ProductViewModel($row);
+            $image = new ImageService($this->db);
+            $product->setImages($image->getMany($row["id"]));
+            array_push($result, $product);
+        }
+
+        return $result;
+    }
+
+    public function favorites($offset, $take) {
+        $stmt = $this->db
+            ->prepare("select * from products "
+                . "order by likes desc "
+                . "limit "
+                . $take
+                . " offset "
+                . $offset);
+        $stmt->execute();
+
+        $result = array();
+        while ($row = $stmt->fetch()) {
+            $product = new ProductViewModel($row);
+            $image = new ImageService($this->db);
+            $product->setImages($image->getMany($row["id"]));
+            array_push($result, $product);
+        }
+
+        return $result;
+    }
+
+    public function bestSellers($offset, $take){
+        $stmt = $this->db
+            ->prepare("SELECT *, count(order_details.orderId) as count FROM `products` LEFT JOIN order_details on products.id = order_details.productId GROUP BY products.id ORDER BY count DESC "
                 . "limit "
                 . $take
                 . " offset "

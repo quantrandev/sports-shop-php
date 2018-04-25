@@ -196,7 +196,8 @@ include '../template/navigation.php';
                                             </div>
                                             <div class="product-feature" style="display: inline-block">
                                                 <span class="m-r-5">
-                                                    <i class="fa fa-thumbs-up likes-count"></i>
+                                                    <i class="fa fa-thumbs-up likes-count js-likes"
+                                                       data-product-id="<?php echo $product->id; ?>"></i>
                                                     <span class="js-likes-count"><?php echo $product->likes; ?></span>
                                                 </span>
                                                 <span class="m-r-5">
@@ -225,10 +226,6 @@ include '../template/navigation.php';
                                                         href="/sports-shop-final/app/pages/client/product/show.php?id=<?php echo $product->id; ?>"><?php echo $product->name; ?></a>
                                             </h2>
                                             <div class="product-btns text-center">
-                                                <button class="main-btn icon-btn js-likes"
-                                                        data-product-id="<?php echo $product->id; ?>"><i
-                                                            class="fa fa-heart"></i>
-                                                </button>
                                                 <button class="primary-btn js-add-cart"
                                                         data-id="<?php echo $product->id; ?>"
                                                         data-name="<?php echo $product->name; ?>">
