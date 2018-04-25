@@ -36,7 +36,7 @@ class UserService
     public function getRoles($userName)
     {
         $query = "SELECT roles.id, roles.name FROM `roles` INNER join user_roles on roles.id = user_roles.roleId
-inner join users on user_roles.userId = users.userName where userName = '" . $userName . "'";
+inner join users on user_roles.userId = users.userName where userName = '" . $userName . "' and roles.isActive = 1";
 
         $roles = array();
         $stmt = $this->db->prepare($query);
@@ -50,7 +50,7 @@ inner join users on user_roles.userId = users.userName where userName = '" . $us
 
     public function getAllRoles()
     {
-        $query = "select * from roles";
+        $query = "select * from roles where id != 5";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
 

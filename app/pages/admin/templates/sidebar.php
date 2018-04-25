@@ -157,16 +157,17 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
 
                             <b class="arrow"></b>
                         </li>
-
-                        <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/role/list.php">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                Quản lý quyền
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
                     </ul>
+                </li>
+            <?php endif; ?>
+            <?php if (in_array('Quản lý đơn hàng', array_map(function ($value) {
+                return $value["name"];
+            }, $userRoles))): ?>
+                <li class="">
+                    <a href="/sports-shop-final/app/pages/admin/role/list.php">
+                        <i class="menu-icon fa fa-hand-grab-o"></i>
+                        <span class="menu-text"> Quản lý quyền</span>
+                    </a>
                 </li>
             <?php endif; ?>
 
