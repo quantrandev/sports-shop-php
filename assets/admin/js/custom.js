@@ -117,4 +117,9 @@ $(function () {
             liGroup: '<li class="multiselect-item multiselect-group"><label></label></li>'
         }
     });
+
+    $('.quick-view').magnificPopup({
+        type: 'image'
+        // other options
+    });
 });

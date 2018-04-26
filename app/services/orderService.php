@@ -71,6 +71,7 @@ class OrderService
         $codeQuery = $this->buildCodeQuery($condition);
         $shippingStatusQuery = $this->buildShippingStatusQuery($condition);
         $customerNameQuery = $this->buildNameQuery($condition);
+        $seenQuery = $this->buildSeenQuery($condition);
 
         $condition = "";
         if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery)) {
@@ -81,7 +82,9 @@ class OrderService
                 . " and "
                 . (empty($shippingStatusQuery) ? 'true' : $shippingStatusQuery)
                 . " and "
-                . (empty($dateRangeQuery) ? 'true' : $dateRangeQuery);
+                . (empty($dateRangeQuery) ? 'true' : $dateRangeQuery)
+                . " and "
+                . (empty($seenQuery) ? 'true' : $seenQuery);
         } else
             $condition .= " where createdDate = '" .
                 getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"]
@@ -344,6 +347,16 @@ class OrderService
             return '';
 
         $query = "code = '" . $searchCode . "'";
+        return $query;
+    }
+
+    public function buildSeenQuery($condition)
+    {
+        $isSeen = isset($condition["isSeen"]) ? $condition["isSeen"] : null;
+        if ($isSeen == null)
+            return '';
+
+        $query = "isSeen = " . $isSeen;
         return $query;
     }
 }

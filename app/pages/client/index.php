@@ -14,6 +14,10 @@ $newComings = $productService->newComings(1, 16);
 $favorites = $productService->favorites(0, 8);
 $bestSellers = $productService->bestSellers(0, 4);
 
+include '../../services/adService.php';
+$adService = new AdService($conn);
+$ad = $adService->get();
+
 include 'template/head.php';
 include 'template/topheader.php';
 include '../../viewModels/cartViewModel.php';
@@ -42,11 +46,7 @@ include 'template/navigation.php';
             <!-- banner -->
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <div class="banner banner-2">
-                    <img src="/sports-shop-ci/images/banner14.jpg" alt="">
-                    <div class="banner-caption">
-                        <h2 class="white-color">NEW<br>COLLECTION</h2>
-                        <button class="primary-btn">Shop Now</button>
-                    </div>
+                    <img src="/sports-shop-final/assets<?php echo $ad["content"] ?>" alt="">
                 </div>
             </div>
             <!-- /banner -->

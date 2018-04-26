@@ -135,6 +135,14 @@ include '../templates/sidebar.php';
                                 </div>
                             </div>
                             <div class="col-md-2">
+                                <label for="">Tình trạng duyệt</label>
+                                <select name="isSeen" class="form-control">
+                                    <option value>Chọn</option>
+                                    <option value="0">Chưa xem</option>
+                                    <option value="1">Đã xem</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 p-0">
                                 <label for="" class="visible-hidden">dsadsa</label>
                                 <div class="form-group">
                                     <button class="btn btn-sm btn-primary">
@@ -143,15 +151,15 @@ include '../templates/sidebar.php';
                                     </button>
                                 </div>
                             </div>
-                            <div class="col-md-1">
-                                <label for="" class="visible-hidden">dsadsa</label>
-                                <div class="form-group">
-                                    <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">
-                                        <i class="fa fa-trash"></i>
-                                        Xóa
-                                    </button>
-                                </div>
-                            </div>
+                            <!--                            <div class="col-md-1">-->
+                            <!--                                <label for="" class="visible-hidden">dsadsa</label>-->
+                            <!--                                <div class="form-group">-->
+                            <!--                                    <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">-->
+                            <!--                                        <i class="fa fa-trash"></i>-->
+                            <!--                                        Xóa-->
+                            <!--                                    </button>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                         </form>
                     </div>
                     <div class="col-md-12 p-0">

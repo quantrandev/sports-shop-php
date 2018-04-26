@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/owl.carousel.min.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/owl.theme.default.min.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/dropzone.min.css"/>
+    <link type="text/css" rel="stylesheet" href="/sports-shop-final/assets/client/css/magnific-popup.css" />
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/animate.css"/>
     <link rel="stylesheet" href="/sports-shop-final/assets/admin/css/custom.css"/>
 

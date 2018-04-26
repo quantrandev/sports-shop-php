@@ -62,10 +62,10 @@ include '../templates/sidebar.php';
 
             <!--page content-->
             <div class="row">
-                <div class="col-md-6 p-0">
+                <div class="col-md-8 p-0">
                     <div class="clear-fix">
                         <form action="" class="col-md-12 p-0" id="frm-search">
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <label for="">Danh mục</label>
                                 <div>
                                     <select name="category[]" class="form-control multiselect-category" multiple>
@@ -92,10 +92,20 @@ include '../templates/sidebar.php';
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-3">
                                 <label for="">Tên sản phẩm</label>
                                 <input type="text" class="form-control" name="name"
                                        value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ''; ?>">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="">Giá từ</label>
+                                <input type="number" class="form-control" name="price-from" min="500"
+                                       value="<?php echo isset($_GET["price-from"]) ? $_GET["price-from"] : ''; ?>">
+                            </div>
+                            <div class="col-md-2">
+                                <label for="">Giá đến</label>
+                                <input type="number" class="form-control" name="price-to" min="500"
+                                       value="<?php echo isset($_GET["price-to"]) ? $_GET["price-to"] : ''; ?>">
                             </div>
                             <div class="col-md-2">
                                 <label for="" class="visible-hidden">dsadsa</label>
@@ -109,16 +119,16 @@ include '../templates/sidebar.php';
                         </form>
                     </div>
                 </div>
-                <div class="col-md-1">
-                    <label for="" class="visible-hidden">dsadsa</label>
-                    <div class="form-group">
-                        <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">
-                            <i class="fa fa-trash"></i>
-                            Xóa
-                        </button>
-                    </div>
-                </div>
-                <div class="col-md-5">
+                <!--                <div class="col-md-1">-->
+                <!--                    <label for="" class="visible-hidden">dsadsa</label>-->
+                <!--                    <div class="form-group">-->
+                <!--                        <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">-->
+                <!--                            <i class="fa fa-trash"></i>-->
+                <!--                            Xóa-->
+                <!--                        </button>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+                <div class="col-md-4">
                     <div class="pull-right">
                         <label for="" class="visible-hidden">dsa</label>
                         <ul class="pages">

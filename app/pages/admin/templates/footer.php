@@ -53,6 +53,7 @@
 <script src="/sports-shop-final/assets/admin/js/dataTables.select.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/owl.carousel.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/dropzone.js"></script>
+<script src="/sports-shop-final/assets/client/js/jquery.magnific-popup.min.js"></script>
 <script src="/sports-shop-final/assets/admin/ckeditor/ckeditor.js"></script>
 <script src="/sports-shop-final/assets/admin/ckfinder/ckfinder.js"></script>
 
