@@ -62,131 +62,90 @@ include '../templates/sidebar.php';
 
             <!--page content-->
             <div class="row">
-                <div class="col-md-8 p-0">
-                    <div class="clear-fix">
-                        <form action="" class="col-md-12 p-0" id="frm-search">
-                            <div class="col-md-3">
-                                <label for="">Danh mục</label>
-                                <div>
-                                    <select name="category[]" class="form-control multiselect-category" multiple>
-                                        <?php foreach ($menus as $category): ?>
-                                            <optgroup label="<?php echo $category->name ?>"></optgroup>
-                                            <?php if (count($category->children) > 0): ?>
-                                                <?php foreach ($category->children as $child): ?>
-                                                    <?php if (in_array($child->id, $searchCategories)): ?>
-                                                        <option value="<?php echo $child->id ?>"
-                                                                selected><?php echo $child->name; ?></option>
-                                                    <?php else: ?>
-                                                        <option value="<?php echo $child->id ?>"><?php echo $child->name; ?></option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
-                                            <?php else: ?>
-                                                <?php if (in_array($category->id, $searchCategories)): ?>
-                                                    <option value="<?php echo $category->id ?>"
-                                                            selected><?php echo $category->name; ?></option>
-                                                <?php else: ?>
-                                                    <option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
-                                                <?php endif; ?>
-                                            <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
+                <div class="col-md-12">
+                    <div class="col-md-8 p-0">
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#search-modal">
+                                <i class="fa fa-search m-r-5"></i>
+                                Tìm kiếm
+                            </button>
+                            <div class="dropdown" style="display: inline-block;">
+                                <button class="btn btn-success btn-sm dropdown-toggle" type="button"
+                                        data-toggle="dropdown">
+                                    <i class="fa fa-bolt m-r-5"></i>
+                                    Giảm giá
+                                    <i class="fa fa-caret-down m-l-5"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)" class="js-sale js-sale-all">Tất cả</a></li>
+                                    <li><a href="javascript:void(0)" class="js-sale">Sản phẩm được chọn</a></li>
+                                </ul>
                             </div>
-                            <div class="col-md-3">
-                                <label for="">Tên sản phẩm</label>
-                                <input type="text" class="form-control" name="name"
-                                       value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ''; ?>">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="">Giá từ</label>
-                                <input type="number" class="form-control" name="price-from" min="500"
-                                       value="<?php echo isset($_GET["price-from"]) ? $_GET["price-from"] : ''; ?>">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="">Giá đến</label>
-                                <input type="number" class="form-control" name="price-to" min="500"
-                                       value="<?php echo isset($_GET["price-to"]) ? $_GET["price-to"] : ''; ?>">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="" class="visible-hidden">dsadsa</label>
-                                <div class="form-group">
-                                    <button class="btn btn-sm btn-primary">
-                                        <i class="fa fa-search"></i>
-                                        Tìm kiếm
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            <button class="btn btn-danger btn-sm js-batch-delete hide">
+                                <i class="fa fa-trash m-r-5"></i>
+                                Xóa
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <!--                <div class="col-md-1">-->
-                <!--                    <label for="" class="visible-hidden">dsadsa</label>-->
-                <!--                    <div class="form-group">-->
-                <!--                        <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">-->
-                <!--                            <i class="fa fa-trash"></i>-->
-                <!--                            Xóa-->
-                <!--                        </button>-->
-                <!--                    </div>-->
-                <!--                </div>-->
-                <div class="col-md-4">
-                    <div class="pull-right">
-                        <label for="" class="visible-hidden">dsa</label>
-                        <ul class="pages">
-                            <li><span class="text-uppercase">Page:</span></li>
-                            <li class="<?php if ($page == 1) echo 'hide'; ?>">
-                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page - 1); ?>">
-                                    <i class="fa fa-caret-left"></i>
-                                </a>
-                            </li>
-                            <?php if (ceil($count / 12) < 20): ?>
-                                <?php for ($i = 1; $i <= ceil($count / 12); $i++): ?>
-                                    <?php if ($page == $i): ?>
-                                        <li class="active"><?php echo $i; ?></li>
-                                    <?php else: ?>
-                                        <li>
-                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
-                                                <?php echo $i; ?>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-                                <?php endfor; ?>
-                            <?php else: ?>
-                                <?php for ($i = 1; $i <= 5; $i++): ?>
-                                    <?php if ($page == $i): ?>
-                                        <li class="active"><?php echo $i; ?></li>
-                                    <?php else: ?>
-                                        <li>
-                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
-                                                <?php echo $i; ?>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-                                <?php endfor; ?>
-                                <li class="active">...</li>
-                                <?php for ($i = 6; $i <= ceil($count / 12) - 5; $i++): ?>
-                                    <?php if ($page == $i): ?>
-                                        <li class="active"><?php echo $i; ?></li>
-                                        <li class="active">...</li>
-                                    <?php endif; ?>
-                                <?php endfor; ?>
-                                <?php for ($i = ceil($count / 12) - 4; $i <= ceil($count / 12); $i++): ?>
-                                    <?php if ($page == $i): ?>
-                                        <li class="active"><?php echo $i; ?></li>
-                                    <?php else: ?>
-                                        <li>
-                                            <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
-                                                <?php echo $i; ?>
-                                            </a>
-                                        </li>
-                                    <?php endif; ?>
-                                <?php endfor; ?>
-                            <?php endif; ?>
-                            <li class="<?php if ($page == ceil($count / 12)) echo 'hide'; ?>">
-                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page + 1); ?>">
-                                    <i class="fa fa-caret-right"></i>
-                                </a>
-                            </li>
-                        </ul>
+                    <div class="col-md-4 p-0">
+                        <div class="form-group pull-right">
+                            <ul class="pages">
+                                <li><span class="text-uppercase">Page:</span></li>
+                                <li class="<?php if ($page == 1) echo 'hide'; ?>">
+                                    <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page - 1); ?>">
+                                        <i class="fa fa-caret-left"></i>
+                                    </a>
+                                </li>
+                                <?php if (ceil($count / 12) < 20): ?>
+                                    <?php for ($i = 1; $i <= ceil($count / 12); $i++): ?>
+                                        <?php if ($page == $i): ?>
+                                            <li class="active"><?php echo $i; ?></li>
+                                        <?php else: ?>
+                                            <li>
+                                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                    <?php echo $i; ?>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                <?php else: ?>
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <?php if ($page == $i): ?>
+                                            <li class="active"><?php echo $i; ?></li>
+                                        <?php else: ?>
+                                            <li>
+                                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                    <?php echo $i; ?>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                    <li class="active">...</li>
+                                    <?php for ($i = 6; $i <= ceil($count / 12) - 5; $i++): ?>
+                                        <?php if ($page == $i): ?>
+                                            <li class="active"><?php echo $i; ?></li>
+                                            <li class="active">...</li>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                    <?php for ($i = ceil($count / 12) - 4; $i <= ceil($count / 12); $i++): ?>
+                                        <?php if ($page == $i): ?>
+                                            <li class="active"><?php echo $i; ?></li>
+                                        <?php else: ?>
+                                            <li>
+                                                <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . $i; ?>">
+                                                    <?php echo $i; ?>
+                                                </a>
+                                            </li>
+                                        <?php endif; ?>
+                                    <?php endfor; ?>
+                                <?php endif; ?>
+                                <li class="<?php if ($page == ceil($count / 12)) echo 'hide'; ?>">
+                                    <a href="<?php echo $_SERVER["PHP_SELF"] . "?" . $queryString . "&page=" . ($page + 1); ?>">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -219,8 +178,8 @@ include '../templates/sidebar.php';
                                     </label>
                                 </td>
                                 <td class="p-name"><?php echo $product->name; ?></td>
-                                <td class="p-old-price"><?php echo empty($product->oldPrice) ? number_format($product->currentPrice) . " đ" : number_format($product->oldPrice) . " đ"; ?></td>
-                                <td class="p-current-price"><?php echo empty($product->oldPrice) ? '<span class="text-danger">Không có</span>' : number_format($product->currentPrice) . " đ" ?></td>
+                                <td class="p-old-price"><?php echo empty($product->currentPrice) ? number_format($product->currentPrice) . " đ" : number_format($product->currentPrice) . " đ"; ?></td>
+                                <td class="currentPrice"><?php echo $product->isSale() ? number_format($product->getSalePrice()) . ' đ' : '<span class="label label-danger">Không có</span>'; ?></td>
                                 <td class="text-center">
                                     <div class="hidden-sm hidden-xs btn-group">
                                         <button class="btn btn-xs btn-primary js-view-images">
@@ -421,7 +380,7 @@ include '../templates/sidebar.php';
                     <div class="form-group">
                         <label for="" class="col-md-2 control-label">Giá gốc *</label>
                         <div class="col-md-10">
-                            <input type="number" class="form-control" id="productOldPrice" min="500" step="500"
+                            <input type="number" class="form-control" id="productcurrentPrice" min="500" step="500"
                                    required>
                         </div>
                     </div>
@@ -446,6 +405,103 @@ include '../templates/sidebar.php';
             </div>
         </div>
 
+    </div>
+</div>
+<div id="search-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="col-md-12 p-0" id="frm-search">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tìm kiếm</h4>
+                </div>
+                <div class="modal-body">
+                    <label for="">Danh mục</label>
+                    <div class="form-group">
+                        <select name="category[]" class="form-control multiselect-category" multiple>
+                            <?php foreach ($menus as $category): ?>
+                                <optgroup label="<?php echo $category->name ?>"></optgroup>
+                                <?php if (count($category->children) > 0): ?>
+                                    <?php foreach ($category->children as $child): ?>
+                                        <?php if (in_array($child->id, $searchCategories)): ?>
+                                            <option value="<?php echo $child->id ?>"
+                                                    selected><?php echo $child->name; ?></option>
+                                        <?php else: ?>
+                                            <option value="<?php echo $child->id ?>"><?php echo $child->name; ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php else: ?>
+                                    <?php if (in_array($category->id, $searchCategories)): ?>
+                                        <option value="<?php echo $category->id ?>"
+                                                selected><?php echo $category->name; ?></option>
+                                    <?php else: ?>
+                                        <option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Tên sản phẩm</label>
+                        <input type="text" class="form-control" name="name"
+                               value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ''; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Giá từ</label>
+                        <input type="number" class="form-control" name="price-from" min="500"
+                               value="<?php echo isset($_GET["price-from"]) ? $_GET["price-from"] : ''; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Giá đến</label>
+                        <input type="number" class="form-control" name="price-to" min="500"
+                               value="<?php echo isset($_GET["price-to"]) ? $_GET["price-to"] : ''; ?>">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary js-submit">
+                        <i class="fa fa-search m-r-5"></i>
+                        Tìm kiếm
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="sale-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Giảm giá</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Thời gian</label>
+                    <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar bigger-110"></i>
+                                    </span>
+                        <input class="form-control" type="text" name="range"
+                               id="date-range-picker"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="">Mức giảm giá (%)</label>
+                    <input type="number" min="0.1" max="100" step="0.1" id="salePercentage" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary js-save-changes">
+                    Lưu thay đổi
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 <?php

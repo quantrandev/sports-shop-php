@@ -2,11 +2,14 @@ var productController = {
     imagesModalDOM: null,
     categoryModal: null,
     productModal: null,
+    saleModal: null,
     deletedImages: null,
+    selectedItems: [],
     init: function () {
         productController.imagesModalDOM = $('#images-modal');
         productController.categoryModal = $('#category-modal');
         productController.productModal = $('#product-modal');
+        productController.saleModal = $('#sale-modal');
         productController.deletedImages = [];
         productController.registerConfirmations();
         productController.events();
@@ -21,6 +24,8 @@ var productController = {
         productController.onSaveCategoryChange();
         productController.onEditProduct();
         productController.onSaveProductChange();
+        productController.onOpenSaleModal();
+        productController.onSaveSaleChanges();
     },
     registerConfirmations: function () {
         $('.js-delete-product').confirmation({
@@ -184,6 +189,31 @@ var productController = {
             });
         });
     },
+    onOpenSaleModal: function () {
+        $(document).on('click', '.js-sale', function () {
+            if (!$(this).hasClass('js-sale-all'))
+                productController.selectedItems = productController.getSelected();
+
+            if (!productController.selectedItems.length)
+                utilities.notify('Thông báo', 'Vui lòng chọn ít nhất 1 sản phẩm', 'gritter-error', false);
+            else
+                productController.saleModal.modal();
+        });
+    },
+    onSaveSaleChanges: function () {
+        productController.saleModal.on('click', '.js-save-changes', function () {
+            let saleData = productController.getSaleModalData();
+            if (!saleData) {
+                utilities.notify('Thông báo', 'Vui lòng điền đầy đủ thông tin', 'gritter-error', false);
+                return;
+            }
+
+            productService.updateSale(productController.selectedItems, saleData.range, saleData.percentage, function (res) {
+                console.log(res);
+            }, function (error) {
+            });
+        });
+    },
     setDataForImagesContainer: function (images) {
         let imagesContainer = productController.imagesModalDOM.find('.images-track');
         imagesContainer.html("");
@@ -242,6 +272,33 @@ var productController = {
             return productController.categoryModal.find('form').find('#productId').val();
 
         return null;
+    },
+    getSelected: function () {
+        let selectedItem = [];
+        $('.js-check-item').each(function (index, value) {
+            if (!$(value).prop('checked'))
+                return;
+
+            selectedItem.push($(value).closest('tr').attr('data-product-id'));
+        });
+
+        return selectedItem;
+    },
+    getSaleModalData: function () {
+        let salePercentage = productController.saleModal.find('#salePercentage').val();
+        let dateRangeString = productController.saleModal.find('#date-range-picker').val();
+        if (!salePercentage || !dateRangeString)
+            return null;
+
+        let dateRange = dateRangeString.split('-');
+
+        return {
+            percentage: salePercentage,
+            range: {
+                from: dateRange[0].trim(),
+                to: dateRange[1].trim()
+            }
+        };
     },
     toggleButtonStatus: function (button, option, text) {
         switch (option) {

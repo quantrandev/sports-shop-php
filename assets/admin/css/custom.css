@@ -199,3 +199,8 @@ tr.sub-row {
     display: inline-block;
     margin: 0 3px;
 }
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

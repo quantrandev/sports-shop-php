@@ -7,6 +7,10 @@ class ProductViewModel
     public $description;
     public $images;
     public $currentPrice;
+    public $saleFrom;
+    public $saleTo;
+    public $salePercentage;
+
     public $oldPrice;
     public $quantity;
     public $createdDate;
@@ -20,7 +24,11 @@ class ProductViewModel
         $this->name = $args["name"];
         $this->description = $args["description"];
         $this->currentPrice = $args["currentPrice"];
+
         $this->oldPrice = $args["oldPrice"];
+        $this->saleFrom = $args["saleFrom"];
+        $this->saleTo = $args["saleTo"];
+        $this->salePercentage = $args["salePercentage"];
         $this->quantity = $args["quantity"];
         $this->createdDate = $args["createdDate"];
         $this->categoryId = $args["categoryId"];
@@ -31,6 +39,19 @@ class ProductViewModel
     public function setImages($image)
     {
         $this->images = $image;
+    }
+
+    public function isSale()
+    {
+        if ($this->salePercentage != 0 && strtotime($this->saleTo) >= time() && strtotime($this->saleFrom) <= time())
+            return true;
+
+        return false;
+    }
+
+    public function getSalePrice()
+    {
+        return intval($this->currentPrice) - ((intval($this->currentPrice) * intval($this->salePercentage)) / 100);
     }
 }
 
@@ -67,7 +88,7 @@ class ProductService
     {
         $stmt = $this->db
             ->prepare("select * from products "
-                . " where oldPrice != 0 order by views desc limit "
+                . " where salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE() order by views desc limit "
                 . $take
                 . " offset "
                 . $offset);
@@ -106,7 +127,8 @@ class ProductService
         return $result;
     }
 
-    public function favorites($offset, $take) {
+    public function favorites($offset, $take)
+    {
         $stmt = $this->db
             ->prepare("select * from products "
                 . "order by likes desc "
@@ -127,7 +149,8 @@ class ProductService
         return $result;
     }
 
-    public function bestSellers($offset, $take){
+    public function bestSellers($offset, $take)
+    {
         $stmt = $this->db
             ->prepare("SELECT *, count(order_details.orderId) as count FROM `products` LEFT JOIN order_details on products.id = order_details.productId GROUP BY products.id ORDER BY count DESC "
                 . "limit "
@@ -285,6 +308,29 @@ class ProductService
         return empty($result) ? false : true;
     }
 
+    public function updateSale($data)
+    {
+        $postRange = $data["range"];
+        $dateFrom = getdate(strtotime($postRange["from"]));
+        $dateTo = getdate(strtotime($postRange["to"]));
+        $range = array(
+            "from" => $dateFrom["year"] . "-" . $dateFrom["mon"] . "-" . $dateFrom["mday"],
+            "to" => $dateTo["year"] . "-" . $dateTo["mon"] . "-" . $dateTo["mday"],
+        );
+
+        $salePercentage = $data["salePercentage"];
+        $products = $data["products"];
+
+        $query = $this->buildSaleQuery(array(
+            "percentage" => $salePercentage,
+            "products" => $products,
+            "range" => $range
+        ));
+
+
+        return $query;
+    }
+
     //helpers
     public function buildNameQuery($condition)
     {
@@ -387,5 +433,20 @@ class ProductService
         }
 
         return $queries;
+    }
+
+    public function buildSaleQuery($data)
+    {
+        $percentage = $data["percentage"];
+        $range = $data["range"];
+        $products = $data["products"];
+        $query = "update products set salePercentage = " . $percentage . ", saleFrom = '" . $range["from"] . "', saleTo = '" . $range["to"] . "' where id in (";
+
+        foreach ($products as $product) {
+            $query .= $product . ",";
+        }
+        $query = substr(trim($query), 0, strlen($query) - 1) . ")";
+
+        return $query;
     }
 }

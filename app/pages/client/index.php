@@ -61,8 +61,7 @@ include 'template/navigation.php';
                                 <div class="product-thumb">
                                     <div class="product-label">
                                         <span>Sale</span>
-                                        <span class="sale">-<?php echo ceil(($product->oldPrice - $product->currentPrice) / $product->oldPrice * 100) ?>
-                                            %</span>
+                                        <span class="sale"><?php echo $product->salePercentage; ?> %</span>
                                     </div>
                                     <div class="product-feature" style="display: inline-block">
                                         <span class="m-r-5">
@@ -83,13 +82,18 @@ include 'template/navigation.php';
                                          class="product-thumbnail-sm">
                                 </div>
                                 <div class="product-body">
-                                    <h3 class="product-price"><?php echo number_format($product->currentPrice) ?> đ
-                                        <?php if ($product->oldPrice != 0): ?>
+                                    <?php if ($product->isSale()): ?>
+                                        <h3 class="product-price">
+                                            <?php echo number_format($product->getSalePrice()) ?> đ
                                             <del class="product-old-price">
-                                                <?php echo number_format($product->oldPrice) ?> đ
+                                                <?php echo number_format($product->currentPrice) ?> đ
                                             </del>
-                                        <?php endif ?>
-                                    </h3>
+                                        </h3>
+                                    <?php else: ?>
+                                        <h3 class="product-price">
+                                            <?php echo number_format($product->getSalePrice()) ?> đ
+                                        </h3>
+                                    <?php endif ?>
                                     <h2 class="product-name"><a
                                                 href="product/show.php?id=<?php echo $product->id ?>"><?php echo $product->name ?></a>
                                     </h2>
@@ -132,12 +136,8 @@ include 'template/navigation.php';
                     <div class="product-thumb">
                         <div class="product-label">
                             <span>New</span>
-                            <?php if ($newest->oldPrice != 0): ?>
-                                <span class="sale">-<?php echo ceil(($newest->oldPrice - $newest->currentPrice) / $newest->oldPrice * 100) ?>
-                                    %</span>
-                            <?php endif; ?>
-                            <?php if ($newest->oldPrice != 0): ?>
-                                <span class="sale">-<?php echo ceil(($newest->oldPrice - $newest->currentPrice) / $newest->oldPrice * 100) ?>
+                            <?php if ($newest->isSale()): ?>
+                                <span class="sale">-<?php echo $newest->salePercentage; ?>
                                     %</span>
                             <?php endif; ?>
                         </div>
@@ -159,13 +159,18 @@ include 'template/navigation.php';
                              class="product-thumbnail-sm">
                     </div>
                     <div class="product-body">
-                        <h3 class="product-price"><?php echo number_format($newest->currentPrice) ?> đ
-                            <?php if ($newest->oldPrice != 0): ?>
+                        <?php if ($newest->isSale()): ?>
+                            <h3 class="product-price">
+                                <?php echo number_format($newest->getSalePrice()) ?> đ
                                 <del class="product-old-price">
-                                    <?php echo number_format($newest->oldPrice) ?> đ
+                                    <?php echo number_format($newest->currentPrice) ?> đ
                                 </del>
-                            <?php endif ?>
-                        </h3>
+                            </h3>
+                        <?php else: ?>
+                            <h3 class="product-price">
+                                <?php echo number_format($newest->getSalePrice()) ?> đ
+                            </h3>
+                        <?php endif ?>
                         <h2 class="product-name"><a
                                     href="product/show.php?id=<?php echo $newest->id ?>"><?php echo $newest->name ?></a>
                         </h2>
@@ -191,8 +196,8 @@ include 'template/navigation.php';
                                 <div class="product-thumb">
                                     <div class="product-label">
                                         <span>New</span>
-                                        <?php if ($product->oldPrice != 0): ?>
-                                            <span class="sale">-<?php echo ceil(($product->oldPrice - $product->currentPrice) / $product->oldPrice * 100) ?>
+                                        <?php if ($product->isSale()): ?>
+                                            <span class="sale">-<?php echo $product->salePercentage; ?>
                                                 %</span>
                                         <?php endif; ?>
                                     </div>
@@ -215,13 +220,18 @@ include 'template/navigation.php';
                                          class="product-thumbnail-sm">
                                 </div>
                                 <div class="product-body">
-                                    <h3 class="product-price"><?php echo number_format($product->currentPrice) ?> đ
-                                        <?php if ($product->oldPrice != 0): ?>
+                                    <?php if ($product->isSale()): ?>
+                                        <h3 class="product-price">
+                                            <?php echo number_format($product->getSalePrice()) ?> đ
                                             <del class="product-old-price">
-                                                <?php echo number_format($product->oldPrice) ?> đ
+                                                <?php echo number_format($product->currentPrice) ?> đ
                                             </del>
-                                        <?php endif ?>
-                                    </h3>
+                                        </h3>
+                                    <?php else: ?>
+                                        <h3 class="product-price">
+                                            <?php echo number_format($product->getSalePrice()) ?> đ
+                                        </h3>
+                                    <?php endif ?>
                                     <h2 class="product-name"><a
                                                 href="product/show.php?id=<?php echo $product->id ?>"><?php echo $product->name ?></a>
                                     </h2>
@@ -268,8 +278,8 @@ include 'template/navigation.php';
                         <div class="product-thumb">
                             <div class="product-label">
                                 <span>Hot</span>
-                                <?php if ($product->oldPrice != 0): ?>
-                                    <span class="sale">-<?php echo ceil(($product->oldPrice - $product->currentPrice) / $product->oldPrice * 100) ?>
+                                <?php if ($product->isSale()): ?>
+                                    <span class="sale">-<?php echo $product->salePercentage; ?>
                                         %</span>
                                 <?php endif; ?>
                             </div>
@@ -292,13 +302,18 @@ include 'template/navigation.php';
                                  class="product-thumbnail-sm">
                         </div>
                         <div class="product-body">
-                            <h3 class="product-price"><?php echo number_format($product->currentPrice) ?> đ
-                                <?php if ($product->oldPrice != 0): ?>
+                            <?php if ($product->isSale()): ?>
+                                <h3 class="product-price">
+                                    <?php echo number_format($product->getSalePrice()) ?> đ
                                     <del class="product-old-price">
-                                        <?php echo number_format($product->oldPrice) ?> đ
+                                        <?php echo number_format($product->currentPrice) ?> đ
                                     </del>
-                                <?php endif ?>
-                            </h3>
+                                </h3>
+                            <?php else: ?>
+                                <h3 class="product-price">
+                                    <?php echo number_format($product->getSalePrice()) ?> đ
+                                </h3>
+                            <?php endif ?>
                             <h2 class="product-name"><a
                                         href="product/show.php?id=<?php echo $product->id ?>"><?php echo $product->name ?></a>
                             </h2>
@@ -334,8 +349,8 @@ include 'template/navigation.php';
                         <div class="product-thumb">
                             <div class="product-label">
                                 <span>Hot</span>
-                                <?php if ($product->oldPrice != 0): ?>
-                                    <span class="sale">-<?php echo ceil(($product->oldPrice - $product->currentPrice) / $product->oldPrice * 100) ?>
+                                <?php if ($product->isSale()): ?>
+                                    <span class="sale">-<?php echo ceil($product->salePercentage); ?>
                                         %</span>
                                 <?php endif; ?>
                             </div>
@@ -358,13 +373,18 @@ include 'template/navigation.php';
                                  class="product-thumbnail-sm">
                         </div>
                         <div class="product-body">
-                            <h3 class="product-price"><?php echo number_format($product->currentPrice) ?> đ
-                                <?php if ($product->oldPrice != 0): ?>
+                            <?php if ($product->isSale()): ?>
+                                <h3 class="product-price">
+                                    <?php echo number_format($product->getSalePrice()) ?> đ
                                     <del class="product-old-price">
-                                        <?php echo number_format($product->oldPrice) ?> đ
+                                        <?php echo number_format($product->currentPrice) ?> đ
                                     </del>
-                                <?php endif ?>
-                            </h3>
+                                </h3>
+                            <?php else: ?>
+                                <h3 class="product-price">
+                                    <?php echo number_format($product->getSalePrice()) ?> đ
+                                </h3>
+                            <?php endif ?>
                             <h2 class="product-name"><a
                                         href="product/show.php?id=<?php echo $product->id ?>"><?php echo $product->name ?></a>
                             </h2>

@@ -56,10 +56,10 @@ include '../template/navigation.php';
                 <div class="col-md-6">
                     <div class="product-body">
                         <div class="product-label">
-                            <?php if ($product->oldPrice != 0): ?>
+                            <?php if ($product->isSale()): ?>
                                 <span>Sale</span>
                                 <span class="sale">
-                                    <?php echo ceil(($product->oldPrice - $product->currentPrice) / $product->oldPrice * 100); ?>
+                                    <?php echo $product->salePercentage; ?>
                                     %
                                 </span>
                             <?php endif; ?>
@@ -76,12 +76,18 @@ include '../template/navigation.php';
                             </div>
                         </div>
                         <h2 class="product-name"><?php echo $product->name ?></h2>
-                        <h3 class="product-price">
-                            <?php echo number_format($product->currentPrice) ?>đ
-                            <?php if ($product->oldPrice != 0): ?>
-                                <del class="product-old-price"><?php echo number_format($product->oldPrice) ?>đ</del>
-                            <?php endif; ?>
-                        </h3>
+                        <?php if ($product->isSale()): ?>
+                            <h3 class="product-price">
+                                <?php echo number_format($product->getSalePrice()) ?> đ
+                                <del class="product-old-price">
+                                    <?php echo number_format($product->currentPrice) ?> đ
+                                </del>
+                            </h3>
+                        <?php else: ?>
+                            <h3 class="product-price">
+                                <?php echo number_format($product->getSalePrice()) ?> đ
+                            </h3>
+                        <?php endif ?>
                         <p><strong>Tình trạng:</strong>
                             <?php if ($product->quantity > 0): ?>
                                 Còn hàng

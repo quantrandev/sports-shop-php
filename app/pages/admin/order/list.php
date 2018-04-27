@@ -47,16 +47,6 @@ include '../templates/sidebar.php';
                 </li>
                 <li class="active">Quản lý danh mục</li>
             </ul><!-- /.breadcrumb -->
-
-            <div class="nav-search" id="nav-search">
-                <form class="form-search">
-								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input"
-                                           id="nav-search-input" autocomplete="off"/>
-									<i class="ace-icon fa fa-search nav-search-icon"></i>
-								</span>
-                </form>
-            </div><!-- /.nav-search -->
         </div>
 
         <div class="page-content">
@@ -74,103 +64,30 @@ include '../templates/sidebar.php';
             <div class="row">
                 <div class="col-md-12 p-0 m-b-15">
                     <div class="col-md-12 p-0">
-                        <form action="" class="col-md-12 p-0" id="frm-search">
-                            <div class="col-md-2">
-                                <label for="">Mã đơn hàng</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="code"
-                                           placeholder="Nhập mã đơn hàng ..."
-                                           value="<?php echo $get_code; ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="">Tên khách hàng</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="customerName"
-                                           placeholder="Nhập tên khách hàng ..."
-                                           value="<?php echo $get_name; ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="">Thời gian</label>
-                                    <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar bigger-110"></i>
-                                    </span>
-                                        <input class="form-control" type="text" name="range"
-                                               id="date-range-picker"
-                                               value="<?php echo $get_date_range; ?>"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="">Trạng thái</label>
-                                <div class="form-group">
-                                    <select name="shippingStatus" class="form-control">
-                                        <option value>Tất cả</option>
-                                        <option value="<?php echo $constants["shippingStatus"]["placed"] ?>"
-                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["placed"] ? 'selected' : ''; ?>>
-                                            Mới đặt hàng
-                                        </option>
-                                        <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>"
-                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["onProgress"] ? 'selected' : ''; ?>>
-                                            Đang đóng
-                                            gói
-                                        </option>
-                                        <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>"
-                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["shipped"] ? 'selected' : ''; ?>>
-                                            Đang vận
-                                            chuyển
-                                        </option>
-                                        <option value="<?php echo $constants["shippingStatus"]["done"] ?>"
-                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["done"] ? 'selected' : ''; ?>>
-                                            Đã nhận hàng
-                                        </option>
-                                        <option value="<?php echo $constants["shippingStatus"]["returned"] ?>"
-                                            <?php echo $get_shipping_status == $constants["shippingStatus"]["returned"] ? 'selected' : ''; ?>>
-                                            Đã trả hàng
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="">Tình trạng duyệt</label>
-                                <select name="isSeen" class="form-control">
-                                    <option value>Chọn</option>
-                                    <option value="0">Chưa xem</option>
-                                    <option value="1">Đã xem</option>
-                                </select>
-                            </div>
-                            <div class="col-md-1 p-0">
-                                <label for="" class="visible-hidden">dsadsa</label>
-                                <div class="form-group">
-                                    <button class="btn btn-sm btn-primary">
-                                        <i class="fa fa-search"></i>
-                                        Tìm kiếm
-                                    </button>
-                                </div>
-                            </div>
-                            <!--                            <div class="col-md-1">-->
-                            <!--                                <label for="" class="visible-hidden">dsadsa</label>-->
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <button class="btn btn-sm btn-danger pull-right js-batch-delete hide">-->
-                            <!--                                        <i class="fa fa-trash"></i>-->
-                            <!--                                        Xóa-->
-                            <!--                                    </button>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                        </form>
-                    </div>
-                    <div class="col-md-12 p-0">
                         <div class="col-md-6">
-                            <button class="btn btn-primary btn-sm">
-                                <i class="fa fa-print m-r-5"></i>
-                                In
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#search-modal">
+                                <i class="fa fa-search m-r-5"></i>
+                                Tìm kiếm
                             </button>
-                            <button class="btn btn-success btn-sm">
-                                <i class="fa fa-file-excel-o m-r-5"></i>
-                                Excel
+                            <button class="btn btn-info btn-sm">
+                                <i class="fa fa-print m-r-5"></i>
+                                In danh sách
+                            </button>
+                            <div class="dropdown" style="display: inline-block;">
+                                <button class="btn btn-success btn-sm dropdown-toggle" type="button"
+                                        data-toggle="dropdown">
+                                    <i class="fa fa-print m-r-5"></i>
+                                    In hóa đơn
+                                    <i class="fa fa-caret-down m-l-5"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)">Tất cả</a></li>
+                                    <li><a href="javascript:void(0)">Hóa đơn được chọn</a></li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-danger btn-sm js-batch-delete hide">
+                                <i class="fa fa-trash m-r-5"></i>
+                                Xóa
                             </button>
                         </div>
                         <div class="col-md-6">
@@ -530,6 +447,96 @@ m-r-5"
             </div>
         </div>
 
+    </div>
+</div>
+
+<div id="search-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="col-md-12 p-0" id="frm-search">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Tìm kiếm</h4>
+                </div>
+                <div class="modal-body overflow-auto">
+                    <div class="col-md-12">
+                        <label for="">Mã đơn hàng</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="code"
+                                   placeholder="Nhập mã đơn hàng ..."
+                                   value="<?php echo $get_code; ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Tên khách hàng</label>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="customerName"
+                                   placeholder="Nhập tên khách hàng ..."
+                                   value="<?php echo $get_name; ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Thời gian</label>
+                            <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar bigger-110"></i>
+                                    </span>
+                                <input class="form-control" type="text" name="range"
+                                       id="date-range-picker"
+                                       value="<?php echo $get_date_range; ?>"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Trạng thái</label>
+                        <div class="form-group">
+                            <select name="shippingStatus" class="form-control">
+                                <option value>Tất cả</option>
+                                <option value="<?php echo $constants["shippingStatus"]["placed"] ?>"
+                                    <?php echo $get_shipping_status == $constants["shippingStatus"]["placed"] ? 'selected' : ''; ?>>
+                                    Mới đặt hàng
+                                </option>
+                                <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>"
+                                    <?php echo $get_shipping_status == $constants["shippingStatus"]["onProgress"] ? 'selected' : ''; ?>>
+                                    Đang đóng
+                                    gói
+                                </option>
+                                <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>"
+                                    <?php echo $get_shipping_status == $constants["shippingStatus"]["shipped"] ? 'selected' : ''; ?>>
+                                    Đang vận
+                                    chuyển
+                                </option>
+                                <option value="<?php echo $constants["shippingStatus"]["done"] ?>"
+                                    <?php echo $get_shipping_status == $constants["shippingStatus"]["done"] ? 'selected' : ''; ?>>
+                                    Đã nhận hàng
+                                </option>
+                                <option value="<?php echo $constants["shippingStatus"]["returned"] ?>"
+                                    <?php echo $get_shipping_status == $constants["shippingStatus"]["returned"] ? 'selected' : ''; ?>>
+                                    Đã trả hàng
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Tình trạng duyệt</label>
+                        <select name="isSeen" class="form-control">
+                            <option value>Chọn</option>
+                            <option value="0">Chưa xem</option>
+                            <option value="1">Đã xem</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary js-submit">
+                        <i class="fa fa-search m-r-5"></i>
+                        Tìm kiếm
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

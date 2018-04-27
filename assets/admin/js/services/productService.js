@@ -32,5 +32,14 @@ var productService = {
             success: success,
             error: error
         });
+    },
+    updateSale: function (products, range, salePercentage, success, error) {
+        $.ajax({
+            url: '/sports-shop-final/app/controllers/admin/productController.php',
+            type: 'post',
+            data: {function: 'updateSale', products: products, range: range, salePercentage: salePercentage},
+            success: success,
+            error: error
+        });
     }
 };

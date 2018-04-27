@@ -188,9 +188,9 @@ include '../template/navigation.php';
                                     <div class="product product-single">
                                         <div class="product-thumb">
                                             <div class="product-label">
-                                                <?php if ($product->oldPrice != 0): ?>
-                                                    <span>New</span>
-                                                    <span class="sale">-<?php echo ceil(($product->oldPrice - $product->currentPrice) / $product->oldPrice * 100); ?>
+                                                <?php if ($product->isSale()): ?>
+                                                    <span>Sale</span>
+                                                    <span class="sale">-<?php echo $product->salePercentage; ?>
                                                         %</span>
                                                 <?php endif; ?>
                                             </div>
@@ -214,14 +214,18 @@ include '../template/navigation.php';
                                                  class="product-thumbnail-sm">
                                         </div>
                                         <div class="product-body">
-                                            <h3 class="product-price"><?php echo number_format($product->currentPrice) ?>
-                                                đ
-                                                <?php if ($product->oldPrice != 0): ?>
-                                                    <del class="product-old-price"><?php echo number_format($product->oldPrice); ?>
-                                                        đ
+                                            <?php if ($product->isSale()): ?>
+                                                <h3 class="product-price">
+                                                    <?php echo number_format($product->getSalePrice()) ?> đ
+                                                    <del class="product-old-price">
+                                                        <?php echo number_format($product->currentPrice) ?> đ
                                                     </del>
-                                                <?php endif; ?>
-                                            </h3>
+                                                </h3>
+                                            <?php else: ?>
+                                                <h3 class="product-price">
+                                                    <?php echo number_format($product->getSalePrice()) ?> đ
+                                                </h3>
+                                            <?php endif ?>
                                             <h2 class="product-name" data-product-id="<?php echo $product->id; ?>"><a
                                                         href="/sports-shop-final/app/pages/client/product/show.php?id=<?php echo $product->id; ?>"><?php echo $product->name; ?></a>
                                             </h2>

@@ -23,7 +23,11 @@ switch ($requestMethod) {
         break;
     case 'POST':
         $function = $_POST["function"];
-
+        switch ($function) {
+            case 'updateSale':
+                $responseData = $productService->updateSale($_POST);
+                break;
+        }
         break;
     case 'PUT':
         $id = $_GET["id"];

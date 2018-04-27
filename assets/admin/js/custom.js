@@ -1,4 +1,5 @@
 $(function () {
+
     $(document).on('click', '.togglable', function () {
         $(this).closest('tr').next().toggle();
     });
@@ -89,8 +90,8 @@ $(function () {
         buttonClass: 'btn btn-white btn-primary',
         maxHeight: 300,
         numberDisplayed: 0,
-        buttonWidth: '100%',
         nonSelectedText: 'Chọn danh mục',
+        enableClickableOptGroups: true,
         templates: {
             button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"><span class="multiselect-selected-text"></span> &nbsp;<b class="fa fa-caret-down"></b></button>',
             ul: '<ul class="multiselect-container dropdown-menu"></ul>',

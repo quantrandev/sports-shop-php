@@ -30,7 +30,7 @@ class CartService
             $product->id,
             $product->images[0]["source"],
             $product->name,
-            $product->currentPrice,
+            ($product->isSale() ? $product->getSalePrice() : $product->currentPrice),
             (intval($quantity) < 0) ? 1 : intval($quantity)
         );
 
