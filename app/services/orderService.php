@@ -151,7 +151,7 @@ class OrderService
                 $product->id,
                 $product->images[0]["source"],
                 $product->name,
-                $product->currentPrice,
+                $product->basicPrice,
                 $row["quantity"]
             );
             array_push($orderItems, $cartItem);

@@ -77,7 +77,8 @@ include '../templates/sidebar.php';
                                     <i class="fa fa-caret-down m-l-5"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)" class="js-sale js-sale-all">Tất cả</a></li>
+                                    <li><a role="button" class="js-sale-all" data-toggle="modal"
+                                           data-target="#sale-all-modal">Tất cả</a></li>
                                     <li><a href="javascript:void(0)" class="js-sale">Sản phẩm được chọn</a></li>
                                 </ul>
                             </div>
@@ -178,8 +179,10 @@ include '../templates/sidebar.php';
                                     </label>
                                 </td>
                                 <td class="p-name"><?php echo $product->name; ?></td>
-                                <td class="p-old-price"><?php echo empty($product->currentPrice) ? number_format($product->currentPrice) . " đ" : number_format($product->currentPrice) . " đ"; ?></td>
-                                <td class="currentPrice"><?php echo $product->isSale() ? number_format($product->getSalePrice()) . ' đ' : '<span class="label label-danger">Không có</span>'; ?></td>
+                                <td class="p-old-price"><?php echo empty($product->basicPrice) ? number_format($product->basicPrice) . " đ" : number_format($product->basicPrice) . " đ"; ?></td>
+                                <td class="p-basicPrice">
+                                    <?php echo $product->isSale() ? '<span class="label label-success m-r-5">-' . $product->salePercentage . ' %</span>' . number_format($product->getSalePrice()) . ' đ' : '<span class="label label-danger">Không giảm giá</span>'; ?>
+                                </td>
                                 <td class="text-center">
                                     <div class="hidden-sm hidden-xs btn-group">
                                         <button class="btn btn-xs btn-primary js-view-images">
@@ -380,14 +383,8 @@ include '../templates/sidebar.php';
                     <div class="form-group">
                         <label for="" class="col-md-2 control-label">Giá gốc *</label>
                         <div class="col-md-10">
-                            <input type="number" class="form-control" id="productcurrentPrice" min="500" step="500"
+                            <input type="number" class="form-control" id="productbasicPrice" min="500" step="500"
                                    required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="" class="col-md-2 control-label">Giá khuyến mãi</label>
-                        <div class="col-md-10">
-                            <input type="number" class="form-control" id="productCurrentPrice" min="500" step="500">
                         </div>
                     </div>
                     <div class="form-group">
@@ -417,8 +414,8 @@ include '../templates/sidebar.php';
                     <h4 class="modal-title">Tìm kiếm</h4>
                 </div>
                 <div class="modal-body">
-                    <label for="">Danh mục</label>
                     <div class="form-group">
+                        <label for="">Danh mục</label>
                         <select name="category[]" class="form-control multiselect-category" multiple>
                             <?php foreach ($menus as $category): ?>
                                 <optgroup label="<?php echo $category->name ?>"></optgroup>
@@ -440,6 +437,18 @@ include '../templates/sidebar.php';
                                     <?php endif; ?>
                                 <?php endif; ?>
                             <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Giảm giá</label>
+                        <select name="isSale" class="form-control">
+                            <option value>Chọn</option>
+                            <option value="0" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 0 ? 'selected' : '') : ''; ?>>
+                                Không giảm giá
+                            </option>
+                            <option value="1" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 1 ? 'selected' : '') : ''; ?>>
+                                Giảm giá
+                            </option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -491,7 +500,7 @@ include '../templates/sidebar.php';
                 </div>
                 <div class="form-group">
                     <label for="">Mức giảm giá (%)</label>
-                    <input type="number" min="0.1" max="100" step="0.1" id="salePercentage" class="form-control">
+                    <input type="number" min="0" max="100" step="0.1" id="salePercentage" class="form-control">
                 </div>
             </div>
             <div class="modal-footer">
@@ -502,6 +511,45 @@ include '../templates/sidebar.php';
                 </button>
             </div>
         </div>
+    </div>
+</div>
+<div id="sale-all-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <form method="get"
+              action="/sports-shop-final/app/controllers/admin/productController.php">
+            <input type="hidden" name="p" value="<?php echo $_SERVER["QUERY_STRING"]; ?>">
+            <input type="hidden" name="function" value="updateSaleAll">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Giảm giá</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Thời gian</label>
+                        <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar bigger-110"></i>
+                                    </span>
+                            <input class="form-control date-range-picker" type="text" name="range"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Mức giảm giá (%)</label>
+                        <input type="number" name="salePercentage" min="0" max="100" step="0.1" id="salePercentage"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary js-save-changes">
+                        Lưu thay đổi
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <?php
@@ -521,6 +569,13 @@ include '../templates/footer.php';
         utilities.notify("Thông báo", '<?php echo $_SESSION["flashMessage"];?>', "gritter-success");
     </script>
     <?php unset($_SESSION["flashMessage"]); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION["errorMessage"])): ?>
+    <script>
+        utilities.notify("Thông báo", '<?php echo $_SESSION["errorMessage"];?>', "gritter-error");
+    </script>
+    <?php unset($_SESSION["errorMessage"]); ?>
 <?php endif; ?>
 
 <?php

@@ -80,7 +80,7 @@ include '../template/navigation.php';
                             <h3 class="product-price">
                                 <?php echo number_format($product->getSalePrice()) ?> đ
                                 <del class="product-old-price">
-                                    <?php echo number_format($product->currentPrice) ?> đ
+                                    <?php echo number_format($product->basicPrice) ?> đ
                                 </del>
                             </h3>
                         <?php else: ?>

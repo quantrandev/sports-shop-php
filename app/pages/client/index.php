@@ -31,91 +31,92 @@ include 'template/navigation.php';
     <!-- container -->
     <div class="container">
         <!-- row -->
-        <div class="row">
-            <!-- section-title -->
-            <div class="col-md-12">
-                <div class="section-title">
-                    <h2 class="title">Giảm giá</h2>
-                    <div class="pull-right">
-                        <div class="product-slick-dots-1 custom-dots"></div>
+        <?php if (count($sales) != 0): ?>
+            <div class="row">
+                <!-- section-title -->
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h2 class="title">Giảm giá</h2>
+                        <div class="pull-right">
+                            <div class="product-slick-dots-1 custom-dots"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- /section-title -->
+                <!-- /section-title -->
 
-            <!-- banner -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="banner banner-2">
-                    <img src="/sports-shop-final/assets<?php echo $ad["content"] ?>" alt="">
+                <!-- banner -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="banner banner-2">
+                        <img src="/sports-shop-final/assets<?php echo $ad["content"] ?>" alt="">
+                    </div>
                 </div>
-            </div>
-            <!-- /banner -->
+                <!-- /banner -->
 
-            <!-- Product Slick -->
-            <div class="col-md-9 col-sm-6 col-xs-6">
-                <div class="row">
-                    <div id="product-slick-1" class="product-slick">
-                        <?php foreach ($sales as $product): ?>
-                            <!-- Product Single -->
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <div class="product-label">
-                                        <span>Sale</span>
-                                        <span class="sale"><?php echo $product->salePercentage; ?> %</span>
-                                    </div>
-                                    <div class="product-feature" style="display: inline-block">
+                <!-- Product Slick -->
+                <div class="col-md-9 col-sm-6 col-xs-6">
+                    <div class="row">
+                        <div id="product-slick-1" class="product-slick">
+                            <?php foreach ($sales as $product): ?>
+                                <!-- Product Single -->
+                                <div class="product product-single">
+                                    <div class="product-thumb">
+                                        <div class="product-label">
+                                            <span>Sale</span>
+                                            <span class="sale"><?php echo $product->salePercentage; ?> %</span>
+                                        </div>
+                                        <div class="product-feature" style="display: inline-block">
                                         <span class="m-r-5">
                                             <i class="fa fa-thumbs-up likes-count js-likes"
                                                data-product-id="<?php echo $product->id; ?>"></i>
                                             <span class="js-likes-count"><?php echo $product->likes; ?></span>
                                         </span>
-                                        <span class="m-r-5">
+                                            <span class="m-r-5">
                                             <i class="fa fa-eye views-count"></i>
                                             <span class="js-views-count"><?php echo $product->views; ?></span>
                                         </span>
+                                        </div>
+                                        <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>"
+                                           class="main-btn quick-view"><i class="fa fa-search-plus"></i> Phóng to
+                                        </a>
+                                        <img src="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>"
+                                             alt=""
+                                             class="product-thumbnail-sm">
                                     </div>
-                                    <a href="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>"
-                                       class="main-btn quick-view"><i class="fa fa-search-plus"></i> Phóng to
-                                    </a>
-                                    <img src="/sports-shop-final/assets<?php echo $product->images[0]["source"] ?>"
-                                         alt=""
-                                         class="product-thumbnail-sm">
-                                </div>
-                                <div class="product-body">
-                                    <?php if ($product->isSale()): ?>
-                                        <h3 class="product-price">
-                                            <?php echo number_format($product->getSalePrice()) ?> đ
-                                            <del class="product-old-price">
-                                                <?php echo number_format($product->currentPrice) ?> đ
-                                            </del>
-                                        </h3>
-                                    <?php else: ?>
-                                        <h3 class="product-price">
-                                            <?php echo number_format($product->getSalePrice()) ?> đ
-                                        </h3>
-                                    <?php endif ?>
-                                    <h2 class="product-name"><a
-                                                href="product/show.php?id=<?php echo $product->id ?>"><?php echo $product->name ?></a>
-                                    </h2>
-                                    <div class="product-btns text-center">
-                                        <button class="primary-btn add-to-cart js-add-cart"
-                                                data-id="<?php echo $product->id ?>"
-                                                data-name="<?php echo $product->name ?>"><i
-                                                    class="fa fa-shopping-cart"></i>
-                                            Mua hàng
-                                        </button>
+                                    <div class="product-body">
+                                        <?php if ($product->isSale()): ?>
+                                            <h3 class="product-price">
+                                                <?php echo number_format($product->getSalePrice()) ?> đ
+                                                <del class="product-old-price">
+                                                    <?php echo number_format($product->basicPrice) ?> đ
+                                                </del>
+                                            </h3>
+                                        <?php else: ?>
+                                            <h3 class="product-price">
+                                                <?php echo number_format($product->getSalePrice()) ?> đ
+                                            </h3>
+                                        <?php endif ?>
+                                        <h2 class="product-name"><a
+                                                    href="product/show.php?id=<?php echo $product->id ?>"><?php echo $product->name ?></a>
+                                        </h2>
+                                        <div class="product-btns text-center">
+                                            <button class="primary-btn add-to-cart js-add-cart"
+                                                    data-id="<?php echo $product->id ?>"
+                                                    data-name="<?php echo $product->name ?>"><i
+                                                        class="fa fa-shopping-cart"></i>
+                                                Mua hàng
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /Product Single -->
-                        <?php endforeach; ?>
+                                <!-- /Product Single -->
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 </div>
+                <!-- /Product Slick -->
             </div>
-            <!-- /Product Slick -->
-        </div>
-        <!-- /row -->
-
+            <!-- /row -->
+        <?php endif; ?>
         <!-- row -->
         <div class="row">
             <!-- section title -->
@@ -163,7 +164,7 @@ include 'template/navigation.php';
                             <h3 class="product-price">
                                 <?php echo number_format($newest->getSalePrice()) ?> đ
                                 <del class="product-old-price">
-                                    <?php echo number_format($newest->currentPrice) ?> đ
+                                    <?php echo number_format($newest->basicPrice) ?> đ
                                 </del>
                             </h3>
                         <?php else: ?>
@@ -224,7 +225,7 @@ include 'template/navigation.php';
                                         <h3 class="product-price">
                                             <?php echo number_format($product->getSalePrice()) ?> đ
                                             <del class="product-old-price">
-                                                <?php echo number_format($product->currentPrice) ?> đ
+                                                <?php echo number_format($product->basicPrice) ?> đ
                                             </del>
                                         </h3>
                                     <?php else: ?>
@@ -306,7 +307,7 @@ include 'template/navigation.php';
                                 <h3 class="product-price">
                                     <?php echo number_format($product->getSalePrice()) ?> đ
                                     <del class="product-old-price">
-                                        <?php echo number_format($product->currentPrice) ?> đ
+                                        <?php echo number_format($product->basicPrice) ?> đ
                                     </del>
                                 </h3>
                             <?php else: ?>
@@ -377,7 +378,7 @@ include 'template/navigation.php';
                                 <h3 class="product-price">
                                     <?php echo number_format($product->getSalePrice()) ?> đ
                                     <del class="product-old-price">
-                                        <?php echo number_format($product->currentPrice) ?> đ
+                                        <?php echo number_format($product->basicPrice) ?> đ
                                     </del>
                                 </h3>
                             <?php else: ?>

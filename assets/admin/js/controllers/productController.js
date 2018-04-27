@@ -176,12 +176,7 @@ var productController = {
                 res = JSON.parse(res);
 
                 if (!res.error) {
-                    let updatedRow = $('#products-table').find('tr[data-product-id=' + editData.id + ']');
-                    updatedRow.find('td.p-name').text(editData.data.name);
-                    updatedRow.find('td.p-old-price').text(editData.data.oldPrice === 0 ? editData.data.currentPrice : editData.data.oldPrice);
-                    updatedRow.find('td.p-current-price').text(editData.data.oldPrice === 0 ? '<span class="text-danger">Không có</span>' : editData.data.currentPrice);
-                    productController.productModal.modal('hide');
-                    utilities.notify('Thông báo', 'Đã cập nhật thành công', 'gritter-success', false);
+                    window.location.reload();
                 }
                 else
                     utilities.notify('Thông báo', 'Có lỗi xảy ra', 'gritter-error', false);
@@ -191,13 +186,18 @@ var productController = {
     },
     onOpenSaleModal: function () {
         $(document).on('click', '.js-sale', function () {
-            if (!$(this).hasClass('js-sale-all'))
+            if (!$(this).hasClass('js-sale-all')) {
                 productController.selectedItems = productController.getSelected();
 
-            if (!productController.selectedItems.length)
-                utilities.notify('Thông báo', 'Vui lòng chọn ít nhất 1 sản phẩm', 'gritter-error', false);
-            else
+                if (!productController.selectedItems.length) {
+                    utilities.notify('Thông báo', 'Vui lòng chọn ít nhất 1 sản phẩm', 'gritter-error', false);
+                    return;
+                }
                 productController.saleModal.modal();
+            }
+            else {
+
+            }
         });
     },
     onSaveSaleChanges: function () {
@@ -209,7 +209,12 @@ var productController = {
             }
 
             productService.updateSale(productController.selectedItems, saleData.range, saleData.percentage, function (res) {
-                console.log(res);
+                res = JSON.parse(res);
+
+                if (!res.error)
+                    window.location.reload();
+                else
+                    utilities.notify('Thông báo', 'Có lỗi xảy ra, vui lòng thử lại', 'gritter-error', false);
             }, function (error) {
             });
         });
@@ -243,8 +248,7 @@ var productController = {
     setDataForEditProductModal: function (data) {
         productController.productModal.find('#productId').val(data.id);
         productController.productModal.find('#productName').val(data.name);
-        productController.productModal.find('#productOldPrice').val(data.oldPrice == 0 ? data.currentPrice : data.oldPrice);
-        productController.productModal.find('#productCurrentPrice').val(data.oldPrice == 0 ? null : data.currentPrice);
+        productController.productModal.find('#productbasicPrice').val(data.basicPrice);
         CKEDITOR.instances['productDescription'].setData(data.description);
     },
     getDataFromEditProductModal: function () {
@@ -252,8 +256,7 @@ var productController = {
             id: productController.productModal.find('#productId').val(),
             data: {
                 name: productController.productModal.find('#productName').val(),
-                oldPrice: productController.productModal.find('#productOldPrice').val(),
-                currentPrice: productController.productModal.find('#productCurrentPrice').val(),
+                basicPrice: productController.productModal.find('#productbasicPrice').val(),
                 description: CKEDITOR.instances['productDescription'].getData()
             }
         };
@@ -290,14 +293,9 @@ var productController = {
         if (!salePercentage || !dateRangeString)
             return null;
 
-        let dateRange = dateRangeString.split('-');
-
         return {
             percentage: salePercentage,
-            range: {
-                from: dateRange[0].trim(),
-                to: dateRange[1].trim()
-            }
+            range: dateRangeString
         };
     },
     toggleButtonStatus: function (button, option, text) {

@@ -6,12 +6,11 @@ class ProductViewModel
     public $name;
     public $description;
     public $images;
-    public $currentPrice;
+    public $basicPrice;
     public $saleFrom;
     public $saleTo;
     public $salePercentage;
 
-    public $oldPrice;
     public $quantity;
     public $createdDate;
     public $categoryId;
@@ -23,9 +22,7 @@ class ProductViewModel
         $this->id = $args["id"];
         $this->name = $args["name"];
         $this->description = $args["description"];
-        $this->currentPrice = $args["currentPrice"];
-
-        $this->oldPrice = $args["oldPrice"];
+        $this->basicPrice = $args["basicPrice"];
         $this->saleFrom = $args["saleFrom"];
         $this->saleTo = $args["saleTo"];
         $this->salePercentage = $args["salePercentage"];
@@ -51,7 +48,7 @@ class ProductViewModel
 
     public function getSalePrice()
     {
-        return intval($this->currentPrice) - ((intval($this->currentPrice) * intval($this->salePercentage)) / 100);
+        return intval($this->basicPrice) - ((intval($this->basicPrice) * intval($this->salePercentage)) / 100);
     }
 }
 
@@ -62,6 +59,42 @@ class ProductService
     public function __construct($db)
     {
         $this->db = $db;
+    }
+
+    public function all($condition)
+    {
+        $query = "";
+
+        $nameQuery = $this->buildNameQuery($condition);
+        $categoriesQuery = $this->buildCategoryQuery($condition);
+        $priceQuery = $this->buildPriceQuery($condition);
+
+        $condition = "";
+        if (empty($nameQuery) && empty($categoriesQuery) && empty($priceQuery))
+            $condition .= '';
+        else {
+            $condition .= " where "
+                . (empty($nameQuery) ? 'true' : $nameQuery)
+                . " and "
+                . (empty($categoriesQuery) ? 'true' : $categoriesQuery)
+                . " and "
+                . (empty($priceQuery) ? 'true' : $priceQuery);
+        }
+
+        $query .= "select * from products" . $condition;
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        $products = array();
+        while ($row = $stmt->fetch()) {
+            $product = new ProductViewModel($row);
+            $image = new ImageService($this->db);
+            $product->setImages($image->getMany($row["id"]));
+            array_push($products, $product);
+        }
+
+
+        return $products;
     }
 
     public function get($id)
@@ -177,9 +210,10 @@ class ProductService
         $nameQuery = $this->buildNameQuery($condition);
         $categoriesQuery = $this->buildCategoryQuery($condition);
         $priceQuery = $this->buildPriceQuery($condition);
+        $isSaleQuery = $this->buildIsSaleQuery($condition);
 
         $condition = "";
-        if (empty($nameQuery) && empty($categoriesQuery) && empty($priceQuery))
+        if (empty($nameQuery) && empty($categoriesQuery) && empty($priceQuery) && empty($isSaleQuery))
             $condition .= '';
         else {
             $condition .= " where "
@@ -187,11 +221,13 @@ class ProductService
                 . " and "
                 . (empty($categoriesQuery) ? 'true' : $categoriesQuery)
                 . " and "
-                . (empty($priceQuery) ? 'true' : $priceQuery);
+                . (empty($priceQuery) ? 'true' : $priceQuery)
+                . " and "
+                . (empty($isSaleQuery) ? 'true' : $isSaleQuery);
         }
 
         $query .= "select * from products" . $condition
-            . " order by currentPrice desc"
+            . " order by basicPrice desc"
             . " limit " . $pageSize . " offset " . (($page - 1) * $pageSize);
 
         $stmt = $this->db->prepare($query);
@@ -220,18 +256,16 @@ class ProductService
     {
         $name = $data["name"];
         $quantity = $data["quantity"];
-        if (empty($name) || empty($quantity) || empty($data["oldPrice"]))
+        if (empty($name) || empty($quantity) || empty($data["basicPrice"]))
             return false;
-        $oldPrice = empty($data["currentPrice"]) ? 0 : $data["oldPrice"];
-        $currentPrice = empty($data["currentPrice"]) ? $data["oldPrice"] : $data["currentPrice"];
+        $basicPrice = $data["basicPrice"];
         $categoryId = $data["categoryId"];
         $description = $data["description"];
 
         $query = $this->buildInsertQuery(array(
             "name" => "N'" . $name . "'",
-            "oldPrice" => $oldPrice,
             "quantity" => $quantity,
-            "currentPrice" => $currentPrice,
+            "basicPrice" => $basicPrice,
             "categoryId" => $categoryId,
             "description" => "'" . $description . "'"
         ));
@@ -296,10 +330,8 @@ class ProductService
             $sql .= "categoryId = " . $columns["categoryId"] . ",";
         if (!empty($columns["name"]))
             $sql .= "name = N'" . $columns["name"] . "',";
-        if (!empty($columns["oldPrice"]))
-            $sql .= "oldPrice = " . $columns["oldPrice"] . ",";
-        if (!empty($columns["currentPrice"]))
-            $sql .= "currentPrice = " . $columns["currentPrice"] . ",";
+        if (!empty($columns["basicPrice"]))
+            $sql .= "basicPrice = " . $columns["basicPrice"] . ",";
         if (!empty($columns["description"]))
             $sql .= "description = '" . $columns["description"] . "',";
 
@@ -311,8 +343,9 @@ class ProductService
     public function updateSale($data)
     {
         $postRange = $data["range"];
-        $dateFrom = getdate(strtotime($postRange["from"]));
-        $dateTo = getdate(strtotime($postRange["to"]));
+        $dateRangeArr = explode("-", $postRange);
+        $dateFrom = getdate(strtotime(trim($dateRangeArr[0])));
+        $dateTo = getdate(strtotime(trim($dateRangeArr[1])));
         $range = array(
             "from" => $dateFrom["year"] . "-" . $dateFrom["mon"] . "-" . $dateFrom["mday"],
             "to" => $dateTo["year"] . "-" . $dateTo["mon"] . "-" . $dateTo["mday"],
@@ -327,8 +360,9 @@ class ProductService
             "range" => $range
         ));
 
+        $affectedRows = $this->db->exec($query);
 
-        return $query;
+        return empty($affectedRows) ? false : true;
     }
 
     //helpers
@@ -394,16 +428,25 @@ class ProductService
 
         $priceQuery = "";
         if (empty($condition["price-from"])) {
-            $priceQuery .= "currentPrice <= " . $condition["price-to"];
+            $priceQuery .= "basicPrice <= " . $condition["price-to"];
             return $priceQuery;
         }
         if (empty($condition["price-to"])) {
-            $priceQuery .= "currentPrice >= " . $condition["price-from"];
+            $priceQuery .= "basicPrice >= " . $condition["price-from"];
             return $priceQuery;
         }
 
-        $priceQuery .= "currentPrice <= " . $condition["price-to"] . " and currentPrice >= " . $condition["price-from"];
+        $priceQuery .= "basicPrice <= " . $condition["price-to"] . " and basicPrice >= " . $condition["price-from"];
         return $priceQuery;
+    }
+
+    public function buildIsSaleQuery($condition)
+    {
+        if (empty($condition["isSale"]))
+            return '';
+
+        $query = "salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE()";
+        return $query;
     }
 
     //insert helpers
