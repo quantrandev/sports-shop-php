@@ -47,13 +47,43 @@ switch ($requestMethod) {
                 $queryString = http_build_query($queryStringArr);
                 header("Location: ../../pages/admin/product/list.php?" . $queryString);
                 break;
+            case 'UnsaleAll':
+                $condition = array();
+                parse_str($_GET["p"], $condition);
+
+                $products = array_map(function ($value) {
+                    return $value->id;
+                }, $productService->all($condition));
+
+                $error = !$productService->unsale(array(
+                    "products" => $products,
+                ));
+                if (!$error)
+                    $_SESSION["flashMessage"] = "Đã cập nhật thành công";
+                else
+                    $_SESSION["errorMessage"] = "Có lỗi xảy ra, vui lòng thử lại";
+
+                $queryStringArr = array();
+                parse_str($_GET["p"], $queryStringArr);
+                unset($queryStringArr["function"]);
+                $queryString = http_build_query($queryStringArr);
+                header("Location: ../../pages/admin/product/list.php?" . $queryString);
+                break;
         }
         break;
     case 'POST':
         $function = $_POST["function"];
         switch ($function) {
-            case 'updateSale':
+            case 'sale':
                 $error = !$productService->updateSale($_POST);
+                $responseData = array(
+                    "error" => $error
+                );
+                if (!$error)
+                    $_SESSION["flashMessage"] = "Đã cập nhật thành công";
+                break;
+            case 'unsale':
+                $error = !$productService->unsale($_POST);
                 $responseData = array(
                     "error" => $error
                 );

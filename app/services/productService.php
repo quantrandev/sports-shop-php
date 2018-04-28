@@ -40,7 +40,7 @@ class ProductViewModel
 
     public function isSale()
     {
-        if ($this->salePercentage != 0 && strtotime($this->saleTo) >= time() && strtotime($this->saleFrom) <= time())
+        if ($this->salePercentage != 0 && strtotime($this->saleTo) >= strtotime(date('Y-m-d', time())) && strtotime($this->saleFrom) <= strtotime(date('Y-m-d', time())))
             return true;
 
         return false;
@@ -255,16 +255,14 @@ class ProductService
     public function add($data)
     {
         $name = $data["name"];
-        $quantity = $data["quantity"];
-        if (empty($name) || empty($quantity) || empty($data["basicPrice"]))
-            return false;
         $basicPrice = $data["basicPrice"];
+        if (empty($name) || empty($data["basicPrice"]))
+        return true;
         $categoryId = $data["categoryId"];
         $description = $data["description"];
 
         $query = $this->buildInsertQuery(array(
             "name" => "N'" . $name . "'",
-            "quantity" => $quantity,
             "basicPrice" => $basicPrice,
             "categoryId" => $categoryId,
             "description" => "'" . $description . "'"
@@ -359,6 +357,15 @@ class ProductService
             "products" => $products,
             "range" => $range
         ));
+
+        $affectedRows = $this->db->exec($query);
+
+        return empty($affectedRows) ? false : true;
+    }
+
+    public function unsale($data)
+    {
+        $query = $this->buildUnsaleQuery($data["products"]);
 
         $affectedRows = $this->db->exec($query);
 
@@ -484,6 +491,18 @@ class ProductService
         $range = $data["range"];
         $products = $data["products"];
         $query = "update products set salePercentage = " . $percentage . ", saleFrom = '" . $range["from"] . "', saleTo = '" . $range["to"] . "' where id in (";
+
+        foreach ($products as $product) {
+            $query .= $product . ",";
+        }
+        $query = substr(trim($query), 0, strlen($query) - 1) . ")";
+
+        return $query;
+    }
+
+    public function buildUnsaleQuery($products)
+    {
+        $query = "update products set salePercentage = 0 where id in (";
 
         foreach ($products as $product) {
             $query .= $product . ",";

@@ -79,13 +79,7 @@ include '../templates/sidebar.php';
                             <div class="form-group">
                                 <label for="" class="col-md-2 control-label">Giá gốc *</label>
                                 <div class="col-md-6">
-                                    <input type="number" class="form-control" name="oldPrice" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="col-md-2 control-label">Số lượng *</label>
-                                <div class="col-md-6">
-                                    <input type="number" class="form-control" name="quantity" required>
+                                    <input type="number" class="form-control" name="basicPrice" required>
                                 </div>
                             </div>
                             <div class="form-group">

@@ -51,7 +51,7 @@
 <script src="/sports-shop-final/assets/admin/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/dataTables.buttons.min.js"></script>
 <script src="/sports-shop-final/assets/admin/js/dataTables.select.min.js"></script>
-<script src="/sports-shop-final/assets/admin/js/owl.carousel.min.js"></script>
+<script src="/sports-shop-final/assets/admin/js/bootbox.js"></script>
 <script src="/sports-shop-final/assets/admin/js/dropzone.js"></script>
 <script src="/sports-shop-final/assets/client/js/jquery.magnific-popup.min.js"></script>
 <script src="/sports-shop-final/assets/admin/ckeditor/ckeditor.js"></script>

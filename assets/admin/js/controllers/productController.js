@@ -3,6 +3,7 @@ var productController = {
     categoryModal: null,
     productModal: null,
     saleModal: null,
+    saleAllModal: null,
     deletedImages: null,
     selectedItems: [],
     init: function () {
@@ -10,6 +11,7 @@ var productController = {
         productController.categoryModal = $('#category-modal');
         productController.productModal = $('#product-modal');
         productController.saleModal = $('#sale-modal');
+        productController.saleAllModal = $('#sale-all-modal');
         productController.deletedImages = [];
         productController.registerConfirmations();
         productController.events();
@@ -186,17 +188,41 @@ var productController = {
     },
     onOpenSaleModal: function () {
         $(document).on('click', '.js-sale', function () {
-            if (!$(this).hasClass('js-sale-all')) {
-                productController.selectedItems = productController.getSelected();
+            productController.selectedItems = productController.getSelected();
+            if (!productController.selectedItems.length) {
+                utilities.notify('Thông báo', 'Vui lòng chọn ít nhất 1 sản phẩm', 'gritter-error', false);
+                return;
+            }
 
-                if (!productController.selectedItems.length) {
-                    utilities.notify('Thông báo', 'Vui lòng chọn ít nhất 1 sản phẩm', 'gritter-error', false);
-                    return;
-                }
+            if (!$(this).hasClass('js-unsale')) {
                 productController.saleModal.modal();
             }
             else {
+                bootbox.confirm({
+                    message: 'Hủy giảm giá các sản phẩm hiện tại',
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-success btn-sm'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger btn-sm'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result)
+                            productService.unsale(productController.selectedItems, function (res) {
+                                res = JSON.parse(res);
 
+                                if (!res.error)
+                                    window.location.reload();
+                                else
+                                    utilities.notify('Thông báo', 'Có lỗi xảy ra, vui lòng thử lại', 'gritter-error', false);
+                            }, function (error) {
+                            });
+                    }
+                });
             }
         });
     },
@@ -217,6 +243,16 @@ var productController = {
                     utilities.notify('Thông báo', 'Có lỗi xảy ra, vui lòng thử lại', 'gritter-error', false);
             }, function (error) {
             });
+        });
+        productController.saleAllModal.on('click', '.js-save-changes', function (e) {
+            e.preventDefault();
+            let saleData = productController.getSaleAllModalData();
+            if (!saleData) {
+                utilities.notify('Thông báo', 'Vui lòng điền đầy đủ thông tin', 'gritter-error', false);
+                return;
+            }
+
+            $(this).closest('form').submit();
         });
     },
     setDataForImagesContainer: function (images) {
@@ -290,6 +326,17 @@ var productController = {
     getSaleModalData: function () {
         let salePercentage = productController.saleModal.find('#salePercentage').val();
         let dateRangeString = productController.saleModal.find('#date-range-picker').val();
+        if (!salePercentage || !dateRangeString)
+            return null;
+
+        return {
+            percentage: salePercentage,
+            range: dateRangeString
+        };
+    },
+    getSaleAllModalData: function () {
+        let salePercentage = productController.saleAllModal.find('#salePercentage').val();
+        let dateRangeString = productController.saleAllModal.find('.date-range-picker').val();
         if (!salePercentage || !dateRangeString)
             return null;
 

@@ -82,6 +82,19 @@ include '../templates/sidebar.php';
                                     <li><a href="javascript:void(0)" class="js-sale">Sản phẩm được chọn</a></li>
                                 </ul>
                             </div>
+                            <div class="dropdown" style="display: inline-block;">
+                                <button class="btn btn-warning btn-sm dropdown-toggle" type="button"
+                                        data-toggle="dropdown">
+                                    <i class="fa fa-bolt m-r-5"></i>
+                                    Hủy giảm giá
+                                    <i class="fa fa-caret-down m-l-5"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a role="button" class="js-unsale-all" data-toggle="modal"
+                                           data-target="#unsale-all-modal">Tất cả</a></li>
+                                    <li><a href="javascript:void(0)" class="js-sale js-unsale">Sản phẩm được chọn</a></li>
+                                </ul>
+                            </div>
                             <button class="btn btn-danger btn-sm js-batch-delete hide">
                                 <i class="fa fa-trash m-r-5"></i>
                                 Xóa
@@ -313,8 +326,8 @@ include '../templates/sidebar.php';
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                <button type="button" class="btn btn-primary btn-sm js-save-changes">Lưu thay đổi
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng
                     </button>
             </div>
         </div>
@@ -353,8 +366,8 @@ include '../templates/sidebar.php';
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                <button type="button" class="btn btn-primary btn-sm js-save-changes">Lưu thay đổi
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng
                     </button>
             </div>
         </div>
@@ -396,8 +409,8 @@ include '../templates/sidebar.php';
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                <button type="button" class="btn btn-primary btn-sm js-save-changes">Lưu thay đổi
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng
                     </button>
             </div>
         </div>
@@ -468,11 +481,11 @@ include '../templates/sidebar.php';
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary js-submit">
+                    <button type="submit" class="btn btn-primary btn-sm js-submit">
                         <i class="fa fa-search m-r-5"></i>
                         Tìm kiếm
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng
                     </button>
                 </div>
             </div>
@@ -504,10 +517,10 @@ include '../templates/sidebar.php';
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary js-save-changes">
+                <button type="submit" class="btn btn-primary btn-sm js-save-changes">
                     Lưu thay đổi
                 </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng
                 </button>
             </div>
         </div>
@@ -542,10 +555,37 @@ include '../templates/sidebar.php';
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary js-save-changes">
+                    <button type="submit" class="btn btn-primary btn-sm js-save-changes">
                         Lưu thay đổi
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="unsale-all-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <form method="get"
+              action="/sports-shop-final/app/controllers/admin/productController.php">
+            <input type="hidden" name="p" value="<?php echo $_SERVER["QUERY_STRING"]; ?>">
+            <input type="hidden" name="function" value="UnsaleAll">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Hủy giảm giá</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Hủy giảm giá tất cả sản phẩm trong kết quả tìm kiếm này ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary btn-sm js-save-changes">
+                        Yes
+                    </button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">
+                        No
                     </button>
                 </div>
             </div>
