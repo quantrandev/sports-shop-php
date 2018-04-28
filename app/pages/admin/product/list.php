@@ -504,13 +504,13 @@ include '../templates/sidebar.php';
                         <select name="isSale" class="form-control">
                             <option value>Chọn</option>
                             <option value="0" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 0 ? 'selected' : '') : ''; ?>>
-                                Chưa từng giảm giá
+                                Chưa giảm giá
                             </option>
                             <option value="1" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 1 ? 'selected' : '') : ''; ?>>
                                 Đang giảm giá
                             </option>
                             <option value="2" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 2 ? 'selected' : '') : ''; ?>>
-                                Đã từng giảm giá
+                                Đã giảm giá
                             </option>
                         </select>
                     </div>

@@ -22,6 +22,8 @@ var orderController = {
         orderController.onQuantityChange();
         orderController.onDeleteOrderItem();
         orderController.onSaveOrderItems();
+        //print events
+        orderController.onPrintOrders();
     },
     registerDataTable: function () {
         $('#orders-table').DataTable({
@@ -240,6 +242,11 @@ var orderController = {
                     utilities.notify('Thông báo', 'Có lỗi xảy ra, vui lòng thử lại', 'gritter-error', false);
             }, function (err) {
             });
+        });
+    },
+    onPrintOrders: function () {
+        $(document).on('click', '.js-print-orders', function () {
+            $('form#printOrders').submit();
         });
     },
     //helpers

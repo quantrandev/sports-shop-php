@@ -115,6 +115,45 @@ class OrderService
 
     }
 
+    public function search($condition)
+    {
+        $dateRangeQuery = $this->buildDateRangeQuery($condition);
+        $codeQuery = $this->buildCodeQuery($condition);
+        $shippingStatusQuery = $this->buildShippingStatusQuery($condition);
+        $customerNameQuery = $this->buildNameQuery($condition);
+        $seenQuery = $this->buildSeenQuery($condition);
+
+        $condition = "";
+        if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery)) {
+            $condition .= " where "
+                . (empty($customerNameQuery) ? 'true' : $customerNameQuery)
+                . " and "
+                . (empty($codeQuery) ? 'true' : $codeQuery)
+                . " and "
+                . (empty($shippingStatusQuery) ? 'true' : $shippingStatusQuery)
+                . " and "
+                . (empty($dateRangeQuery) ? 'true' : $dateRangeQuery)
+                . " and "
+                . (empty($seenQuery) ? 'true' : $seenQuery);
+        } else
+            $condition .= " where createdDate = '" .
+                getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"]
+                . "'";
+
+        $sql = "select * from orders"
+            . $condition;
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+
+        $result = array();
+        while ($row = $stmt->fetch()) {
+            array_push($result, $row);
+        }
+
+        return $result;
+    }
+
     public function last($createdDate)
     {
         $stmt = $this->db->prepare("select * from orders where createdDate = '" . $createdDate . "' order by code desc limit 1 offset 0");

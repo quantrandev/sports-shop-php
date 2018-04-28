@@ -69,7 +69,7 @@ include '../templates/sidebar.php';
                                 <i class="fa fa-search m-r-5"></i>
                                 Tìm kiếm
                             </button>
-                            <button class="btn btn-info btn-sm">
+                            <button class="btn btn-info btn-sm js-print-orders">
                                 <i class="fa fa-print m-r-5"></i>
                                 In danh sách
                             </button>
@@ -540,6 +540,10 @@ m-r-5"
     </div>
 </div>
 
+<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printOrders" method="post">
+    <input type="hidden" name="p" value="<?php echo $_SERVER["QUERY_STRING"]; ?>">
+    <input type="hidden" name="function" value="orders">
+</form>
 <?php
 include '../templates/footer.php';
 ?>
