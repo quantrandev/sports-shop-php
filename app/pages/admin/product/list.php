@@ -92,7 +92,8 @@ include '../templates/sidebar.php';
                                 <ul class="dropdown-menu">
                                     <li><a role="button" class="js-unsale-all" data-toggle="modal"
                                            data-target="#unsale-all-modal">Tất cả</a></li>
-                                    <li><a href="javascript:void(0)" class="js-sale js-unsale">Sản phẩm được chọn</a></li>
+                                    <li><a href="javascript:void(0)" class="js-sale js-unsale">Sản phẩm được chọn</a>
+                                    </li>
                                 </ul>
                             </div>
                             <button class="btn btn-danger btn-sm js-batch-delete hide">
@@ -166,7 +167,7 @@ include '../templates/sidebar.php';
                     <table class="table table-bordered table-hover" id="products-table">
                         <thead>
                         <tr>
-                            <th class="text-center">
+                            <th class="text-center" rowspan="2">
                                 <?php if (count($products) > 0): ?>
                                     <label class="pos-rel">
                                         <input type="checkbox" class="ace js-check-all"/>
@@ -174,17 +175,21 @@ include '../templates/sidebar.php';
                                     </label>
                                 <?php endif; ?>
                             </th>
-                            <th>Tên sản phẩm</th>
-                            <th>Giá gốc</th>
-                            <th>Giá khuyến mãi</th>
-                            <th>Ảnh</th>
-                            <th>Danh mục</th>
-                            <th></th>
+                            <th rowspan="2">Tên sản phẩm</th>
+                            <th rowspan="2">Giá gốc (đ)</th>
+                            <th colspan="4" class="text-center">Khuyến mãi</th>
+                            <th rowspan="2" colspan="3">Công cụ</th>
+                        </tr>
+                        <tr>
+                            <th>Mức (%)</th>
+                            <th>Giá khuyến mãi (đ)</th>
+                            <th>Bắt đầu (ngày)</th>
+                            <th>Kết thúc (ngày)</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($products as $product): ?>
-                            <tr data-product-id="<?php echo $product->id; ?>">
+                            <tr data-product-id="<?php echo $product->id; ?>" class="<?php echo $product->isSale()?'info':''?>">
                                 <td class="text-center">
                                     <label class="pos-rel">
                                         <input type="checkbox" class="ace js-check-item"/>
@@ -192,40 +197,82 @@ include '../templates/sidebar.php';
                                     </label>
                                 </td>
                                 <td class="p-name"><?php echo $product->name; ?></td>
-                                <td class="p-old-price"><?php echo empty($product->basicPrice) ? number_format($product->basicPrice) . " đ" : number_format($product->basicPrice) . " đ"; ?></td>
+                                <td class="p-old-price"><?php echo number_format($product->basicPrice); ?></td>
+                                <td>
+                                    <?php if ($product->isSale()): ?>
+                                        <span class="label label-success"><?php echo $product->salePercentage; ?></span>
+                                    <?php else: ?>
+                                        <?php if (empty($product->salePercentage)): ?>
+
+                                        <?php else: ?>
+                                            <span class="text-danger"><?php echo $product->salePercentage; ?></span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
                                 <td class="p-basicPrice">
-                                    <?php echo $product->isSale() ? '<span class="label label-success m-r-5">-' . $product->salePercentage . ' %</span>' . number_format($product->getSalePrice()) . ' đ' : '<span class="label label-danger">Không giảm giá</span>'; ?>
+                                    <?php if ($product->isSale()): ?>
+                                        <span class="label label-success"><?php echo number_format($product->getSalePrice()); ?></span>
+                                    <?php else: ?>
+                                        <?php if (empty($product->salePercentage)): ?>
+
+                                        <?php else: ?>
+                                            <span class="text-danger"><?php echo number_format($product->getSalePrice()); ?></span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($product->isSale()): ?>
+                                        <span class="label label-success"><?php echo date('d-m-Y', strtotime($product->saleFrom)); ?></span>
+                                    <?php else: ?>
+                                        <?php if (empty($product->saleFrom)): ?>
+
+                                        <?php else: ?>
+                                            <span class="text-danger"><?php echo date('d-m-Y', strtotime($product->saleFrom)); ?></span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($product->isSale()): ?>
+                                        <span class="label label-success"><?php echo date('d-m-Y', strtotime($product->saleTo)); ?></span>
+                                    <?php else: ?>
+                                        <?php if (empty($product->saleTo)): ?>
+
+                                        <?php else: ?>
+                                            <span class="text-danger"><?php echo date('d-m-Y', strtotime($product->saleTo));?></span>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
                                 </td>
                                 <td class="text-center">
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-primary js-view-images">
-                                            <i class="fa fa-image m-r-5"></i>
-                                            Ảnh
+                                    <div class="dropdown" style="display: inline-block;">
+                                        <button class="btn btn-primary btn-xs dropdown-toggle" type="button"
+                                                data-toggle="dropdown">
+                                            <i class="fa fa-pencil-square m-r-5"></i>
+                                            Chỉnh sửa
+                                            <i class="fa fa-caret-down m-l-5"></i>
                                         </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a role="button" class="js-view-images">
+                                                    <i class="fa fa-image m-r-5"></i>
+                                                    Ảnh
+                                                </a></li>
+                                            <li><a role="button" class="js-edit-category"
+                                                   data-category-id="<?php echo $product->categoryId; ?>">
+                                                    <i class="fa fa-bars m-r-5"></i>
+                                                    Danh mục
+                                                </a></li>
+                                            <li><a role="button" class="js-edit"
+                                                   data-id="<?php echo $product->id; ?>">
+                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                    Thông tin khác
+                                                </a></li>
+                                        </ul>
                                     </div>
+                                    <button class="btn btn-xs btn-danger js-delete-product">
+                                        <i class="ace-icon fa fa-trash bigger-120"></i>
+                                        Xóa
+                                    </button>
                                 </td>
-                                <td class="text-center">
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-primary js-edit-category"
-                                                data-category-id="<?php echo $product->categoryId; ?>">
-                                            <i class="fa fa-bars m-r-5"></i>
-                                            Danh mục
-                                        </button>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    <div class="hidden-sm hidden-xs btn-group">
-                                        <button class="btn btn-xs btn-info js-edit"
-                                                data-id="<?php echo $product->id; ?>">
-                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                            Sửa
-                                        </button>
-                                        <button class="btn btn-xs btn-danger js-delete-product">
-                                            <i class="ace-icon fa fa-trash bigger-120"></i>
-                                            Xóa
-                                        </button>
-                                    </div>
-                                </td>
+
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
@@ -457,10 +504,13 @@ include '../templates/sidebar.php';
                         <select name="isSale" class="form-control">
                             <option value>Chọn</option>
                             <option value="0" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 0 ? 'selected' : '') : ''; ?>>
-                                Không giảm giá
+                                Chưa từng giảm giá
                             </option>
                             <option value="1" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 1 ? 'selected' : '') : ''; ?>>
-                                Giảm giá
+                                Đang giảm giá
+                            </option>
+                            <option value="2" <?php echo isset($_GET["isSale"]) ? ($_GET["isSale"] == 2 ? 'selected' : '') : ''; ?>>
+                                Đã từng giảm giá
                             </option>
                         </select>
                     </div>

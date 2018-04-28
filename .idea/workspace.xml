@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f1307e9-5304-46c5-a50c-09a7a58d90f8" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/app/services/receiptService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controllers/admin/productController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/admin/productController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/admin/product/add.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/admin/product/add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/pages/admin/product/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/admin/product/list.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/admin/templates/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/admin/templates/footer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/services/productService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/productService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/admin/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/css/custom.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/admin/js/controllers/productController.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/controllers/productController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/js/services/productService.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/js/services/productService.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,53 +18,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="add.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/pages/admin/product/add.php">
+      <file leaf-file-name="list.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/pages/admin/product/list.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="75" column="96" selection-start-line="75" selection-start-column="96" selection-end-line="75" selection-end-column="96" />
+            <state relative-caret-position="402">
+              <caret line="199" column="67" selection-start-line="199" selection-start-column="67" selection-end-line="199" selection-end-column="67" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="productController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/admin/js/controllers/productController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="338" column="68" selection-start-line="338" selection-start-column="68" selection-end-line="338" selection-end-column="68" />
-              <folding>
-                <element signature="e#8319#8872#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="productService.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/admin/js/services/productService.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="428">
-              <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="productController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/controllers/admin/productController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
-              <folding>
-                <element signature="e#1942#2364#0#PHP" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="productService.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="productService.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/services/productService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="257" selection-start-line="257" selection-end-line="257" />
+            <state relative-caret-position="239">
+              <caret line="452" column="13" selection-start-line="452" selection-start-column="13" selection-end-line="452" selection-end-column="13" />
               <folding>
                 <element signature="n#all#0;n#ProductService#0;n#!!top" />
                 <element signature="n#get#0;n#ProductService#0;n#!!top" />
@@ -75,18 +40,16 @@
                 <element signature="n#newComings#0;n#ProductService#0;n#!!top" />
                 <element signature="n#favorites#0;n#ProductService#0;n#!!top" />
                 <element signature="n#bestSellers#0;n#ProductService#0;n#!!top" />
-                <element signature="n#search#0;n#ProductService#0;n#!!top" />
+                <element signature="n#add#0;n#ProductService#0;n#!!top" />
                 <element signature="n#updateImages#0;n#ProductService#0;n#!!top" />
                 <element signature="n#update#0;n#ProductService#0;n#!!top" />
-                <element signature="n#updateSale#0;n#ProductService#0;n#!!top" />
-                <element signature="n#updateSale#1;n#ProductService#0;n#!!top" />
                 <element signature="n#buildNameQuery#0;n#ProductService#0;n#!!top" />
                 <element signature="n#buildCategoryQuery#0;n#ProductService#0;n#!!top" />
                 <element signature="n#buildPriceQuery#0;n#ProductService#0;n#!!top" />
-                <element signature="n#buildIsSaleQuery#0;n#ProductService#0;n#!!top" />
                 <element signature="n#buildInsertQuery#0;n#ProductService#0;n#!!top" />
                 <element signature="n#buildImagesQuery#0;n#ProductService#0;n#!!top" />
                 <element signature="n#buildSaleQuery#0;n#ProductService#0;n#!!top" />
+                <element signature="n#buildUnsaleQuery#0;n#ProductService#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -96,8 +59,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add-to-cart</find>
-      <find>}}</find>
       <find>shopping-cart-talbe</find>
       <find>href</find>
       <find>/products?category</find>
@@ -124,8 +85,10 @@
       <find>oldPrice</find>
       <find>currentPrice</find>
       <find>btn</find>
-      <find>quantity</find>
       <find>current</find>
+      <find>quantity</find>
+      <find>Sửa</find>
+      <find>products-table</find>
     </findStrings>
     <replaceStrings>
       <replace>ImageService</replace>
@@ -142,6 +105,7 @@
       <replace>BasicPrice</replace>
       <replace>currentPrice</replace>
       <replace>basicPrice</replace>
+      <replace>Thông tin khác</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -184,7 +148,6 @@
         <option value="$PROJECT_DIR$/app/pages/admin/ads/list.php" />
         <option value="$PROJECT_DIR$/assets/client/js/main.js" />
         <option value="$PROJECT_DIR$/app/pages/admin/order/list.php" />
-        <option value="$PROJECT_DIR$/assets/admin/css/custom.css" />
         <option value="$PROJECT_DIR$/assets/client/css/custom.css" />
         <option value="$PROJECT_DIR$/assets/admin/js/custom.js" />
         <option value="$PROJECT_DIR$/assets/client/js/controllers/cartController.js" />
@@ -196,11 +159,12 @@
         <option value="$PROJECT_DIR$/app/pages/client/index.php" />
         <option value="$PROJECT_DIR$/app/pages/admin/templates/footer.php" />
         <option value="$PROJECT_DIR$/assets/admin/js/services/productService.js" />
-        <option value="$PROJECT_DIR$/assets/admin/js/controllers/productController.js" />
         <option value="$PROJECT_DIR$/app/controllers/admin/productController.php" />
-        <option value="$PROJECT_DIR$/app/pages/admin/product/list.php" />
         <option value="$PROJECT_DIR$/app/pages/admin/product/add.php" />
+        <option value="$PROJECT_DIR$/assets/admin/js/controllers/productController.js" />
+        <option value="$PROJECT_DIR$/assets/admin/css/custom.css" />
         <option value="$PROJECT_DIR$/app/services/productService.php" />
+        <option value="$PROJECT_DIR$/app/pages/admin/product/list.php" />
       </list>
     </option>
   </component>
@@ -250,8 +214,7 @@
               <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
               <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="client" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="services" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -262,7 +225,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../project4" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cd3/php_training" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -315,18 +278,19 @@
       <workItem from="1524733952382" duration="1027000" />
       <workItem from="1524814687500" duration="14347000" />
       <workItem from="1524835481049" duration="8663000" />
-      <workItem from="1524882319349" duration="4465000" />
+      <workItem from="1524882319349" duration="6115000" />
+      <workItem from="1524901951305" duration="6438000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238241000" />
+    <option name="totallyTimeSpent" value="246329000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
@@ -360,7 +324,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/pages/authentication/authorize.php" />
     <entry file="file://$PROJECT_DIR$/app/pages/admin/category/add.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -491,13 +454,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
           <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/admin/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="206" lean-forward="true" selection-start-line="206" selection-end-line="206" />
         </state>
       </provider>
     </entry>
@@ -667,41 +623,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/admin/js/services/productService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="428">
-          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/admin/js/controllers/productController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="338" column="68" selection-start-line="338" selection-start-column="68" selection-end-line="338" selection-end-column="68" />
-          <folding>
-            <element signature="e#8319#8872#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/admin/productController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="57" column="50" selection-start-line="57" selection-start-column="50" selection-end-line="57" selection-end-column="50" />
-          <folding>
-            <element signature="e#1942#2364#0#PHP" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/pages/admin/product/list.php">
+    <entry file="file://$PROJECT_DIR$/assets/admin/js/services/productService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="579" column="24" lean-forward="true" selection-start-line="579" selection-start-column="24" selection-end-line="579" selection-end-column="24" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#div#6;n#!!top" />
-          </folding>
+        <state relative-caret-position="428">
+          <caret line="48" column="36" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -712,10 +644,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assets/admin/js/controllers/productController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="166" column="86" selection-start-line="166" selection-start-column="86" selection-end-line="166" selection-end-column="86" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/admin/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="208" column="27" selection-start-line="208" selection-start-column="27" selection-end-line="208" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/services/productService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="257" selection-start-line="257" selection-end-line="257" />
+        <state relative-caret-position="239">
+          <caret line="452" column="13" selection-start-line="452" selection-start-column="13" selection-end-line="452" selection-end-column="13" />
           <folding>
             <element signature="n#all#0;n#ProductService#0;n#!!top" />
             <element signature="n#get#0;n#ProductService#0;n#!!top" />
@@ -724,19 +673,24 @@
             <element signature="n#newComings#0;n#ProductService#0;n#!!top" />
             <element signature="n#favorites#0;n#ProductService#0;n#!!top" />
             <element signature="n#bestSellers#0;n#ProductService#0;n#!!top" />
-            <element signature="n#search#0;n#ProductService#0;n#!!top" />
+            <element signature="n#add#0;n#ProductService#0;n#!!top" />
             <element signature="n#updateImages#0;n#ProductService#0;n#!!top" />
             <element signature="n#update#0;n#ProductService#0;n#!!top" />
-            <element signature="n#updateSale#0;n#ProductService#0;n#!!top" />
-            <element signature="n#updateSale#1;n#ProductService#0;n#!!top" />
             <element signature="n#buildNameQuery#0;n#ProductService#0;n#!!top" />
             <element signature="n#buildCategoryQuery#0;n#ProductService#0;n#!!top" />
             <element signature="n#buildPriceQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildIsSaleQuery#0;n#ProductService#0;n#!!top" />
             <element signature="n#buildInsertQuery#0;n#ProductService#0;n#!!top" />
             <element signature="n#buildImagesQuery#0;n#ProductService#0;n#!!top" />
             <element signature="n#buildSaleQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildUnsaleQuery#0;n#ProductService#0;n#!!top" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/pages/admin/product/list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="199" column="67" selection-start-line="199" selection-start-column="67" selection-end-line="199" selection-end-column="67" />
         </state>
       </provider>
     </entry>

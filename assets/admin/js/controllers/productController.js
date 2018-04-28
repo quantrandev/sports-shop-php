@@ -159,12 +159,12 @@ var productController = {
         $(document).on('click', '.js-edit', function () {
             let button = $(this);
             let productId = button.closest('tr').attr('data-product-id');
-            productController.toggleButtonStatus(button, 'loading', 'Sửa');
+            productController.toggleButtonStatus(button, 'loading', 'Thông tin khác');
             productService.getProduct(productId, function (res) {
                 res = JSON.parse(res);
 
                 productController.setDataForEditProductModal(res);
-                productController.toggleButtonStatus(button, 'edited', 'Sửa');
+                productController.toggleButtonStatus(button, 'edited', 'Thông tin khác');
             }, function (err) {
             });
 

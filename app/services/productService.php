@@ -26,6 +26,7 @@ class ProductViewModel
         $this->saleFrom = $args["saleFrom"];
         $this->saleTo = $args["saleTo"];
         $this->salePercentage = $args["salePercentage"];
+        $this->isSale = $args["isSale"];
         $this->quantity = $args["quantity"];
         $this->createdDate = $args["createdDate"];
         $this->categoryId = $args["categoryId"];
@@ -40,7 +41,7 @@ class ProductViewModel
 
     public function isSale()
     {
-        if ($this->salePercentage != 0 && strtotime($this->saleTo) >= strtotime(date('Y-m-d', time())) && strtotime($this->saleFrom) <= strtotime(date('Y-m-d', time())))
+        if ($this->isSale == 1 && $this->salePercentage != 0 && strtotime($this->saleTo) >= strtotime(date('Y-m-d', time())) && strtotime($this->saleFrom) <= strtotime(date('Y-m-d', time())))
             return true;
 
         return false;
@@ -121,7 +122,7 @@ class ProductService
     {
         $stmt = $this->db
             ->prepare("select * from products "
-                . " where salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE() order by views desc limit "
+                . " where isSale = 1 and salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE() order by views desc limit "
                 . $take
                 . " offset "
                 . $offset);
@@ -257,7 +258,7 @@ class ProductService
         $name = $data["name"];
         $basicPrice = $data["basicPrice"];
         if (empty($name) || empty($data["basicPrice"]))
-        return true;
+            return true;
         $categoryId = $data["categoryId"];
         $description = $data["description"];
 
@@ -449,10 +450,21 @@ class ProductService
 
     public function buildIsSaleQuery($condition)
     {
-        if (empty($condition["isSale"]))
+        if (!isset($condition["isSale"]))
+            return '';
+        if ($condition["isSale"] == null)
             return '';
 
-        $query = "salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE()";
+        //never ever on sale
+        if ($condition["isSale"] == 0) {
+            $query = "salePercentage = 0 and saleFrom IS NULL and saleTo IS NULL";
+        } else if ($condition["isSale"] == 1) {
+            $query = "isSale = 1 and salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE()";
+        } else if ($condition["isSale"] == 2) {
+            $query = "isSale = 0 and salePercentage != 0 and saleFrom IS NOT NULL and saleTo IS NOT NULL";
+        } else
+            $query = '';
+
         return $query;
     }
 
@@ -490,7 +502,7 @@ class ProductService
         $percentage = $data["percentage"];
         $range = $data["range"];
         $products = $data["products"];
-        $query = "update products set salePercentage = " . $percentage . ", saleFrom = '" . $range["from"] . "', saleTo = '" . $range["to"] . "' where id in (";
+        $query = "update products set salePercentage = " . $percentage . ", saleFrom = '" . $range["from"] . "', saleTo = '" . $range["to"] . "', isSale = 1 where id in (";
 
         foreach ($products as $product) {
             $query .= $product . ",";
@@ -502,7 +514,7 @@ class ProductService
 
     public function buildUnsaleQuery($products)
     {
-        $query = "update products set salePercentage = 0 where id in (";
+        $query = "update products set isSale = 0 where id in (";
 
         foreach ($products as $product) {
             $query .= $product . ",";
