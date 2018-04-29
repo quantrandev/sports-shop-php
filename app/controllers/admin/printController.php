@@ -3,6 +3,11 @@
 require_once('../../../assets/admin/TCPDF-master/tcpdf.php');
 include '../../services/connection.php';
 include '../../services/printService.php';
+include '../../services/productService.php';
+include '../../services/shippingService.php';
+include '../../services/imageService.php';
+include '../../viewModels/cartViewModel.php';
+include '../../viewModels/orderInfoViewModel.php';
 include '../../services/orderService.php';
 
 // create new PDF document
@@ -12,8 +17,8 @@ $orderService = new OrderService($conn);
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('Nicola Asuni');
-$pdf->SetTitle('TCPDF Example 006');
+$pdf->SetAuthor('Quan Tran');
+$pdf->SetTitle('Danh sách đơn hàng');
 $pdf->SetSubject('TCPDF Tutorial');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
@@ -41,15 +46,48 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->SetFont('freeserif', '', 10);
 
 $function = $_POST["function"];
-$redirectUrl = $_POST["p"];
 
 switch ($function) {
     case 'orders':
+        $redirectUrl = $_POST["p"];
         $condition = array();
         parse_str($redirectUrl, $condition);
 
         $orders = $orderService->search($condition);
         $printService->orders($orders);
+        break;
+    case 'invoices':
+        $invoices = explode(",", $_POST["orders"]);
+
+        $printedOrders = array();
+        foreach ($invoices as $invoice) {
+            $printOrder = array(
+                "basicInfo" => $orderService->get($invoice),
+                "productInfo" => $orderService->getWithProduct($invoice)
+            );
+
+            array_push($printedOrders, $printOrder);
+        }
+
+        $printService->invoices($printedOrders);
+        break;
+    case 'invoicesAll':
+        $redirectUrl = $_POST["p"];
+        $condition = array();
+        parse_str($redirectUrl, $condition);
+
+        $orders = $orderService->search($condition);
+        $printedOrders = array();
+        foreach ($orders as $order) {
+            $printOrder = array(
+                "basicInfo" => $order,
+                "productInfo" => $orderService->getWithProduct($order["code"])
+            );
+
+            array_push($printedOrders, $printOrder);
+        }
+
+        $printService->invoices($printedOrders);
         break;
 }
 

@@ -24,6 +24,8 @@ var orderController = {
         orderController.onSaveOrderItems();
         //print events
         orderController.onPrintOrders();
+        orderController.onPrintInvoices();
+        orderController.onPrintAllInvoices();
     },
     registerDataTable: function () {
         $('#orders-table').DataTable({
@@ -249,6 +251,23 @@ var orderController = {
             $('form#printOrders').submit();
         });
     },
+    onPrintInvoices: function () {
+        $(document).on('click', '.js-print-invoices', function () {
+            let selectedOrders = orderController.getSelected();
+            if (!selectedOrders.length) {
+                utilities.notify('Thông báo', 'Vui lòng chọn ít nhất 1 đơn hàng', 'gritter-error', false);
+                return;
+            }
+
+            $('form#printInvoices').find('input#orders').val(selectedOrders);
+            $('form#printInvoices').submit();
+        });
+    },
+    onPrintAllInvoices: function () {
+        $(document).on('click', '.js-print-invoices-all', function () {
+            $('form#printAllInvoices').submit();
+        });
+    },
     //helpers
     setDataForCustomerInfoModal: function (data) {
         orderController.customerInfoModal.find('#code').val(data.code);
@@ -367,6 +386,18 @@ var orderController = {
             if (orderController.products[i].id == id)
                 orderController.products[i].deleted = true;
         }
+    },
+    //orders print helpers
+    getSelected: function () {
+        let selectedItem = [];
+        $('.js-check-item').each(function (index, value) {
+            if (!$(value).prop('checked'))
+                return;
+
+            selectedItem.push($(value).closest('tr').attr('data-order-id'));
+        });
+
+        return selectedItem;
     }
 };
 

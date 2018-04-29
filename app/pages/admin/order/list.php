@@ -81,8 +81,8 @@ include '../templates/sidebar.php';
                                     <i class="fa fa-caret-down m-l-5"></i>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="javascript:void(0)">Tất cả</a></li>
-                                    <li><a href="javascript:void(0)">Hóa đơn được chọn</a></li>
+                                    <li><a href="javascript:void(0)" class="js-print-invoices-all">Tất cả</a></li>
+                                    <li><a href="javascript:void(0)" class="js-print-invoices">Hóa đơn được chọn</a></li>
                                 </ul>
                             </div>
                             <button class="btn btn-danger btn-sm js-batch-delete hide">
@@ -543,6 +543,14 @@ m-r-5"
 <form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printOrders" method="post">
     <input type="hidden" name="p" value="<?php echo $_SERVER["QUERY_STRING"]; ?>">
     <input type="hidden" name="function" value="orders">
+</form>
+<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printAllInvoices" method="post">
+    <input type="hidden" name="p" value="<?php echo $_SERVER["QUERY_STRING"]; ?>">
+    <input type="hidden" name="function" value="invoicesAll">
+</form>
+<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printInvoices" method="post">
+    <input type="hidden" name="function" value="invoices">
+    <input type="hidden" name="orders" id="orders">
 </form>
 <?php
 include '../templates/footer.php';
