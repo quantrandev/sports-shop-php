@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f1307e9-5304-46c5-a50c-09a7a58d90f8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/services/printService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/printService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/admin/printController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/admin/printController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/productService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/productService.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,71 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="printController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="printController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/admin/printController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="69" column="9" lean-forward="true" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/pages/admin/order/list.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="552" column="49" selection-start-line="552" selection-start-column="49" selection-end-line="552" selection-end-column="49" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="orderController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/admin/js/controllers/orderController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="401">
-              <caret line="260" lean-forward="true" selection-start-line="260" selection-end-line="260" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="printService.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/services/printService.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="144" column="50" lean-forward="true" selection-start-line="144" selection-start-column="50" selection-end-line="144" selection-end-column="50" />
-              <folding>
-                <element signature="n#orders#0;n#PrintService#0;n#!!top" />
-                <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#4;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#5;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#4;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#5;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h2#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#p#0;n#td#0;n#tr#1;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#table#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#table#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#0;n#tr#2;n#table#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#td#0;n#tr#3;n#table#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#2;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#td#3;n#tr#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#tr#0;n#tfoot#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#1;n#tr#0;n#tfoot#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="360">
+              <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -186,14 +128,14 @@
         <option value="$PROJECT_DIR$/app/pages/admin/product/add.php" />
         <option value="$PROJECT_DIR$/assets/admin/js/controllers/productController.js" />
         <option value="$PROJECT_DIR$/assets/admin/css/custom.css" />
-        <option value="$PROJECT_DIR$/app/services/productService.php" />
         <option value="$PROJECT_DIR$/app/pages/admin/product/list.php" />
         <option value="$PROJECT_DIR$/app/services/orderService.php" />
         <option value="$PROJECT_DIR$/app/pages/admin/order/list.php" />
         <option value="$PROJECT_DIR$/assets/admin/js/services/orderService.js" />
         <option value="$PROJECT_DIR$/assets/admin/js/controllers/orderController.js" />
-        <option value="$PROJECT_DIR$/app/controllers/admin/printController.php" />
         <option value="$PROJECT_DIR$/app/services/printService.php" />
+        <option value="$PROJECT_DIR$/app/services/productService.php" />
+        <option value="$PROJECT_DIR$/app/controllers/admin/printController.php" />
       </list>
     </option>
   </component>
@@ -312,12 +254,13 @@
       <workItem from="1524901951305" duration="8112000" />
       <workItem from="1524922543598" duration="2194000" />
       <workItem from="1524928151241" duration="4140000" />
-      <workItem from="1524964589076" duration="9578000" />
+      <workItem from="1524964589076" duration="9718000" />
+      <workItem from="1524985674886" duration="1258000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263915000" />
+    <option name="totallyTimeSpent" value="265313000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -628,32 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/productService.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="452" column="13" selection-start-line="452" selection-start-column="13" selection-end-line="452" selection-end-column="13" />
-          <folding>
-            <element signature="n#all#0;n#ProductService#0;n#!!top" />
-            <element signature="n#get#0;n#ProductService#0;n#!!top" />
-            <element signature="n#getImages#0;n#ProductService#0;n#!!top" />
-            <element signature="n#sales#0;n#ProductService#0;n#!!top" />
-            <element signature="n#newComings#0;n#ProductService#0;n#!!top" />
-            <element signature="n#favorites#0;n#ProductService#0;n#!!top" />
-            <element signature="n#bestSellers#0;n#ProductService#0;n#!!top" />
-            <element signature="n#add#0;n#ProductService#0;n#!!top" />
-            <element signature="n#updateImages#0;n#ProductService#0;n#!!top" />
-            <element signature="n#update#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildNameQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildCategoryQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildPriceQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildInsertQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildImagesQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildSaleQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildUnsaleQuery#0;n#ProductService#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/pages/admin/product/list.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="8756">
@@ -706,7 +623,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pages/admin/order/list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
+        <state relative-caret-position="20">
           <caret line="552" column="49" selection-start-line="552" selection-start-column="49" selection-end-line="552" selection-end-column="49" />
         </state>
       </provider>
@@ -720,55 +637,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/admin/js/controllers/orderController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="260" lean-forward="true" selection-start-line="260" selection-end-line="260" />
+        <state relative-caret-position="20">
+          <caret line="260" selection-start-line="260" selection-end-line="260" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/admin/printController.php">
+    <entry file="file://$PROJECT_DIR$/app/services/productService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="69" column="9" lean-forward="true" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+        <state relative-caret-position="351">
+          <caret line="463" column="106" lean-forward="true" selection-start-line="463" selection-start-column="106" selection-end-line="463" selection-end-column="106" />
+          <folding>
+            <element signature="n#all#0;n#ProductService#0;n#!!top" />
+            <element signature="n#get#0;n#ProductService#0;n#!!top" />
+            <element signature="n#getImages#0;n#ProductService#0;n#!!top" />
+            <element signature="n#sales#0;n#ProductService#0;n#!!top" />
+            <element signature="n#newComings#0;n#ProductService#0;n#!!top" />
+            <element signature="n#favorites#0;n#ProductService#0;n#!!top" />
+            <element signature="n#bestSellers#0;n#ProductService#0;n#!!top" />
+            <element signature="n#add#0;n#ProductService#0;n#!!top" />
+            <element signature="n#updateImages#0;n#ProductService#0;n#!!top" />
+            <element signature="n#update#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildNameQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildCategoryQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildPriceQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildInsertQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildImagesQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildSaleQuery#0;n#ProductService#0;n#!!top" />
+            <element signature="n#buildUnsaleQuery#0;n#ProductService#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/services/printService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="144" column="50" lean-forward="true" selection-start-line="144" selection-start-column="50" selection-end-line="144" selection-end-column="50" />
+        <state relative-caret-position="1917">
+          <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
           <folding>
             <element signature="n#orders#0;n#PrintService#0;n#!!top" />
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#4;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#5;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#2;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#3;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#4;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#5;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h2#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#p#0;n#td#0;n#tr#1;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#table#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#table#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#0;n#tr#2;n#table#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#td#0;n#tr#3;n#table#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#2;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#3;n#tr#0;n#thead#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#2;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#3;n#tr#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#tr#0;n#tfoot#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#1;n#tr#0;n#tfoot#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/admin/printController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="32" column="36" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
         </state>
       </provider>
     </entry>

@@ -461,7 +461,7 @@ class ProductService
         } else if ($condition["isSale"] == 1) {
             $query = "isSale = 1 and salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE()";
         } else if ($condition["isSale"] == 2) {
-            $query = "isSale = 0 and salePercentage != 0 and saleFrom IS NOT NULL and saleTo IS NOT NULL";
+            $query = "salePercentage != 0 and saleFrom IS NOT NULL and saleTo IS NOT NULL and id not in (select id from products where isSale = 1 and salePercentage != 0 and saleFrom <= CURDATE() and saleTo >= CURDATE())";
         } else
             $query = '';
 

@@ -23,7 +23,7 @@ $pdf->SetSubject('TCPDF Tutorial');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
 // set default header data
-$pdf->SetHeaderData(null, null, 'Danh sách đơn hàng', 'Công ty TNHH Elite Sport');
+$pdf->SetHeaderData(null, null, 'Danh sách đơn hàng', 'Công ty cổ phần Elite Sport');
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array('freeserif', '', PDF_FONT_SIZE_MAIN));
