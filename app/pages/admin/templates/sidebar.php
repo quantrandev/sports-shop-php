@@ -140,7 +140,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
                         </li>
 
                         <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/ads/list.php">
+                            <a href="/sports-shop-final/app/pages/admin/receipt/list.php">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Danh sách hóa đơn nhập
                             </a>
