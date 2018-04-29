@@ -89,7 +89,7 @@ class PrintService
             <tr>
             <td><h2 style="text-align: center; text-transform: uppercase">Hóa đơn thanh toán</h2></td>
             </tr>
-            <tr><td><p style="text-align: center;">Ngày '.date('d').' tháng '.date('m').', năm '.date('Y').'</p></td></tr>
+            <tr><td><p style="text-align: center;">Ngày ' . date('d') . ' tháng ' . date('m') . ', năm ' . date('Y') . '</p></td></tr>
             </table>
             <table class="customerSummary">
                 <tr>
@@ -138,15 +138,15 @@ class PrintService
             <tfoot>
                 <tr>
                     <th colspan="3" style="border-top: 1px dashed #d9d9d9;">Tổng tiền sán phẩm (VNĐ)</th>
-                    <th style="border-top: 1px dashed #d9d9d9;">350,000,000</th>
+                    <th style="border-top: 1px dashed #d9d9d9;">' . number_format($invoice["productInfo"]->getSubtotal()) . '</th>
                 </tr>
                 <tr>
                     <th colspan="3">Phí vận chuyển (VNĐ)</th>
-                    <th>50,000</th>
+                    <th>' . number_format($invoice["productInfo"]->shippingMethod["cost"]) . '</th>
                 </tr>
                 <tr>
                     <th colspan="3">Tổng tiền hóa đơn (VNĐ)</th>
-                    <th>350,050,000</th>
+                    <th>' . number_format(intval($invoice["productInfo"]->shippingMethod["cost"]) + intval($invoice["productInfo"]->getSubtotal())) . '</th>
                 </tr>
             </tfoot>
             </table>
