@@ -208,3 +208,7 @@ hr {
 #products-table td {
     vertical-align: middle;
 }
+
+input.has-change {
+    border: 1px solid lightseagreen;
+}

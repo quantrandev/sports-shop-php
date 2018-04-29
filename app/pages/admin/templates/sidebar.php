@@ -131,7 +131,7 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
 
                     <ul class="submenu">
                         <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/ads/add.php">
+                            <a href="/sports-shop-final/app/pages/admin/receipt/add.info.php">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Thêm hóa đơn nhập
                             </a>
