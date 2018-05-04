@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f1307e9-5304-46c5-a50c-09a7a58d90f8" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/pages/admin/receipt/edit.info.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/pages/admin/receipt/edit.products.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/pages/admin/receipt/list.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/pages/admin/templates/sidebar.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/pages/admin/templates/sidebar.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/receiptService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/receiptService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/admin/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/admin/css/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/client/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/client/css/custom.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,11 +13,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="receiptService.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/services/receiptService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
+            <state relative-caret-position="620">
               <caret line="73" column="54" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
               <folding>
                 <element signature="n#all#0;n#ReceiptService#0;n#!!top" />
@@ -31,7 +26,6 @@
                 <element signature="n#attach#0;n#ReceiptService#0;n#!!top" />
                 <element signature="n#update#0;n#ReceiptService#0;n#!!top" />
                 <element signature="n#last#0;n#ReceiptService#0;n#!!top" />
-                <element signature="e#1780#2021#0#PHP" />
                 <element signature="n#buildDateRangeQuery#0;n#ReceiptService#0;n#!!top" />
                 <element signature="n#buildQuery#0;n#ReceiptService#0;n#!!top" />
               </folding>
@@ -39,14 +33,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="edit.products.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="edit.products.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/pages/admin/receipt/edit.products.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="62" column="47" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
-              <folding>
-                <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="235">
+              <caret line="98" column="2" selection-start-line="98" selection-start-column="2" selection-end-line="98" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/client/css/custom.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="483">
+              <caret line="137" column="24" selection-start-line="137" selection-start-column="24" selection-end-line="137" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -55,7 +55,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>;</find>
       <find>quantran</find>
       <find>basicPrice</find>
       <find>curr</find>
@@ -85,6 +84,7 @@
       <find>update</find>
       <find>getWith</find>
       <find>get</find>
+      <find>menu-list</find>
     </findStrings>
     <replaceStrings>
       <replace>ImageService</replace>
@@ -111,9 +111,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.txt" root0="SKIP_INSPECTION" />
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -139,7 +136,6 @@
         <option value="$PROJECT_DIR$/app/pages/admin/templates/head.php" />
         <option value="$PROJECT_DIR$/app/pages/admin/ads/list.php" />
         <option value="$PROJECT_DIR$/assets/client/js/main.js" />
-        <option value="$PROJECT_DIR$/assets/client/css/custom.css" />
         <option value="$PROJECT_DIR$/assets/admin/js/custom.js" />
         <option value="$PROJECT_DIR$/assets/client/js/controllers/cartController.js" />
         <option value="$PROJECT_DIR$/app/services/cartService.php" />
@@ -168,6 +164,7 @@
         <option value="$PROJECT_DIR$/app/services/receiptService.php" />
         <option value="$PROJECT_DIR$/assets/admin/css/custom.css" />
         <option value="$PROJECT_DIR$/app/pages/admin/receipt/edit.products.php" />
+        <option value="$PROJECT_DIR$/assets/client/css/custom.css" />
       </list>
     </option>
   </component>
@@ -208,53 +205,6 @@
               <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="app" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="pages" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="receipt" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="sports-shop-final" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sports-shop-final" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="admin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="controllers" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -264,7 +214,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/xampp/htdocs/sports-shop-final/app/pages/admin/user/list.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../cd3/php_training" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../game-news" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
@@ -323,27 +273,30 @@
       <workItem from="1524928151241" duration="4140000" />
       <workItem from="1524964589076" duration="9718000" />
       <workItem from="1524985674886" duration="15361000" />
-      <workItem from="1525012959543" duration="6315000" />
+      <workItem from="1525012959543" duration="6431000" />
+      <workItem from="1525051133681" duration="232000" />
+      <workItem from="1525171844667" duration="26000" />
+      <workItem from="1525402434296" duration="285000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="285731000" />
+    <option name="totallyTimeSpent" value="286390000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.86963433" visible="true" weight="0.24963397" />
       <window_info anchor="bottom" id="TODO" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="11" />
       <window_info anchor="bottom" id="Run" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3306189" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.86644953" visible="true" weight="0.24963397" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info id="Structure" order="1" sideWeight="0.1335505" side_tool="true" visible="true" weight="0.24963397" />
+      <window_info id="Structure" order="1" sideWeight="0.13036565" side_tool="true" visible="true" weight="0.24963397" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3290938" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="4" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -435,13 +388,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
           <caret line="34" column="26" selection-start-line="34" selection-start-column="26" selection-end-line="34" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/client/css/custom.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="129" column="36" selection-start-line="129" selection-start-column="36" selection-end-line="129" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -685,9 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
           <caret line="181" column="37" lean-forward="true" selection-start-line="181" selection-start-column="37" selection-end-line="181" selection-end-column="37" />
-          <folding>
-            <element signature="n#get#0;n#OrderService#0;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -695,22 +638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1317">
           <caret line="92" column="43" selection-start-line="92" selection-start-column="40" selection-end-line="92" selection-end-column="43" />
-          <folding>
-            <element signature="n#getImages#0;n#ProductService#0;n#!!top" />
-            <element signature="n#sales#0;n#ProductService#0;n#!!top" />
-            <element signature="n#newComings#0;n#ProductService#0;n#!!top" />
-            <element signature="n#favorites#0;n#ProductService#0;n#!!top" />
-            <element signature="n#bestSellers#0;n#ProductService#0;n#!!top" />
-            <element signature="n#add#0;n#ProductService#0;n#!!top" />
-            <element signature="n#updateImages#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildNameQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildCategoryQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildPriceQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildInsertQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildImagesQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildSaleQuery#0;n#ProductService#0;n#!!top" />
-            <element signature="n#buildUnsaleQuery#0;n#ProductService#0;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -723,7 +650,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/services/receiptService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
+        <state relative-caret-position="620">
           <caret line="73" column="54" selection-start-line="73" selection-start-column="54" selection-end-line="73" selection-end-column="54" />
           <folding>
             <element signature="n#all#0;n#ReceiptService#0;n#!!top" />
@@ -732,7 +659,6 @@
             <element signature="n#attach#0;n#ReceiptService#0;n#!!top" />
             <element signature="n#update#0;n#ReceiptService#0;n#!!top" />
             <element signature="n#last#0;n#ReceiptService#0;n#!!top" />
-            <element signature="e#1780#2021#0#PHP" />
             <element signature="n#buildDateRangeQuery#0;n#ReceiptService#0;n#!!top" />
             <element signature="n#buildQuery#0;n#ReceiptService#0;n#!!top" />
           </folding>
@@ -748,11 +674,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/pages/admin/receipt/edit.products.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="62" column="47" selection-start-line="62" selection-start-column="47" selection-end-line="62" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="235">
+          <caret line="98" column="2" selection-start-line="98" selection-start-column="2" selection-end-line="98" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/client/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="137" column="24" selection-start-line="137" selection-start-column="24" selection-end-line="137" selection-end-column="24" />
         </state>
       </provider>
     </entry>

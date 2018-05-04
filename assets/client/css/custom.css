@@ -1,6 +1,6 @@
 @font-face {
     font-family: myBoldFont;
-    src: url("../fonts/Roboto-Medium.ttf");
+    src: url("../fonts/Podkova-Regular.ttf");
 }
 
 @font-face {
@@ -10,11 +10,11 @@
 
 body {
     font-family: myBoldFont !important;
-    font-size: 13px !important;
+    font-size: 15px !important;
 }
 
 button {
-    font-family: myLightFont !important;
+    font-family: myBoldFont !important;
 }
 
 /*header*/
@@ -128,4 +128,12 @@ button {
 
 .product-label > span {
     font-weight: lighter !important;
+}
+
+.menu-list > li > a {
+    font-size: 13px;
+}
+
+.primary-btn {
+    font-weight: normal;
 }
