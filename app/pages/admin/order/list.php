@@ -169,7 +169,7 @@ include '../templates/sidebar.php';
                             <th>Địa chỉ khách hàng</th>
                             <th>Tình trạng đơn hàng</th>
                             <th>Đã xem</th>
-                            <th></th>
+                            <th style="max-width: 100px"></th>
                         </tr>
                         </thead>
 
@@ -220,7 +220,7 @@ m-r-5"
                                     <td class="seenStatus">
                                         <?php echo $order["isSeen"] ? '<span class="text-success"><i class="fa fa-check m-r-5"></i>' . date_format(new DateTime($order["seenAt"]), 'd-m-Y') . '</span>' : '<span>Chưa xem</span>' ?>
                                     </td>
-                                    <td class="text-center">
+                                    <td class="text-center" style="max-width: 130px">
                                         <div class="hidden-sm hidden-xs btn-group">
                                             <button class="btn btn-xs btn-info js-view-product"
                                                     data-id="<?php echo $order["code"] ?>">
@@ -451,7 +451,7 @@ m-r-5"
 </div>
 
 <div id="search-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="col-md-12 p-0" id="frm-search">
             <!-- Modal content-->
             <div class="modal-content">
@@ -459,24 +459,34 @@ m-r-5"
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Tìm kiếm</h4>
                 </div>
-                <div class="modal-body overflow-auto">
-                    <div class="col-md-12">
+                <div class="modal-body">
+                    <div class="col-md-4">
                         <label for="">Mã đơn hàng</label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="code"
-                                   placeholder="Nhập mã đơn hàng ..."
                                    value="<?php echo $get_code; ?>">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <label for="">Tên khách hàng</label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="customerName"
-                                   placeholder="Nhập tên khách hàng ..."
                                    value="<?php echo $get_name; ?>">
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
+                        <label for="">Địa chỉ</label>
+                        <div class="form-group">
+                            <select name="customerAddress" class="select2 form-control">
+                                <option value>Chọn</option>
+                                <?php foreach ($provinces as $province): ?>
+                                    <option value="<?php echo $province; ?> "><?php echo $province; ?> </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="">Thời gian</label>
                             <div class="input-group">
@@ -489,18 +499,7 @@ m-r-5"
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <label for="">Địa chỉ</label>
-                        <div class="form-group">
-                            <select name="customerAddress" class="select2 form-control">
-                                <option value>Chọn</option>
-                                <?php foreach ($provinces as $province): ?>
-                                    <option value="<?php echo $province; ?> "><?php echo $province; ?> </option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <label for="">Trạng thái</label>
                         <div class="form-group">
                             <select name="shippingStatus" class="form-control">
@@ -530,7 +529,7 @@ m-r-5"
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <label for="">Tình trạng duyệt</label>
                         <select name="isSeen" class="form-control">
                             <option value>Chọn</option>
@@ -538,6 +537,7 @@ m-r-5"
                             <option value="1">Đã xem</option>
                         </select>
                     </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary js-submit">

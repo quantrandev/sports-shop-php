@@ -189,7 +189,8 @@ include '../templates/sidebar.php';
                         </thead>
                         <tbody>
                         <?php foreach ($products as $product): ?>
-                            <tr data-product-id="<?php echo $product->id; ?>" class="<?php echo $product->isSale()?'info':''?>">
+                            <tr data-product-id="<?php echo $product->id; ?>"
+                                class="<?php echo $product->isSale() ? 'info' : '' ?>">
                                 <td class="text-center">
                                     <label class="pos-rel">
                                         <input type="checkbox" class="ace js-check-item"/>
@@ -238,7 +239,7 @@ include '../templates/sidebar.php';
                                         <?php if (empty($product->saleTo)): ?>
 
                                         <?php else: ?>
-                                            <span class="text-danger"><?php echo date('d-m-Y', strtotime($product->saleTo));?></span>
+                                            <span class="text-danger"><?php echo date('d-m-Y', strtotime($product->saleTo)); ?></span>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 </td>
@@ -465,7 +466,7 @@ include '../templates/sidebar.php';
     </div>
 </div>
 <div id="search-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="col-md-12 p-0" id="frm-search">
             <!-- Modal content-->
             <div class="modal-content">
@@ -474,7 +475,7 @@ include '../templates/sidebar.php';
                     <h4 class="modal-title">Tìm kiếm</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="">Danh mục</label>
                         <select name="category[]" class="form-control multiselect-category" multiple>
                             <?php foreach ($menus as $category): ?>
@@ -499,7 +500,7 @@ include '../templates/sidebar.php';
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="">Giảm giá</label>
                         <select name="isSale" class="form-control">
                             <option value>Chọn</option>
@@ -514,21 +515,23 @@ include '../templates/sidebar.php';
                             </option>
                         </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="">Tên sản phẩm</label>
                         <input type="text" class="form-control" name="name"
                                value="<?php echo isset($_GET["name"]) ? $_GET["name"] : ''; ?>">
                     </div>
-                    <div class="form-group">
+                    <div class="clearfix"></div>
+                    <div class="form-group col-md-4">
                         <label for="">Giá từ</label>
                         <input type="number" class="form-control" name="price-from" min="500"
                                value="<?php echo isset($_GET["price-from"]) ? $_GET["price-from"] : ''; ?>">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-md-4">
                         <label for="">Giá đến</label>
                         <input type="number" class="form-control" name="price-to" min="500"
                                value="<?php echo isset($_GET["price-to"]) ? $_GET["price-to"] : ''; ?>">
                     </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-sm js-submit">
