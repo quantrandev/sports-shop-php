@@ -72,9 +72,10 @@ class OrderService
         $shippingStatusQuery = $this->buildShippingStatusQuery($condition);
         $customerNameQuery = $this->buildNameQuery($condition);
         $seenQuery = $this->buildSeenQuery($condition);
+        $locationQuery = $this->buildLocationQuery($condition);
 
         $condition = "";
-        if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery)) {
+        if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery) || !empty($seenQuery) || !empty($locationQuery)) {
             $condition .= " where "
                 . (empty($customerNameQuery) ? 'true' : $customerNameQuery)
                 . " and "
@@ -84,7 +85,9 @@ class OrderService
                 . " and "
                 . (empty($dateRangeQuery) ? 'true' : $dateRangeQuery)
                 . " and "
-                . (empty($seenQuery) ? 'true' : $seenQuery);
+                . (empty($seenQuery) ? 'true' : $seenQuery)
+                . " and "
+                . (empty($locationQuery) ? 'true' : $locationQuery);
         } else
             $condition .= " where createdDate = '" .
                 getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"]
@@ -122,9 +125,10 @@ class OrderService
         $shippingStatusQuery = $this->buildShippingStatusQuery($condition);
         $customerNameQuery = $this->buildNameQuery($condition);
         $seenQuery = $this->buildSeenQuery($condition);
+        $locationQuery = $this->buildLocationQuery($condition);
 
         $condition = "";
-        if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery)) {
+        if (!empty($dateRangeQuery) || !empty($codeQuery) || !empty($shippingStatusQuery) || !empty($customerNameQuery) || !empty($seenQuery) || !empty($locationQuery)) {
             $condition .= " where "
                 . (empty($customerNameQuery) ? 'true' : $customerNameQuery)
                 . " and "
@@ -134,7 +138,9 @@ class OrderService
                 . " and "
                 . (empty($dateRangeQuery) ? 'true' : $dateRangeQuery)
                 . " and "
-                . (empty($seenQuery) ? 'true' : $seenQuery);
+                . (empty($seenQuery) ? 'true' : $seenQuery)
+                . " and "
+                . (empty($locationQuery) ? 'true' : $locationQuery);
         } else
             $condition .= " where createdDate = '" .
                 getdate()["year"] . "-" . getdate()["mon"] . "-" . getdate()["mday"]
@@ -367,6 +373,18 @@ class OrderService
         }
 
         return $nameQuery;
+    }
+
+    public function buildLocationQuery($condition)
+    {
+        $searchName = isset($condition["customerAddress"]) ? $condition["customerAddress"] : null;
+        if (empty($searchName))
+            return '';
+
+        //name
+        $locationQuery = "customerAddress like N'%" . trim($searchName) . "%'";
+
+        return $locationQuery;
     }
 
     public function buildShippingStatusQuery($condition)

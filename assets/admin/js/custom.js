@@ -145,4 +145,6 @@ $(function () {
     $('.date-range-picker').on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
     });
+
+    $('.select2').css('width', '200px').select2({allowClear: true, width: '100%'});
 });

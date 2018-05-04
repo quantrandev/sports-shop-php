@@ -12,7 +12,6 @@ if (!$userService->isAuthorize('Quản lý đơn hàng'))
     header("Location: ../../authentication/login.php");
 
 include '../../../services/orderService.php';
-include '../../../constants.php';
 $get_name = isset($_GET["customerName"]) ? $_GET["customerName"] : null;
 $get_code = isset($_GET["code"]) ? $_GET["code"] : null;
 $get_shipping_status = isset($_GET["shippingStatus"]) ? $_GET["shippingStatus"] : null;
@@ -82,7 +81,8 @@ include '../templates/sidebar.php';
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li><a href="javascript:void(0)" class="js-print-invoices-all">Tất cả</a></li>
-                                    <li><a href="javascript:void(0)" class="js-print-invoices">Hóa đơn được chọn</a></li>
+                                    <li><a href="javascript:void(0)" class="js-print-invoices">Hóa đơn được chọn</a>
+                                    </li>
                                 </ul>
                             </div>
                             <button class="btn btn-danger btn-sm js-batch-delete hide">
@@ -485,8 +485,19 @@ m-r-5"
                                     </span>
                                 <input class="form-control" type="text" name="range"
                                        id="date-range-picker"
-                                       value="<?php echo $get_date_range; ?>"/>
+                                       value=" <?php echo $get_date_range; ?>"/>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="">Địa chỉ</label>
+                        <div class="form-group">
+                            <select name="customerAddress" class="select2 form-control">
+                                <option value>Chọn</option>
+                                <?php foreach ($provinces as $province): ?>
+                                    <option value="<?php echo $province; ?> "><?php echo $province; ?> </option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -540,15 +551,18 @@ m-r-5"
     </div>
 </div>
 
-<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printOrders" method="post">
+<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printOrders"
+      method="post">
     <input type="hidden" name="p" value="<?php echo $_SERVER["QUERY_STRING"]; ?>">
     <input type="hidden" name="function" value="orders">
 </form>
-<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printAllInvoices" method="post">
+<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printAllInvoices"
+      method="post">
     <input type="hidden" name="p" value="<?php echo $_SERVER["QUERY_STRING"]; ?>">
     <input type="hidden" name="function" value="invoicesAll">
 </form>
-<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printInvoices" method="post">
+<form target="_blank" action="/sports-shop-final/app/controllers/admin/printController.php" id="printInvoices"
+      method="post">
     <input type="hidden" name="function" value="invoices">
     <input type="hidden" name="orders" id="orders">
 </form>
