@@ -16,6 +16,7 @@ $get_name = isset($_GET["customerName"]) ? $_GET["customerName"] : null;
 $get_code = isset($_GET["code"]) ? $_GET["code"] : null;
 $get_shipping_status = isset($_GET["shippingStatus"]) ? $_GET["shippingStatus"] : null;
 $get_date_range = isset($_GET["range"]) ? $_GET["range"] : null;
+$get_address = isset($_GET["customerAddress"]) ? $_GET["customerAddress"] : null;
 
 $orderService = new OrderService($conn);
 
@@ -189,29 +190,25 @@ include '../templates/sidebar.php';
                                     <td class="js-customer-name"><?php echo $order["customerName"] ?></td>
                                     <td class="js-customer-address"><?php echo $order["customerAddress"] ?></td>
                                     <td>
-                                        <button class="btn btn-minier btn-primary js-update-shipping-status
+                                        <?php if ($order["shippingStatus"] != $constants["shippingStatus"]["done"]): ?>
+                                            <button class="btn btn-minier btn-primary js-update-shipping-status
 m-r-5"
-                                                data-ship-id="<?php echo $order["shippingStatus"]; ?>"
-                                                data-order-id="<?php echo $order["code"]; ?>">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
+                                                    data-ship-id="<?php echo $order["shippingStatus"]; ?>"
+                                                    data-order-id="<?php echo $order["code"]; ?>">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        <?php endif; ?>
                                         <span>
                                         <?php
                                         switch ($order["shippingStatus"]) {
                                             case $constants["shippingStatus"]["placed"]:
                                                 echo "<span class='text-warning'>Mới đặt hàng</span>";
                                                 break;
-                                            case $constants["shippingStatus"]["onProgress"]:
-                                                echo "<span class='text-info'>Đang đóng gói</span>";
-                                                break;
                                             case $constants["shippingStatus"]["shipped"]:
                                                 echo "<span class='text-primary'>Đang vận chuyển</span>";
                                                 break;
                                             case $constants["shippingStatus"]["done"]:
                                                 echo "<span class='text-success'>Đã nhận hàng</span>";
-                                                break;
-                                            case $constants["shippingStatus"]["returned"]:
-                                                echo "<span class='text-danger'>Đã trả hàng</span>";
                                                 break;
                                         }
                                         ?>
@@ -356,10 +353,8 @@ m-r-5"
                 <label for="">Thay đổi trạng thái</label>
                 <select id="js-sl-shipping-status" class="form-control">
                     <option value="<?php echo $constants["shippingStatus"]["placed"] ?>">Mới đặt hàng</option>
-                    <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>">Đang đóng gói</option>
                     <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>">Đang vận chuyển</option>
                     <option value="<?php echo $constants["shippingStatus"]["done"] ?>">Đã nhận hàng</option>
-                    <option value="<?php echo $constants["shippingStatus"]["returned"] ?>">Đã trả hàng</option>
                 </select>
             </div>
             <div class="modal-footer">
@@ -480,7 +475,12 @@ m-r-5"
                             <select name="customerAddress" class="select2 form-control">
                                 <option value>Chọn</option>
                                 <?php foreach ($provinces as $province): ?>
-                                    <option value="<?php echo $province; ?> "><?php echo $province; ?> </option>
+                                    <?php if (trim($get_address) == trim($province)): ?>
+                                        <option value="<?php echo $province; ?> "
+                                                selected><?php echo $province; ?> </option>
+                                    <?php else: ?>
+                                        <option value="<?php echo $province; ?> "><?php echo $province; ?> </option>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -508,11 +508,6 @@ m-r-5"
                                     <?php echo $get_shipping_status == $constants["shippingStatus"]["placed"] ? 'selected' : ''; ?>>
                                     Mới đặt hàng
                                 </option>
-                                <option value="<?php echo $constants["shippingStatus"]["onProgress"] ?>"
-                                    <?php echo $get_shipping_status == $constants["shippingStatus"]["onProgress"] ? 'selected' : ''; ?>>
-                                    Đang đóng
-                                    gói
-                                </option>
                                 <option value="<?php echo $constants["shippingStatus"]["shipped"] ?>"
                                     <?php echo $get_shipping_status == $constants["shippingStatus"]["shipped"] ? 'selected' : ''; ?>>
                                     Đang vận
@@ -521,10 +516,6 @@ m-r-5"
                                 <option value="<?php echo $constants["shippingStatus"]["done"] ?>"
                                     <?php echo $get_shipping_status == $constants["shippingStatus"]["done"] ? 'selected' : ''; ?>>
                                     Đã nhận hàng
-                                </option>
-                                <option value="<?php echo $constants["shippingStatus"]["returned"] ?>"
-                                    <?php echo $get_shipping_status == $constants["shippingStatus"]["returned"] ? 'selected' : ''; ?>>
-                                    Đã trả hàng
                                 </option>
                             </select>
                         </div>

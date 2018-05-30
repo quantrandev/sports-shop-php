@@ -339,7 +339,7 @@ class OrderService
     public function buildDateRangeQuery($condition)
     {
         $rangeQueryString = isset($condition["range"]) ? $condition["range"] : null;
-        if (empty($rangeQueryString))
+        if (empty(trim($rangeQueryString)))
             return '';
 
         $range = explode("-", $rangeQueryString);

@@ -139,14 +139,14 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
                             <b class="arrow"></b>
                         </li>
 
-                        <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/receipt/list.php">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                Danh sách hóa đơn nhập
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
+<!--                        <li class="">-->
+<!--                            <a href="/sports-shop-final/app/pages/admin/receipt/list.php">-->
+<!--                                <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                Danh sách hóa đơn nhập-->
+<!--                            </a>-->
+<!---->
+<!--                            <b class="arrow"></b>-->
+<!--                        </li>-->
                     </ul>
                 </li>
             <?php endif; ?>
@@ -194,50 +194,50 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
                     </ul>
                 </li>
             <?php endif; ?>
-            <?php if (in_array('Quản lý quyền', array_map(function ($value) {
-                return $value["name"];
-            }, $userRoles))): ?>
-                <li class="">
-                    <a href="/sports-shop-final/app/pages/admin/role/list.php">
-                        <i class="menu-icon fa fa-hand-grab-o"></i>
-                        <span class="menu-text"> Quản lý quyền</span>
-                    </a>
-                </li>
-            <?php endif; ?>
-            <?php if (in_array('Quản lý người dùng', array_map(function ($value) {
-                return $value["name"];
-            }, $userRoles))): ?>
-                <li class="">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-image"></i>
-                        <span class="menu-text"> Quản lý quảng cáo </span>
-
-                        <b class="arrow fa fa-angle-down"></b>
-                    </a>
-
-                    <b class="arrow"></b>
-
-                    <ul class="submenu">
-                        <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/ads/add.php">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                Thêm quảng cáo
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
-
-                        <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/ads/list.php">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                Danh sách quảng cáo
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
-                    </ul>
-                </li>
-            <?php endif; ?>
+<!--            --><?php //if (in_array('Quản lý quyền', array_map(function ($value) {
+//                return $value["name"];
+//            }, $userRoles))): ?>
+<!--                <li class="">-->
+<!--                    <a href="/sports-shop-final/app/pages/admin/role/list.php">-->
+<!--                        <i class="menu-icon fa fa-hand-grab-o"></i>-->
+<!--                        <span class="menu-text"> Quản lý quyền</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            --><?php //endif; ?>
+<!--            --><?php //if (in_array('Quản lý người dùng', array_map(function ($value) {
+//                return $value["name"];
+//            }, $userRoles))): ?>
+<!--                <li class="">-->
+<!--                    <a href="#" class="dropdown-toggle">-->
+<!--                        <i class="menu-icon fa fa-image"></i>-->
+<!--                        <span class="menu-text"> Quản lý quảng cáo </span>-->
+<!---->
+<!--                        <b class="arrow fa fa-angle-down"></b>-->
+<!--                    </a>-->
+<!---->
+<!--                    <b class="arrow"></b>-->
+<!---->
+<!--                    <ul class="submenu">-->
+<!--                        <li class="">-->
+<!--                            <a href="/sports-shop-final/app/pages/admin/ads/add.php">-->
+<!--                                <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                Thêm quảng cáo-->
+<!--                            </a>-->
+<!---->
+<!--                            <b class="arrow"></b>-->
+<!--                        </li>-->
+<!---->
+<!--                        <li class="">-->
+<!--                            <a href="/sports-shop-final/app/pages/admin/ads/list.php">-->
+<!--                                <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                Danh sách quảng cáo-->
+<!--                            </a>-->
+<!---->
+<!--                            <b class="arrow"></b>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            --><?php //endif; ?>
 
         </ul><!-- /.nav-list -->
 

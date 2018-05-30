@@ -36,18 +36,6 @@ $menus = $categoryService::menus($categoryService->all());
                                             <hr class="hidden-md hidden-lg">
                                         </div>
                                     </div>
-                                    <div class="row hidden-sm hidden-xs">
-                                        <div class="col-md-12">
-                                            <hr>
-                                            <a class="banner banner-1" href="#">
-                                                <img src="./img/banner05.jpg" alt="">
-                                                <div class="banner-caption text-center">
-                                                    <h2 class="white-color">NEW COLLECTION</h2>
-                                                    <h3 class="white-color font-weak">HOT DEAL</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
                                 </div>
                             </li>
                         <?php else: ?>

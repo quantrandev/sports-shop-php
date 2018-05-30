@@ -230,7 +230,7 @@ include '../templates/sidebar.php';
                         <div class="pull-right">
                             <button class="btn btn-success btn-sm js-save-receipt">
                                 <i class="fa fa-save m-r-5"></i>
-                                Lưu hóa đơn nhập
+                                Lưu
                             </button>
                         </div>
                     </div>

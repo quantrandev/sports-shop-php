@@ -41,10 +41,6 @@ include 'templates/sidebar.php';
             <div class="page-header">
                 <h1>
                     Trang quản trị
-                    <small>
-                        <i class="ace-icon fa fa-angle-double-right"></i>
-                        tổng quan &amp; thống kê
-                    </small>
                 </h1>
             </div><!-- /.page-header -->
 

@@ -91,8 +91,13 @@ var cartController = {
             cartController.animate(button.closest('tr'), 'zoomOut');
             setTimeout(function () {
                 button.closest('tr').remove();
-                if (cartController.isEmpty())
+                if (cartController.isEmpty()){
+                    $('footer').hide();
+                    $('body, html').animate({
+                        scrollTop: 0
+                    }, 0);
                     cartController.resetCartTable();
+                }
             }, 450);
 
             cartService.delete(cartItemId, function (res) {

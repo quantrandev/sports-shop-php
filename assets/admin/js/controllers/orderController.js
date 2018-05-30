@@ -77,39 +77,85 @@ var orderController = {
             orderController.toggleButtonStatus(button, 'loading', 'Lưu thay đổi');
 
             var modalData = orderController.getShippingStatusModalData();
-            orderService.changeShippingStatus(modalData.id, modalData.data, function (res) {
-                res = JSON.parse(res);
 
-                if (res.error)
-                    utilities.notify("Thông báo", "Có lỗi xảy ra", 'gritter-error', false);
-                else {
-                    var statusDOM = $('button.js-update-shipping-status[data-order-id=' + modalData.id + ']').next();
-                    statusDOM.prev().attr('data-ship-id', modalData.data.shippingStatus);
-                    statusDOM.text(modalData.name);
-                    var statusClass = "";
-                    switch (modalData.name) {
-                        case 'Mới đặt hàng':
-                            statusClass = "text-warning";
-                            break;
-                        case 'Đang đóng gói':
-                            statusClass = "text-info";
-                            break;
-                        case 'Đang vận chuyển':
-                            statusClass = "text-primary";
-                            break;
-                        case 'Đã nhận hàng':
-                            statusClass = "text-success";
-                            break;
-                        case 'Đã trả hàng':
-                            statusClass = "text-danger";
-                            break;
+            //confirm when user mark order as done
+            if (modalData.name === 'Đã nhận hàng')
+                bootbox.confirm({
+                    message: 'Đánh dấu đơn hàng này "đã đặt hàng"?',
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-success btn-sm'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-danger btn-sm'
+                        }
+                    },
+                    callback: function (result) {
+                        if (!result)
+                            orderController.toggleButtonStatus(button, 'text-only', 'Lưu thay đổi');
+                        else
+                            orderService.changeShippingStatus(modalData.id, modalData.data, function (res) {
+                                res = JSON.parse(res);
+
+                                if (res.error)
+                                    utilities.notify("Thông báo", "Có lỗi xảy ra", 'gritter-error', false);
+                                else {
+                                    var statusDOM = $('button.js-update-shipping-status[data-order-id=' + modalData.id + ']').next();
+                                    statusDOM.prev().attr('data-ship-id', modalData.data.shippingStatus);
+                                    statusDOM.text(modalData.name);
+                                    var statusClass = "";
+                                    switch (modalData.name) {
+                                        case 'Mới đặt hàng':
+                                            statusClass = "text-warning";
+                                            break;
+                                        case 'Đang vận chuyển':
+                                            statusClass = "text-primary";
+                                            break;
+                                        case 'Đã nhận hàng':
+                                            statusClass = "text-success";
+                                            statusDOM.prev().remove();
+                                            orderController.shippingStatusModalDOM.modal('hide');
+                                            break;
+                                    }
+                                    statusDOM
+                                        .attr('class', statusClass);
+                                    orderController.toggleButtonStatus(button, 'text-only', 'Lưu thay đổi');
+                                }
+                            }, function (error) {
+                            });
                     }
-                    statusDOM
-                        .attr('class', statusClass);
-                    orderController.toggleButtonStatus(button, 'text-only', 'Lưu thay đổi');
-                }
-            }, function (error) {
-            });
+                });
+            else
+                orderService.changeShippingStatus(modalData.id, modalData.data, function (res) {
+                    res = JSON.parse(res);
+
+                    if (res.error)
+                        utilities.notify("Thông báo", "Có lỗi xảy ra", 'gritter-error', false);
+                    else {
+                        var statusDOM = $('button.js-update-shipping-status[data-order-id=' + modalData.id + ']').next();
+                        statusDOM.prev().attr('data-ship-id', modalData.data.shippingStatus);
+                        statusDOM.text(modalData.name);
+                        var statusClass = "";
+                        switch (modalData.name) {
+                            case 'Mới đặt hàng':
+                                statusClass = "text-warning";
+                                break;
+                            case 'Đang vận chuyển':
+                                statusClass = "text-primary";
+                                break;
+                            case 'Đã nhận hàng':
+                                statusClass = "text-success";
+                                statusDOM.remove();
+                                break;
+                        }
+                        statusDOM
+                            .attr('class', statusClass);
+                        orderController.toggleButtonStatus(button, 'text-only', 'Lưu thay đổi');
+                    }
+                }, function (error) {
+                });
         });
     },
     onSeenStatusChange: function () {

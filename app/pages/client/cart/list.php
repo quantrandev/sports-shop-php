@@ -38,7 +38,7 @@ include '../template/navigation.php';
                     <div class="col-md-6">
                         <div class="billing-details">
                             <div class="section-title">
-                                <h3 class="title">Thông tin khách hàng</h3>
+                                <h4 class="title">Thông tin khách hàng</h4>
                             </div>
                             <div class="form-group">
                                 <input class="input" type="text" name="name" placeholder="Tên khách hàng" required>

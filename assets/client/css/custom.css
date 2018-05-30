@@ -1,6 +1,6 @@
 @font-face {
     font-family: myBoldFont;
-    src: url("../fonts/Podkova-Regular.ttf");
+    src: url("../fonts/Roboto-Light.ttf");
 }
 
 @font-face {
@@ -10,7 +10,7 @@
 
 body {
     font-family: myBoldFont !important;
-    font-size: 15px !important;
+    /*font-size: 15px !important;*/
 }
 
 button {
