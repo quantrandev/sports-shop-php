@@ -91,6 +91,14 @@ button {
     margin-right: 5px;
 }
 
+.m-t-15 {
+    margin-top: 15px;
+}
+
+.m-b-15 {
+    margin-bottom: 15px;
+}
+
 .views-count {
     color: #F8694A !important;
     user-select: none;

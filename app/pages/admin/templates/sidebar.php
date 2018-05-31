@@ -116,28 +116,28 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
                     </ul>
                 </li>
             <?php endif; ?>
-            <?php if (in_array('Quản lý người dùng', array_map(function ($value) {
-                return $value["name"];
-            }, $userRoles))): ?>
-                <li class="">
-                    <a href="#" class="dropdown-toggle">
-                        <i class="menu-icon fa fa-truck"></i>
-                        <span class="menu-text"> Quản lý nhập hàng </span>
-
-                        <b class="arrow fa fa-angle-down"></b>
-                    </a>
-
-                    <b class="arrow"></b>
-
-                    <ul class="submenu">
-                        <li class="">
-                            <a href="/sports-shop-final/app/pages/admin/receipt/add.info.php">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                Thêm hóa đơn nhập
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
+<!--            --><?php //if (in_array('Quản lý người dùng', array_map(function ($value) {
+//                return $value["name"];
+//            }, $userRoles))): ?>
+<!--                <li class="">-->
+<!--                    <a href="#" class="dropdown-toggle">-->
+<!--                        <i class="menu-icon fa fa-truck"></i>-->
+<!--                        <span class="menu-text"> Quản lý nhập hàng </span>-->
+<!---->
+<!--                        <b class="arrow fa fa-angle-down"></b>-->
+<!--                    </a>-->
+<!---->
+<!--                    <b class="arrow"></b>-->
+<!---->
+<!--                    <ul class="submenu">-->
+<!--                        <li class="">-->
+<!--                            <a href="/sports-shop-final/app/pages/admin/receipt/add.info.php">-->
+<!--                                <i class="menu-icon fa fa-caret-right"></i>-->
+<!--                                Thêm hóa đơn nhập-->
+<!--                            </a>-->
+<!---->
+<!--                            <b class="arrow"></b>-->
+<!--                        </li>-->
 
 <!--                        <li class="">-->
 <!--                            <a href="/sports-shop-final/app/pages/admin/receipt/list.php">-->
@@ -147,9 +147,9 @@ $userRoles = $userService->getRoles(unserialize($_SESSION["user"])["userName"]);
 <!---->
 <!--                            <b class="arrow"></b>-->
 <!--                        </li>-->
-                    </ul>
-                </li>
-            <?php endif; ?>
+<!--                    </ul>-->
+<!--                </li>-->
+<!--            --><?php //endif; ?>
             <?php if (in_array('Quản lý đơn hàng', array_map(function ($value) {
                 return $value["name"];
             }, $userRoles))): ?>

@@ -77,7 +77,7 @@ include '../template/navigation.php';
                         </div>
                         <h2 class="product-name"><?php echo $product->name ?></h2>
                         <?php if ($product->isSale()): ?>
-                            <h3 class="product-price">
+                            <h3 class="product-price m-t-15">
                                 <?php echo number_format($product->getSalePrice()) ?> đ
                                 <del class="product-old-price">
                                     <?php echo number_format($product->basicPrice) ?> đ
@@ -88,18 +88,19 @@ include '../template/navigation.php';
                                 <?php echo number_format($product->getSalePrice()) ?> đ
                             </h3>
                         <?php endif ?>
-                        <p><strong>Tình trạng:</strong>
-                            <?php if ($product->quantity > 0): ?>
-                                Còn hàng
-                            <?php else: ?>
-                                Tạm hết hàng
-                            <?php endif; ?>
-                        </p>
-                        <div class="product-btns">
-                            <div class="qty-input">
-                                <span class="text-uppercase">Số lượng: </span>
+<!--                        <p><strong>Tình trạng:</strong>-->
+<!--                            --><?php //if ($product->quantity > 0): ?>
+<!--                                Còn hàng-->
+<!--                            --><?php //else: ?>
+<!--                                Tạm hết hàng-->
+<!--                            --><?php //endif; ?>
+<!--                        </p>-->
+                        <div class="product-btns m-t-15">
+                            <div class="qty-input m-b-15">
+                                <span class="text-uppercase m-r-5">Số lượng: </span>
                                 <input class="input" type="number" value="1">
                             </div>
+                            <br>
                             <button class="primary-btn add-to-cart js-add-cart"
                                     data-id="<?php echo $product->id; ?>" data-name="<?php echo $product->name; ?>"><i
                                         class="fa fa-shopping-cart"></i> Mua hàng

@@ -246,11 +246,13 @@ m-r-5"
                                             </li>
                                             <li>
                                                 <div class="hidden-sm hidden-xs btn-group">
-                                                    <button class="btn btn-xs btn-info js-edit-order"
-                                                            data-id="<?php echo $order["code"]; ?>">
-                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                        Sửa
-                                                    </button>
+                                                    <?php if ($order["shippingStatus"] != $constants["shippingStatus"]["done"]): ?>
+                                                        <button class="btn btn-xs btn-info js-edit-order"
+                                                                data-id="<?php echo $order["code"]; ?>">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                            Sửa
+                                                        </button>
+                                                    <?php endif; ?>
                                                     <button class="btn btn-xs btn-danger js-delete-order"
                                                             data-id="<?php echo $order["code"]; ?>">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
@@ -437,8 +439,8 @@ m-r-5"
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary js-save-changes">Lưu thay đổi</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary btn-sm js-save-changes">Lưu thay đổi</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng</button>
             </div>
         </div>
 
@@ -531,11 +533,11 @@ m-r-5"
                     <div class="clearfix"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary js-submit">
+                    <button type="submit" class="btn btn-primary btn-sm js-submit">
                         <i class="fa fa-search m-r-5"></i>
                         Tìm kiếm
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </form>

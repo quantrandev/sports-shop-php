@@ -102,7 +102,7 @@ include '../templates/sidebar.php';
                             <div class="form-group">
                                 <label for="" class="col-md-2 control-label">Hình ảnh</label>
                                 <div class="col-md-10">
-                                    <button class="btn btn-primary" type="button" data-toggle="modal"
+                                    <button class="btn btn-primary btn-sm" type="button" data-toggle="modal"
                                             data-target="#images-upload-modal">Thêm ảnh
                                     </button>
                                 </div>
@@ -116,7 +116,7 @@ include '../templates/sidebar.php';
                             <div class="form-group">
                                 <label for="" class="col-md-2 control-label"></label>
                                 <div class="col-md-10">
-                                    <button class="btn btn-success" type="submit" name="btnSubmit">Lưu sản phẩm</button>
+                                    <button class="btn btn-success btn-sm" type="submit" name="btnSubmit"> <i class="fa fa-save m-r-5"></i>Lưu sản phẩm</button>
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@ include '../templates/sidebar.php';
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Đóng
                 </button>
             </div>
         </div>
